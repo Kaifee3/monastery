@@ -26,20 +26,14 @@ const ChatBot = () => {
     }, [isOpen, messages.length]);
 
     useEffect(() => {
-        scrollToBottom();
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
-
     const toggleChat = () => {
-        setIsOpen(!isOpen);
+        setIsOpen(prev => !prev);
         if (!isOpen) {
             setUnreadCount(0);
-            setTimeout(() => {
-                inputRef.current?.focus();
-            }, 100);
+            setTimeout(() => inputRef.current?.focus(), 100);
         }
     };
 
@@ -65,19 +59,15 @@ const ChatBot = () => {
             type: 'user',
             timestamp: new Date()
         };
-        
+
         setMessages(prev => [...prev, userMessage]);
         setInputValue('');
         setIsTyping(true);
         setSuggestions([]);
-
-        if (inputRef.current) {
-            inputRef.current.style.height = 'auto';
-        }
+        if (inputRef.current) inputRef.current.style.height = 'auto';
 
         try {
             const response = await knowledgeBase.processQuery(message);
-            
             setTimeout(() => {
                 const botMessage = {
                     id: Date.now() + 1,
@@ -86,29 +76,20 @@ const ChatBot = () => {
                     timestamp: new Date(),
                     data: response.data
                 };
-                
                 setMessages(prev => [...prev, botMessage]);
                 setIsTyping(false);
-                
-                if (response.suggestions) {
-                    setSuggestions(response.suggestions);
-                }
-
-                if (!isOpen) {
-                    setUnreadCount(prev => prev + 1);
-                }
+                if (response.suggestions) setSuggestions(response.suggestions);
+                if (!isOpen) setUnreadCount(prev => prev + 1);
             }, 800 + Math.random() * 800);
-            
         } catch (error) {
             console.error('Error processing message:', error);
             setTimeout(() => {
-                const errorMessage = {
+                setMessages(prev => [...prev, {
                     id: Date.now() + 1,
                     text: "Sorry, I encountered an error processing your request. Please try again.",
                     type: 'bot',
                     timestamp: new Date()
-                };
-                setMessages(prev => [...prev, errorMessage]);
+                }]);
                 setIsTyping(false);
             }, 800);
         }
@@ -140,7 +121,6 @@ const ChatBot = () => {
 
     const renderMessage = (message) => {
         const isBot = message.type === 'bot';
-        
         return (
             <div key={message.id} className={`message ${message.type}`}>
                 <div className="message-avatar">
@@ -157,7 +137,7 @@ const ChatBot = () => {
                                 const parts = line.split(/\*\*(.*?)\*\*/g);
                                 return (
                                     <div key={index}>
-                                        {parts.map((part, i) => 
+                                        {parts.map((part, i) =>
                                             i % 2 === 1 ? <strong key={i}>{part}</strong> : part
                                         )}
                                     </div>
@@ -176,7 +156,7 @@ const ChatBot = () => {
     };
 
     return (
-        <div className="chatbot-wrapper">
+        <div className={`chatbot-wrapper ${isOpen ? 'active' : ''}`}>
             <div className={`chat-toggle ${isOpen ? 'open' : ''}`} onClick={toggleChat}>
                 <div className="chat-toggle-icon">
                     {'💬'}
@@ -205,11 +185,7 @@ const ChatBot = () => {
                             </div>
                         </div>
                         <div className="chatbot-controls">
-                            <button 
-                                className="chatbot-clear" 
-                                onClick={clearChat}
-                                title="Clear conversation"
-                            >
+                            <button className="chatbot-clear" onClick={clearChat} title="Clear conversation">
                                 🗑️
                             </button>
                             <button className="chatbot-close" onClick={toggleChat}>
@@ -220,7 +196,7 @@ const ChatBot = () => {
 
                     <div className="chatbot-messages">
                         {messages.map(renderMessage)}
-                        
+
                         {isTyping && (
                             <div className="message bot typing">
                                 <div className="message-avatar">🏛️</div>
@@ -233,7 +209,7 @@ const ChatBot = () => {
                                 </div>
                             </div>
                         )}
-                        
+
                         <div ref={messagesEndRef} />
                     </div>
 

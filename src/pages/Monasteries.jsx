@@ -13,7 +13,7 @@ const Monasteries = () => {
     const [selectedRegion, setSelectedRegion] = useState('All');
     const [viewMode, setViewMode] = useState('grid');
 
-    // Scroll to top when component mounts (on page refresh or navigation)
+    
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -21,7 +21,6 @@ const Monasteries = () => {
     useEffect(() => {
         let filtered = monasteries;
 
-        // Filter by search term
         if (searchTerm) {
             filtered = filtered.filter(monastery =>
                 monastery.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -29,7 +28,6 @@ const Monasteries = () => {
             );
         }
 
-        // Filter by region
         if (selectedRegion !== 'All') {
             filtered = filtered.filter(monastery =>
                 monastery.location.includes(selectedRegion)
@@ -53,7 +51,6 @@ const Monasteries = () => {
 
     const regions = ['All', 'East Sikkim', 'West Sikkim', 'North Sikkim', 'South Sikkim'];
 
-    // Authentication check - show login prompt if not authenticated
     if (!isAuthenticated) {
         return (
             <div className="auth-required-container">
@@ -182,7 +179,6 @@ const Monasteries = () => {
                 </div>
             </div>
 
-            {/* Monasteries Grid/List */}
             <div className={`monasteries-container ${viewMode}-view`}>
                 {filteredMonasteries.length === 0 ? (
                     <div className="no-results">
@@ -284,7 +280,6 @@ const Monasteries = () => {
                 )}
             </div>
 
-            {/* Call to Action */}
             <div className="cta-section">
                 <div className="cta-content">
                     <h2>Plan Your Spiritual Journey</h2>
