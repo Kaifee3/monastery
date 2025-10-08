@@ -1,8 +1,6 @@
-// Weather API service for fetching live weather data
-const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your actual API key
+const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY';
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
-// For demo purposes, we'll use mock data. In production, replace with actual API calls
 const MOCK_WEATHER_DATA = {
     main: {
         temp: 18,
@@ -27,26 +25,16 @@ const MOCK_WEATHER_DATA = {
     },
     visibility: 10000,
     sys: {
-        sunrise: Date.now() / 1000 - 3600, // 1 hour ago
-        sunset: Date.now() / 1000 + 7200   // 2 hours from now
+        sunrise: Date.now() / 1000 - 3600,
+        sunset: Date.now() / 1000 + 7200
     },
     rain: null
 };
 
-/**
- * Get weather data for a specific location
- * @param {string} location - The location name (e.g., "Gangtok, Sikkim")
- * @returns {Promise} Weather data object
- */
 export const getWeatherData = async (location) => {
     try {
-        // For demo purposes, return mock data with slight variations
-        // In production, uncomment the real API call below
-        
-        // Simulate API delay
         await new Promise(resolve => setTimeout(resolve, 800));
         
-        // Add some randomness to mock data for demo
         const mockData = {
             ...MOCK_WEATHER_DATA,
             main: {
@@ -66,36 +54,14 @@ export const getWeatherData = async (location) => {
         
         return mockData;
         
-        /* 
-        // REAL API CALL - Uncomment this for production use
-        // You'll need to get an API key from https://openweathermap.org/api
-        
-        const response = await fetch(
-            `${BASE_URL}/weather?q=${encodeURIComponent(location)}&appid=${API_KEY}&units=metric`
-        );
-        
-        if (!response.ok) {
-            throw new Error(`Weather API Error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        return data;
-        */
-        
     } catch (error) {
         console.error('Error fetching weather data:', error);
         throw new Error('Failed to fetch weather data. Please try again later.');
     }
 };
 
-/**
- * Get weather forecast for the next few days
- * @param {string} location - The location name
- * @returns {Promise} Forecast data object
- */
 export const getWeatherForecast = async (location) => {
     try {
-        // Mock forecast data for demo
         await new Promise(resolve => setTimeout(resolve, 600));
         
         const forecastData = {
@@ -117,34 +83,14 @@ export const getWeatherForecast = async (location) => {
         
         return forecastData;
         
-        /*
-        // REAL API CALL for forecast
-        const response = await fetch(
-            `${BASE_URL}/forecast?q=${encodeURIComponent(location)}&appid=${API_KEY}&units=metric`
-        );
-        
-        if (!response.ok) {
-            throw new Error(`Weather API Error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        return data;
-        */
-        
     } catch (error) {
         console.error('Error fetching weather forecast:', error);
         throw new Error('Failed to fetch weather forecast.');
     }
 };
 
-/**
- * Get coordinates for a location name
- * @param {string} location - The location name
- * @returns {Promise} Coordinates object with lat and lon
- */
 export const getLocationCoordinates = async (location) => {
     try {
-        // Mock coordinates for Sikkim locations
         const sikkimLocations = {
             'gangtok': { lat: 27.3389, lon: 88.6065 },
             'namchi': { lat: 27.1666, lon: 88.3639 },
@@ -163,12 +109,11 @@ export const getLocationCoordinates = async (location) => {
             }
         }
         
-        // Default to Gangtok coordinates
         return sikkimLocations['gangtok'];
         
     } catch (error) {
         console.error('Error getting coordinates:', error);
-        return { lat: 27.3389, lon: 88.6065 }; // Default Gangtok coordinates
+        return { lat: 27.3389, lon: 88.6065 };
     }
 };
 

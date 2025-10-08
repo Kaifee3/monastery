@@ -9,7 +9,7 @@
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-/* Hero Section */
+
 .hero-section {
     background: linear-gradient(135deg, rgba(44, 62, 80, 0.95), rgba(52, 73, 94, 0.95));
     color: white;
@@ -64,7 +64,7 @@
     letter-spacing: 1px;
 }
 
-/* Controls Section */
+
 .controls-section {
     background: rgba(255, 255, 255, 0.95);
     padding: 15px 20px;
@@ -204,7 +204,7 @@
     font-size: 0.9rem;
 }
 
-/* Authentication Required Styles */
+
 .auth-required-container {
     display: flex;
     align-items: center;
@@ -323,7 +323,7 @@
     text-decoration: underline;
 }
 
-/* Responsive auth prompt */
+
 @media (max-width: 768px) {
     .auth-prompt {
         padding: 35px 25px;
@@ -376,7 +376,7 @@
     }
 }
 
-/* Loading and Error States */
+
 .loading-container, .error-container {
     display: flex;
     flex-direction: column;
@@ -423,7 +423,7 @@
     transform: translateY(-2px);
 }
 
-/* Monasteries Container */
+
 .monasteries-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -458,7 +458,7 @@
     max-width: 100%;
 }
 
-/* Monastery Cards */
+
 .monastery-card {
     background: white;
     border-radius: 24px;
@@ -554,7 +554,7 @@
     border-top: 1px solid rgba(236, 240, 241, 0.6);
 }
 
-/* Enhanced list view typography */
+
 .list-card .monastery-name {
     font-size: 1.8rem;
     margin-bottom: 8px;
@@ -594,7 +594,7 @@
     min-width: 140px;
 }
 
-/* List view hover effects */
+
 .list-card:hover {
     transform: translateY(-6px);
 }
@@ -603,7 +603,7 @@
     transform: scale(1.08);
 }
 
-/* List view specific image styling */
+
 .list-card .monastery-image {
     border-radius: 0;
 }
@@ -917,7 +917,7 @@
     font-weight: 500;
 }
 
-/* No Results */
+
 .no-results {
     text-align: center;
     padding: 80px 20px;
@@ -930,7 +930,7 @@
     opacity: 0.5;
 }
 
-/* CTA Section */
+
 .cta-section {
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
@@ -998,7 +998,7 @@
     transform: translateY(-3px);
 }
 
-/* Additional Hover Effects */
+
 .monastery-card {
     position: relative;
 }
@@ -1026,7 +1026,7 @@
     opacity: 1;
 }
 
-/* Virtual Tour Modal */
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -1239,7 +1239,7 @@
     box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
 }
 
-/* Modal Responsive Design */
+
 @media (max-width: 768px) {
     .modal-content {
         margin: 20px;
@@ -1311,7 +1311,7 @@
     }
 }
 
-/* Full Page Virtual Tour Launch Screen */
+
 .fullpage-tour-overlay {
     position: fixed;
     top: 0;
@@ -1325,7 +1325,7 @@
     animation: fadeIn 0.5s ease;
 }
 
-/* Ensure no global styles interfere with tour images */
+
 .fullpage-tour-overlay * {
     box-sizing: border-box;
 }
@@ -1399,7 +1399,7 @@
     transform: translateY(-2px);
 }
 
-/* Tour Launch Content */
+
 .tour-launch-content {
     flex: 1;
     display: flex;
@@ -1435,7 +1435,7 @@
     position: relative;
 }
 
-/* Removed potentially conflicting pseudo-element */
+
 
 .monastery-preview-img:not([src]),
 .monastery-preview-img[src=""] {
@@ -1466,7 +1466,7 @@
     z-index: 2;
 }
 
-/* Image error fallback */
+
 .monastery-preview-large.image-error {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
@@ -1659,13 +1659,13 @@
     opacity: 0.9;
 }
 
-/* Hide loading when iframe loads */
+
 .tour-iframe:not([src=""]) ~ .tour-loading {
     opacity: 0;
     transition: opacity 1s ease 3s;
 }
 
-/* Tour Launch Responsive Design */
+
 @media (max-width: 768px) {
     .tour-header {
         padding: 12px 20px;
@@ -1800,7 +1800,7 @@
     }
 }
 
-/* Animation for smooth iframe loading */
+
 @keyframes iframeLoad {
     from {
         opacity: 0;
@@ -1816,7 +1816,7 @@
     animation: iframeLoad 0.5s ease 2s both;
 }
 
-/* Enhanced loading animation */
+
 .tour-loading {
     animation: loadingPulse 2s ease-in-out infinite;
 }
@@ -1830,12 +1830,12 @@
     }
 }
 
-/* Smooth scroll behavior */
+
 html {
     scroll-behavior: smooth;
 }
 
-/* Loading animation for images */
+
 .monastery-image {
     background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     position: relative;
@@ -1872,7 +1872,7 @@ html {
     opacity: 1;
 }
 
-/* Responsive Design */
+
 @media (max-width: 1200px) {
     .monastery-card {
         max-width: 100%;

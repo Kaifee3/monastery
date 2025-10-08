@@ -1,4 +1,4 @@
-/* Weather Page Styles */
+
 .weather-page {
     min-height: 100vh;
     background: white;
@@ -6,7 +6,7 @@
     overflow-x: hidden;
 }
 
-/* Add subtle background pattern */
+
 .weather-page::before {
     content: '';
     position: fixed;
@@ -20,7 +20,7 @@
     z-index: -1;
 }
 
-/* Loading State */
+
 .weather-page.loading-state {
     display: flex;
     justify-content: center;
@@ -70,7 +70,7 @@
     animation-delay: 2s;
 }
 
-/* Error State */
+
 .weather-page.error-state {
     display: flex;
     justify-content: center;
@@ -121,7 +121,7 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Header */
+
 .weather-header {
     display: flex;
     justify-content: space-between;
@@ -157,7 +157,7 @@
     font-weight: 600;
 }
 
-/* Hero Section */
+
 .weather-hero {
     position: relative;
     padding: 50px 25px;
@@ -562,7 +562,7 @@
     background-clip: text;
 }
 
-/* Weather Cards Section */
+
 .weather-cards-section {
     padding: 30px 25px;
     background: white;
@@ -746,7 +746,7 @@
     font-weight: 500;
 }
 
-/* Sun Times Section */
+
 .sun-times-section {
     padding: 50px 25px;
     background: white;
@@ -980,7 +980,7 @@
     color: #007bff;
 }
 
-/* Additional Weather Section */
+
 .additional-weather-section {
     padding: 50px 25px;
     background: white;
@@ -1071,7 +1071,7 @@
     margin-bottom: 15px;
 }
 
-/* Wind animations */
+
 .wind-animation {
     position: absolute;
     width: 30px;
@@ -1102,7 +1102,7 @@
     transition: width 1s ease-out;
 }
 
-/* Pressure waves */
+
 .pressure-waves {
     position: absolute;
     width: 40px;
@@ -1139,7 +1139,7 @@
     color: #0c5460;
 }
 
-/* Visibility rings */
+
 .visibility-rings {
     position: absolute;
     width: 35px;
@@ -1176,7 +1176,7 @@
     opacity: 1;
 }
 
-/* UV rays */
+
 .uv-rays {
     position: absolute;
     width: 45px;
@@ -1254,7 +1254,7 @@
     color: #007bff;
 }
 
-/* Footer */
+
 .weather-footer {
     background: white;
     border-top: 1px solid #e9ecef;
@@ -1308,7 +1308,7 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Animations */
+
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
     40% { transform: translateX(-50%) translateY(-10px); }
@@ -1353,7 +1353,7 @@
     100% { opacity: 0.8; }
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .weather-header {
         padding: 15px 20px;
@@ -1535,7 +1535,7 @@
     }
 }
 
-/* Dark mode enhancements */
+
 @media (prefers-color-scheme: dark) {
     .weather-page {
         background: linear-gradient(135deg, #2D3561 0%, #1E1E2E 100%);
