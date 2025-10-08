@@ -1,0 +1,260 @@
+/* ============================
+   Home Page Styles
+============================ */
+
+.home-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #eef1f5 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Hero Slideshow Styles */
+.hero-slideshow {
+  width: 100%;
+  height: 85vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ffd700; /* Yellow color */
+  z-index: 10;
+  padding: 2rem;
+}
+
+.slide-overlay h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  color: #ffd700; /* Yellow color */
+  text-align: center;
+  line-height: 1.1;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.slide-overlay p {
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  color: #ffd700; /* Yellow color */
+  text-align: center;
+  line-height: 1.3;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+/* Navigation Arrows */
+.slide-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-nav:hover {
+  background: rgb(255, 252, 252);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slide-nav.prev {
+  left: 20px;
+}
+
+.slide-nav.next {
+  right: 20px;
+}
+
+/* Dots Indicator */
+.dots-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #ffd700;
+  transform: scale(1.2);
+}
+
+.dot:hover {
+  background: rgba(255, 215, 0, 0.8);
+}
+
+/* Headline Section */
+.home-container h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: yellow;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+}
+
+.home-container h1::after {
+  content: '';
+  display: block;
+  margin: 0.5rem auto 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 2px;
+}
+
+.home-container p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  color: yellow;
+  line-height: 1.6;
+}
+
+/* Section Wrapper */
+.section-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Card Style for Each Section */
+.section-card {
+  background: transparent;
+  border-radius: 16px;
+  padding: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 0;
+  }
+
+  .slide-overlay {
+    padding: 1rem;
+  }
+
+  .slide-overlay h1 {
+    font-size: 2.8rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .slide-overlay p {
+    font-size: 1.3rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .slide-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .slide-nav.prev {
+    left: 10px;
+  }
+
+  .slide-nav.next {
+    right: 10px;
+  }
+
+  .section-wrapper {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-overlay {
+    padding: 0.8rem;
+  }
+
+  .slide-overlay h1 {
+    font-size: 2.2rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .slide-overlay p {
+    font-size: 1.1rem;
+    padding: 0.5rem 0.8rem;
+  }
+}
