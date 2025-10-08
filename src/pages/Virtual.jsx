@@ -73,7 +73,7 @@ const Virtual = () => {
             <div className="virtual-error">
                 <div className="error-icon">⚠️</div>
                 <h3>Virtual Tour Not Available</h3>
-                <p>Sorry, we couldn't load the virtual tour for this monastery.</p>
+                <p>Sorry, We couldn't load the virtual tour for this monastery.</p>
                 <Link to="/monasteries" className="btn btn-primary">
                     ← Back to Monasteries
                 </Link>
