@@ -51,6 +51,10 @@ const MonasteryDetails = () => {
         window.open(googleMapsUrl, '_blank');
     };
 
+        const handleViewRoutes = (monastery) => {
+            navigate(`/directions/${monastery.id}`);
+        };
+
     const handleBookTour = () => {
         alert('Booking feature coming soon! Please contact us at +91-9876543210');
     };
@@ -130,12 +134,18 @@ const MonasteryDetails = () => {
     
 
     return (
-        <div className="monastery-details">
-            <div className="detail-nav">
-                <div className="nav-links">
-                    <Link to="/monasteries" className="nav-link">All Monasteries</Link>
+            <div className="monastery-details">
+                {/* Top navigation bar: back button left, All Monasteries right */}
+                <div className="top-nav-bar">
+                    <div className="top-nav-left">
+                        <button className="btn btn-outline back-btn-small" onClick={() => navigate('/monasteries')}>
+                            ← Back
+                        </button>
+                    </div>
+                    <div className="top-nav-right">
+                        <Link to="/monasteries" className="nav-link">All Monasteries</Link>
+                    </div>
                 </div>
-            </div>
 
             <div className="detail-hero">
                 <ImageSlideshow 
@@ -170,21 +180,23 @@ const MonasteryDetails = () => {
 
             
             <div className="action-buttons">
-                <button onClick={handleGetDirections} className="btn btn-primary">
-                    <i>🗺️</i> Get Directions
-                </button>
-                <button onClick={handleBookTour} className="btn btn-secondary">
-                    <i>📅</i> Book Guided Tour
-                </button>
-                <button 
-                    className="btn btn-outline"
-                    onClick={() => handleWeatherUpdate(monastery)}
-                >
-                <i>🌤️</i> Weather update
-                </button>
-                <button className="btn btn-outline">
-                    <i>📸</i> Virtual Tour
-                </button>
+                <div className="action-btn-group">
+                    <button onClick={() => handleViewRoutes(monastery)} className="btn btn-primary action-btn">
+                        <i>🗺️</i> Get Directions
+                    </button>
+                    <button onClick={handleBookTour} className="btn btn-secondary action-btn">
+                        <i>📅</i> Book Guided Tour
+                    </button>
+                    <button 
+                        className="btn btn-outline action-btn"
+                        onClick={() => handleWeatherUpdate(monastery)}
+                    >
+                        <i>🌤️</i> Weather update
+                    </button>
+                    <button className="btn btn-outline action-btn">
+                        <i>📸</i> Virtual Tour
+                    </button>
+                </div>
             </div>
 
             
@@ -451,29 +463,24 @@ const MonasteryDetails = () => {
                 <div className="image-gallery-cards">
                     {[1, 2, 3, 4].map((imageNum) => {
                         let imagePath;
-                        if (monastery.name === 'Rumtek Monastery') {
-                            imagePath = `/images/slide/Rumtek-Monastery-${imageNum}.jpg`;
-                        } else if (monastery.name === 'Bumtar Namdroling Monastery') {
-                            imagePath = `/images/Bumtar Namdroling Monastery${imageNum}.jpg`;
-                        } else if (monastery.name === 'Ngadag Monastery') {
-                            imagePath = `/images/Ngadag-Monastery${imageNum}.jpg`;
-                        } else if (["Doling Monastery", "Karma Raptenling Monastery"].includes(monastery.name)) {
-                            imagePath = `/images/${monastery.name.replace(/ /g, '-')}${imageNum}.jpg`;
-                        } else {
-                            const nameMapping = {
-                                'Pemayangtse Monastery': 'Pemangytse',
-                                'Tashiding Monastery': 'Tashiding-Monastery',
-                                'Enchey Monastery': 'Enchey Monastery',
-                                'Dubdi Monastery': 'Dubdi Monastery',
-                                'Phodong Monastery': 'Phodong-Monastery',
-                                'Ralang Monastery': 'Ralang-Monastery',
-                                'Tsuklakhang Gonpa': 'Tsuklakhang-Gonpa',
-                                'Kathog Lake Monastery': 'Kathog',
-                                'Lingdum Zurmang Monastery': 'Lingdum-Zurmang'
-                            };
-                            const baseName = nameMapping[monastery.name] || monastery.name;
-                            imagePath = `/images/slide/${baseName}${imageNum}.jpg`;
-                        }
+                        const nameMapping = {
+                            'Pemayangtse Monastery': 'Pemangytse',
+                            'Tashiding Monastery': 'Tashiding-Monastery',
+                            'Enchey Monastery': 'Enchey Monastery',
+                            'Dubdi Monastery': 'Dubdi Monastery',
+                            'Phodong Monastery': 'Phodong-Monastery',
+                            'Ralang Monastery': 'Ralang-Monastery',
+                            'Tsuklakhang Gonpa': 'Tsuklakhang-Gonpa',
+                            'Kathog Lake Monastery': 'Kathog',
+                            'Lingdum Zurmang Monastery': 'Lingdum-Zurmang',
+                            'Bumtar Namdroling Monastery': 'Bumtar Namdroling Monastery',
+                            'Doling Monastery': 'Doling Monastery',
+                            'Karma Raptenling Monastery': 'Karma Raptenling Monastery',
+                            'Ngadag Monastery': 'Ngadag-Monastery',
+                            'Rumtek Monastery': 'Rumtek-Monastery'
+                        };
+                        const baseName = nameMapping[monastery.name] || monastery.name.replace(/ /g, '-');
+                        imagePath = `/images/slide/${baseName}${imageNum}.jpg`;
                         return (
                             <div key={imageNum} className="gallery-card">
                                 <div className="gallery-card-image">

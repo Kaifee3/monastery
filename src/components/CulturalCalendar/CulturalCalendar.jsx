@@ -36,7 +36,6 @@ const CulturalCalendar = () => {
         });
     }, []);
 
-    // Filter festivals based on search and filters
     const filteredFestivals = useMemo(() => {
         return currentYearFestivals.filter(festival => {
             const matchesSearch = searchTerm === '' || 
@@ -47,7 +46,7 @@ const CulturalCalendar = () => {
                 festival.type.toLowerCase().includes(filterType.toLowerCase());
             
             const matchesMonastery = filterMonastery === 'all' || 
-                festival.monasteries.some(monastery => 
+                (festival.monasteries || []).some(monastery => 
                     monastery.toLowerCase().includes(filterMonastery.toLowerCase())
                 );
 
@@ -55,11 +54,10 @@ const CulturalCalendar = () => {
         });
     }, [currentYearFestivals, searchTerm, filterType, filterMonastery]);
 
-    // Get unique monastery names
     const monasteryOptions = useMemo(() => {
         const monasteries = new Set();
         festivalsData.forEach(festival => {
-            festival.monasteries.forEach(monastery => {
+            (festival.monasteries || []).forEach(monastery => {
                 if (monastery !== "All Monasteries") {
                     monasteries.add(monastery);
                 }
@@ -68,7 +66,6 @@ const CulturalCalendar = () => {
         return Array.from(monasteries).sort();
     }, []);
 
-    // Calendar generation functions
     const getDaysInMonth = (date) => {
         return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
     };
@@ -86,7 +83,6 @@ const CulturalCalendar = () => {
         
         const days = [];
         
-        // Previous month days
         const prevMonth = new Date(year, month - 1, 0);
         const prevMonthDays = prevMonth.getDate();
         for (let i = firstDay - 1; i >= 0; i--) {
@@ -97,7 +93,6 @@ const CulturalCalendar = () => {
             });
         }
         
-        // Current month days
         for (let day = 1; day <= daysInMonth; day++) {
             const date = new Date(year, month, day);
             days.push({
@@ -109,7 +104,6 @@ const CulturalCalendar = () => {
             });
         }
         
-        // Next month days
         const totalCells = Math.ceil(days.length / 7) * 7;
         const remainingCells = totalCells - days.length;
         for (let day = 1; day <= remainingCells; day++) {
@@ -314,7 +308,7 @@ const CulturalCalendar = () => {
                         <div className="event-monasteries">
                             <strong>🏯 Monasteries:</strong>
                             <div style={{ marginTop: '0.5rem' }}>
-                                {festival.monasteries.map((monastery, index) => (
+                                {(festival.monasteries || []).map((monastery, index) => (
                                     <span key={index} className="monastery-tag">
                                         {monastery}
                                     </span>

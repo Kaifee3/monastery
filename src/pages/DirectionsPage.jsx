@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useMonasteryData from '../hooks/useMonasteryData';
@@ -7,7 +8,6 @@ const DirectionsPage = () => {
     const { monasteryId } = useParams();
     const navigate = useNavigate();
     const { monasteries } = useMonasteryData();
-    
     const [monastery, setMonastery] = useState(null);
     const [userLocation, setUserLocation] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -64,10 +64,8 @@ const DirectionsPage = () => {
 
     const calculateRoutes = (userPos) => {
         if (!monastery) return;
-        
         const monasteryCoords = getMonasteryCoordinates(monastery.name);
         const distance = calculateDistance(userPos, monasteryCoords);
-        
         const routes = [
             {
                 type: 'car',
@@ -114,7 +112,6 @@ const DirectionsPage = () => {
                 tips: ['Book flights early for better rates', 'Check weather for delays', 'Pre-book airport transfer']
             }
         ];
-
         setRouteOptions(routes);
         setLoading(false);
     };
@@ -127,7 +124,6 @@ const DirectionsPage = () => {
             'Tashiding Monastery': { lat: 27.3497, lng: 88.2658 },
             'Dubdi Monastery': { lat: 27.2971, lng: 88.3683 }
         };
-        
         return monasteryCoords[monasteryName] || { lat: 27.3389, lng: 88.5603 };
     };
 
@@ -145,7 +141,6 @@ const DirectionsPage = () => {
 
     const openInGoogleMaps = (routeType = 'driving') => {
         if (!userLocation || !monastery) return;
-        
         const origin = `${userLocation.lat},${userLocation.lng}`;
         const destination = encodeURIComponent(`${monastery.name}, ${monastery.location}`);
         const mode = routeType === 'car' ? 'driving' : routeType === 'bike' ? 'driving' : 'transit';
@@ -160,6 +155,12 @@ const DirectionsPage = () => {
                     <div className="loading-spinner"></div>
                     <h2>Getting Your Location...</h2>
                     <p>Calculating the best routes to your destination</p>
+                </div>
+                {/* Top Back Button */}
+                <div className="bottom-back-btn-container" style={{ textAlign: 'center', margin: '2rem 0' }}>
+                    <button onClick={() => navigate(-1)} className="back-button bottom-back-button">
+                        ← Back
+                    </button>
                 </div>
             </div>
         );
@@ -180,19 +181,28 @@ const DirectionsPage = () => {
                             Back to Monasteries
                         </button>
                     </div>
+                    {/* Back Button inside error-content */}
+                    <div className="bottom-back-btn-container" style={{ textAlign: 'center', margin: '2rem 0' }}>
+                        <button onClick={() => navigate(-1)} className="back-button bottom-back-button">
+                            ← Back
+                        </button>
+                    </div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="directions-page">
-            {/* Header */}
-            <div className="directions-header">
-                <div className="header-content">
-                    <button onClick={() => navigate(-1)} className="back-button">
+            <div className="directions-page">
+                {/* Top Back Button - renamed and moved above header */}
+                <div className="top-back-btn-container" style={{ textAlign: 'center', margin: '2rem 0' }}>
+                    <button onClick={() => navigate(-1)} className="back-button top-back-button">
                         ← Back
                     </button>
+                </div>
+                {/* Header */}
+                <div className="directions-header">
+                <div className="header-content">
                     <div className="destination-info">
                         <h1>Directions to {monastery.name}</h1>
                         <p className="location">📍 {monastery.location}</p>
@@ -244,7 +254,7 @@ const DirectionsPage = () => {
 
                     <div className="selected-route-details">
                         {routeOptions.map((route) => (
-                            selectedRoute === route.type && (
+                            selectedRoute === route.type ? (
                                 <div key={route.type} className="route-details">
                                     <div className="route-overview">
                                         <div className="overview-item">
@@ -260,12 +270,10 @@ const DirectionsPage = () => {
                                             <span className="value cost">{route.cost}</span>
                                         </div>
                                     </div>
-                                    
                                     <div className="route-description">
                                         <h3>Route Details</h3>
                                         <p>{route.details}</p>
                                     </div>
-
                                     <div className="travel-tips">
                                         <h3>Travel Tips</h3>
                                         <ul>
@@ -274,7 +282,6 @@ const DirectionsPage = () => {
                                             ))}
                                         </ul>
                                     </div>
-
                                     <div className="route-actions">
                                         <button 
                                             onClick={() => openInGoogleMaps(route.type)}
@@ -287,12 +294,11 @@ const DirectionsPage = () => {
                                         </button>
                                     </div>
                                 </div>
-                            )
+                            ) : null
                         ))}
                     </div>
                 </div>
 
-                {/* Location Information */}
                 <div className="location-section">
                     <div className="location-grid">
                         <div className="location-card">

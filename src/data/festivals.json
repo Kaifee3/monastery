@@ -82,7 +82,7 @@
   },
   {
     "id": 5,
-    "name": "Chaam Festival - Enchey",
+    "name": "Chaam Festival – Enchey",
     "type": "Monastery Festival",
     "date": "2024-01-18",
     "endDate": "2024-01-19",
@@ -103,103 +103,182 @@
   },
   {
     "id": 6,
-    "name": "Drukpa Kunley Festival",
+    "name": "Drukpa Teshi",
     "type": "Religious Festival",
-    "date": "2024-09-15",
+    "date": null,
     "isRecurring": true,
     "lunarBased": true,
-    "monasteries": ["Phodong Monastery"],
-    "description": "Celebrates the Divine Madman of Bhutan",
-    "significance": "Honors the unconventional Buddhist master known for his humor and wisdom",
-    "activities": ["Storytelling sessions", "Folk dances", "Comedy performances", "Traditional games"],
+    "monasteries": null,
+    "description": "Day commemorating Buddha’s first sermon (Wheel of Dharma)",
+    "significance": "Marks the day Buddha delivered his first teaching after enlightenment",
+    "activities": ["Mass prayers", "Yak race", "Monastery rituals"],
     "timing": "1 day",
     "visitorInfo": {
-      "bestTime": "Afternoon for main performances",
-      "dress": "Casual attire acceptable",
-      "photography": "Freely allowed",
-      "fee": "Free entry"
-    },
-    "culturalHighlights": "Unique blend of spirituality and humor"
-  },
-  {
-    "id": 7,
-    "name": "Losoong Festival",
-    "type": "Harvest Festival",
-    "date": "2024-12-18",
-    "isRecurring": true,
-    "lunarBased": true,
-    "monasteries": ["Phodong Monastery", "Rumtek Monastery"],
-    "description": "End of harvest season celebration",
-    "significance": "Marks the end of the harvest season and beginning of the new agricultural year",
-    "activities": ["Traditional dances", "Archery competitions", "Local cuisine", "Cultural programs"],
-    "timing": "2-3 days",
-    "visitorInfo": {
-      "bestTime": "All days for different activities",
-      "dress": "Traditional or casual wear",
-      "photography": "Encouraged",
-      "fee": "Free entry"
-    },
-    "culturalHighlights": "Lepcha and Bhutia cultural performances, local food festival"
-  },
-  {
-    "id": 8,
-    "name": "Buddha Jayanti",
-    "type": "Religious Festival",
-    "date": "2024-05-15",
-    "isRecurring": true,
-    "lunarBased": false,
-    "monasteries": ["All Monasteries"],
-    "description": "Celebrates the birth of Lord Buddha",
-    "significance": "Commemorates the birth, enlightenment, and death of Buddha",
-    "activities": ["Prayer ceremonies", "Meditation sessions", "Dharma teachings", "Candle processions"],
-    "timing": "Full day",
-    "visitorInfo": {
-      "bestTime": "Morning prayers and evening processions",
-      "dress": "White or light colored clothes",
+      "bestTime": "Monastery forenoon",
+      "dress": "Modest attire",
       "photography": "Allowed respectfully",
       "fee": "Free entry"
     },
-    "culturalHighlights": "Peaceful atmosphere, community harmony, vegetarian food offerings"
+    "culturalHighlights": "Monastic prayer, religious teachings, community gathering"
+  },
+  {
+    "id": 7,
+    "name": "Losoong (Namsoong / Sonam Losar)",
+    "type": "Harvest / New Year Festival",
+    "date": null,
+    "isRecurring": true,
+    "lunarBased": true,
+    "monasteries": ["Phodong Monastery", "Rumtek Monastery", "Tsuklakhang Monastery"],
+    "description": "Sikkimese New Year & harvest festival",
+    "significance": "Marks end of harvest season and beginning of new agricultural year for Bhutia / Lepcha communities",
+    "activities": ["Traditional dances", "Archery", "Feasting", "Cham dances"],
+    "timing": "2-3 days",
+    "visitorInfo": {
+      "bestTime": "All days for different programs",
+      "dress": "Traditional / festive attire",
+      "photography": "Encouraged",
+      "fee": "Free entry"
+    },
+    "culturalHighlights": "Lepcha & Bhutia performances, demon burning rituals, masked dances"
+  },
+  {
+    "id": 8,
+    "name": "Sonam Lhochhar (Tamang New Year)",
+    "type": "Community / New Year",
+    "date": null,
+    "isRecurring": true,
+    "lunarBased": true,
+    "monasteries": null,
+    "description": "Tamang community’s New Year celebration in Sikkim",
+    "significance": "Marks new year for Tamang people in Sikkim",
+    "activities": ["Ritual prayers", "Cultural dances", "Feasts", "Community gatherings"],
+    "timing": "1 day",
+    "visitorInfo": {
+      "bestTime": "Morning rituals and celebrations",
+      "dress": "Traditional Tamang attire",
+      "photography": "Allowed respectfully",
+      "fee": "Free entry"
+    },
+    "culturalHighlights": "Tamang cultural dances, traditional songs, ethnic cuisine"
   },
   {
     "id": 9,
-    "name": "Guru Rinpoche Day",
-    "type": "Monthly Observance",
-    "date": "2024-01-10",
+    "name": "Dashain (Durga Puja / Dassain)",
+    "type": "Hindu Festival",
+    "date": null,
     "isRecurring": true,
-    "lunarBased": true,
-    "frequency": "Monthly on 10th lunar day",
-    "monasteries": ["Pemayangtse Monastery", "Dubdi Monastery", "Kathog Lake Monastery"],
-    "description": "Monthly observance honoring Guru Padmasambhava",
-    "significance": "Celebrates the founder of Tibetan Buddhism",
-    "activities": ["Guru Rinpoche prayers", "Tara prayers", "Butter lamp offerings", "Meditation"],
-    "timing": "Half day",
+    "lunarBased": false,
+    "monasteries": null,
+    "description": "Major Hindu festival in Sikkim, especially among Nepali community",
+    "significance": "Celebrates the victory of good over evil (Durga worship)",
+    "activities": ["Durga puja rituals", "‘Tika’ blessings", "Processions", "Feasts", "Home celebrations"],
+    "timing": "Typically 9–10 days",
     "visitorInfo": {
-      "bestTime": "Evening prayers",
-      "dress": "Modest attire",
-      "photography": "Ask permission first",
-      "fee": "Free entry, donations appreciated"
+      "bestTime": "Mornings for puja, tenth day for blessings",
+      "dress": "Festive / traditional attire",
+      "photography": "Allowed outside temples",
+      "fee": "Free / donation-based"
     },
-    "culturalHighlights": "Intensive prayer sessions, spiritual atmosphere"
+    "culturalHighlights": "Puja rituals, family gatherings, cultural programs in communities"
   },
   {
     "id": 10,
-    "name": "Tendong Lho Rum Faat",
-    "type": "Cultural Festival",
-    "date": "2024-08-08",
+    "name": "Tihar / Diwali (Laxmi Puja)",
+    "type": "Hindu Festival",
+    "date": null,
     "isRecurring": true,
     "lunarBased": false,
-    "monasteries": ["Tashiding Monastery", "Pemayangtse Monastery"],
-    "description": "Lepcha festival celebrating Mount Tendong",
-    "significance": "Thanks Mount Tendong for protecting Lepcha people during the great flood",
-    "activities": ["Traditional Lepcha dances", "Folk songs", "Archery", "Traditional games"],
+    "monasteries": null,
+    "description": "Festival of Lights, widely celebrated across Sikkim",
+    "significance": "Celebrates light over darkness, worship of Lakshmi",
+    "activities": ["Lighting lamps", "Home decorations", "Fireworks", "Prayers", "Feasting"],
+    "timing": "2–3 days",
+    "visitorInfo": {
+      "bestTime": "Evening / night",
+      "dress": "Festive attire",
+      "photography": "Encouraged",
+      "fee": "Free"
+    },
+    "culturalHighlights": "Homes & streets lit with lamps, cultural events, festive spirit"
+  },
+  {
+    "id": 11,
+    "name": "Maghe Sankranti / Maghey Mela",
+    "type": "Hindu / Community Festival",
+    "date": null,
+    "isRecurring": true,
+    "lunarBased": false,
+    "monasteries": null,
+    "description": "Marks the Nepali month of Magh, mid-winter festival, fairs across Sikkim",
+    "significance": "Agricultural / solar significance, social gathering, fairs",
+    "activities": ["River dip (ritual bathing)", "Fairs & cultural programs", "Local food & handicrafts"],
+    "timing": "1 day or a few days of mela",
+    "visitorInfo": {
+      "bestTime": "Morning bathing, daytime fairs",
+      "dress": "Casual / traditional",
+      "photography": "Allowed",
+      "fee": "Free / fair costs"
+    },
+    "culturalHighlights": "Handicraft fairs, cultural performances, winter rituals"
+  },
+  {
+    "id": 12,
+    "name": "Dentam Rhododendron Festival",
+    "type": "Cultural / Nature Festival",
+    "date": null,
+    "isRecurring": true,
+    "lunarBased": false,
+    "monasteries": null,
+    "description": "Festival celebrating rhododendrons, nature, culture in western Sikkim",
+    "significance": "Showcases floral diversity, local culture, tourism promotion",
+    "activities": ["Flower exhibitions", "Folk music & dance", "Nature walks", "Local food"],
+    "timing": "Several days",
+    "visitorInfo": {
+      "bestTime": "Throughout festival period",
+      "dress": "Comfortable / casual",
+      "photography": "Encouraged",
+      "fee": "Entry / exhibition charges (if any)"
+    },
+    "culturalHighlights": "Floral displays, cultural performances, scenic beauty"
+  },
+  {
+    "id": 13,
+    "name": "Guru Rinpoche / Guru Rimpoche Thunkar Tshechu",
+    "type": "Religious / Buddhist Festival",
+    "date": null,
+    "isRecurring": true,
+    "lunarBased": true,
+    "monasteries": ["Dubdi Monastery", "Pemayangtse Monastery", "others"],
+    "description": "Festival honoring Guru Padmasambhava (Guru Rinpoche)",
+    "significance": "Observance of the birth / influence of Guru Rinpoche",
+    "activities": ["Processions", "Chants / prayers", "Monastery events", "Mask dances"],
     "timing": "1 day",
     "visitorInfo": {
-      "bestTime": "Full day participation",
-      "dress": "Comfortable clothing for outdoor activities",
-      "photography": "Welcomed and encouraged",
-      "fee": "Free entry"
+      "bestTime": "Monastery ceremonies",
+      "dress": "Respectful attire",
+      "photography": "Allowed with permission",
+      "fee": "Free / donation"
     },
-    "culturalHighlights": "Authentic Lepcha culture, traditional costumes, nature worship"
+    "culturalHighlights": "Processions, chants, masked dances, community participation"
+  },
+  {
+    "id": 14,
+    "name": "Kagyed Festival / Kagyed Dance",
+    "type": "Monastery / Buddhist Festival",
+    "date": null,
+    "isRecurring": true,
+    "lunarBased": true,
+    "monasteries": ["Tsuklakhang Monastery", "Pemayangtse Monastery", "others"],
+    "description": "Buddhist ritual dance festival just before Losoong",
+    "significance": "Performances to subdue negative forces, ritual drama",
+    "activities": ["Kagyed masked dances", "Comedy jester acts", "Rituals in monastery"],
+    "timing": "2 days (28th & 29th of 10th Tibetan month) :contentReference[oaicite:0]{index=0}",
+    "visitorInfo": {
+      "bestTime": "Monastery events in evening / afternoon",
+      "dress": "Modest attire",
+      "photography": "Allowed in courtyard",
+      "fee": "Free"
+    },
+    "culturalHighlights": "Masked dance, jesters, ritual drama before Losoong :contentReference[oaicite:1]{index=1}"
   }
 ]

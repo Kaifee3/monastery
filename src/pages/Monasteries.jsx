@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useMonasteryData from '../hooks/useMonasteryData';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/Monasteries.css';
 
@@ -12,30 +12,58 @@ const Monasteries = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedRegion, setSelectedRegion] = useState('All');
     const [viewMode, setViewMode] = useState('grid');
+    // Pagination state
+    const location = useLocation();
+    // Get page from query string
+    const queryParams = new URLSearchParams(location.search);
+    const initialPage = parseInt(queryParams.get('page')) || 1;
+    const [currentPage, setCurrentPage] = useState(initialPage);
+    const monasteriesPerPage = 9;
 
     
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
+    // Track previous filter/search to only reset page if they actually change
+    const prevFilterRef = useRef({ searchTerm, selectedRegion });
     useEffect(() => {
         let filtered = monasteries;
-
         if (searchTerm) {
             filtered = filtered.filter(monastery =>
                 monastery.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 monastery.location.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
-
         if (selectedRegion !== 'All') {
             filtered = filtered.filter(monastery =>
                 monastery.location.includes(selectedRegion)
             );
         }
-
         setFilteredMonasteries(filtered);
+        // Only reset to first page if filter/search actually changed
+        if (
+            prevFilterRef.current.searchTerm !== searchTerm ||
+            prevFilterRef.current.selectedRegion !== selectedRegion
+        ) {
+            setCurrentPage(1);
+        }
+        prevFilterRef.current = { searchTerm, selectedRegion };
     }, [monasteries, searchTerm, selectedRegion]);
+
+    // Update URL query string when currentPage changes
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        if (currentPage > 1) {
+            params.set('page', currentPage);
+        } else {
+            params.delete('page');
+        }
+        // Only update if different
+        if (params.toString() !== location.search.replace(/^\?/, '')) {
+            navigate({ search: params.toString() ? `?${params.toString()}` : '' }, { replace: true });
+        }
+    }, [currentPage, navigate, location.search]);
 
     const handleViewRoutes = (monastery) => {
         navigate(`/directions/${monastery.id}`);
@@ -107,6 +135,12 @@ const Monasteries = () => {
             </div>
         );
     }
+
+    // Pagination calculations
+    const totalPages = Math.ceil(filteredMonasteries.length / monasteriesPerPage);
+    const startIdx = (currentPage - 1) * monasteriesPerPage;
+    const endIdx = startIdx + monasteriesPerPage;
+    const pagedMonasteries = filteredMonasteries.slice(startIdx, endIdx);
 
     return (
         <div className="monasteries-page">
@@ -188,7 +222,7 @@ const Monasteries = () => {
                     </div>
                 ) : (
                     <div className={`monastery-${viewMode}`}>
-                        {filteredMonasteries.map((monastery, index) => (
+                        {pagedMonasteries.map((monastery, index) => (
                             <div 
                                 key={monastery.id} 
                                 className={`monastery-card ${viewMode}-card`}
@@ -260,7 +294,7 @@ const Monasteries = () => {
                                             <i>🗺️</i> Get Directions
                                         </button>
                                         <button 
-                                            className="btn btn-outline"
+                                            className="btn btn-outline monastery-weather-btn"
                                             onClick={() => handleWeatherUpdate(monastery)}
                                         >
                                             <i>🌤️</i> Weather update
@@ -279,6 +313,31 @@ const Monasteries = () => {
                     </div>
                 )}
             </div>
+
+            {/* Pagination Bar */}
+            {filteredMonasteries.length > monasteriesPerPage && (
+                <div className="pagination-bar" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '2rem 0' }}>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                        style={{ marginRight: '2rem', minWidth: '40px', padding: '10px 6px', fontSize: '0.95rem' }}
+                    >
+                        Prev
+                    </button>
+                    <span style={{ fontWeight: 'bold', margin: '0 2rem' }}>
+                        Page {currentPage} out of {totalPages}
+                    </span>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        style={{ marginLeft: '2rem', minWidth: '40px', padding: '10px 6px', fontSize: '0.95rem' }}
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
 
             <div className="cta-section">
                 <div className="cta-content">

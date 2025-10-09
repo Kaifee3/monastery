@@ -130,7 +130,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
     return (
         <div className="image-slideshow">
             <div className="slideshow-container">
-                
                 <div className="slide-display">
                     {images.length > 0 && (
                         <div className={`slide active${images.length === 1 ? ' single' : ''}`}> 
@@ -147,20 +146,15 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                                     <div>Showing fallback image.</div>
                                 </div>
                             )}
-                            
                             <div className="slide-overlay">
-                                <h1 className="monastery-title">{monasteryName}</h1>
-                                <div className="slide-info">
-                                    <span className="slide-counter">
-                                        {currentSlide + 1} / {images.length}
-                                    </span>
-                                </div>
+                                {/* Show monastery name only on the first slide */}
+                                {currentSlide === 0 && (
+                                    <h1 className="monastery-title">{monasteryName}</h1>
+                                )}
                             </div>
                         </div>
                     )}
                 </div>
-
-                
                 <div className="slideshow-nav-btns">
                     <button className="nav-btn prev-btn" onClick={goToPrevious}>
                         <i className="nav-icon">❮</i>
@@ -174,8 +168,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                         </i>
                     </button>
                 </div>
-
-                
                 <div className="slide-indicators">
                     {images.map((_, index) => (
                         <button
@@ -185,8 +177,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                         />
                     ))}
                 </div>
-
-                
                 <div className="thumbnail-navigation">
                     {images.map((image, index) => (
                         <div
@@ -209,8 +199,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                     ))}
                 </div>
             </div>
-
-            
             <div className="slideshow-controls">
                 <div className="control-group">
                     <button 
