@@ -11,7 +11,6 @@ node_modules/
 
 # Environment variables (contains sensitive data)
 .env.local
-.env
 .env.development.local
 .env.test.local
 .env.production.local
