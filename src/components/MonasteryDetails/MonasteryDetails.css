@@ -1,4 +1,24 @@
 /* MonasteryDetails.css */
+/* Navigation */
+/* Hero Section */
+/* Gallery Section */
+/* Image Gallery Cards */
+/* Quick Info Bar */
+/* Action Buttons */
+/* Tab Navigation */
+/* Tab Content */
+/* Content Grid */
+/* Festival List */
+/* Info Cards */
+/* Quick Facts Card - black text for better readability */
+/* Timing and Fee Info */
+/* Routes Grid */
+/* Accommodation Grid */
+/* Call to Action */
+/* Loading and Error States */
+/* Responsive Design */
+/* Animation */
+/* MonasteryDetails.css */
 .monastery-details {
     min-height: 100vh;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -556,12 +576,14 @@
 }
 
 /* Info Cards */
+/* Quick Facts Card - black text for better readability */
 .info-card {
     background: #f8f9fa;
     padding: 1.5rem;
     border-radius: 12px;
     margin-bottom: 1.5rem;
     border: 1px solid #e9ecef;
+    color: #222;
 }
 
 .info-card h3 {
@@ -632,15 +654,16 @@
     border-radius: 12px;
     border: 1px solid #e9ecef;
     transition: all 0.3s ease;
+    color: #222; /* Changed to black for better readability */
 }
 
 .route-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
-
-.route-card h3 {
-    color: #007bff;
+.info-card .fact-item,
+.info-card .fact-item strong {
+    color: #222; /* Changed to black for better readability */
     margin-bottom: 1rem;
     font-size: 1.1rem;
 }

@@ -20,7 +20,6 @@ const MonasteryDetails = () => {
         }
     }, [id, monasteries]);
 
-    // Scroll to top when component mounts or when monastery changes
     useEffect(() => {
         window.scrollTo({
             top: 0,
@@ -60,7 +59,7 @@ const MonasteryDetails = () => {
         navigate(`/weather/${monastery.id}`);
     };
 
-    // Mock detailed data - in real app, this would come from API
+    
     const detailedInfo = {
         significance: monastery.name === "Rumtek Monastery" ? 
             "Rumtek Monastery holds immense significance as the seat-in-exile of the Gyalwang Karmapa, the head of the Karma Kagyu school. It houses precious relics including the Black Crown, sacred scriptures, and thankas. The monastery is considered the most important Karma Kagyu monastery outside Tibet." :
@@ -128,18 +127,16 @@ const MonasteryDetails = () => {
         ]
     };
 
-    // Remove the old images array as we'll use the slideshow component
+    
 
     return (
         <div className="monastery-details">
-            {/* Navigation Bar */}
             <div className="detail-nav">
                 <div className="nav-links">
                     <Link to="/monasteries" className="nav-link">All Monasteries</Link>
                 </div>
             </div>
 
-            {/* Hero Section with Image Slideshow */}
             <div className="detail-hero">
                 <ImageSlideshow 
                     monasteryName={monastery.name} 
@@ -147,7 +144,7 @@ const MonasteryDetails = () => {
                 />
             </div>
 
-            {/* Quick Info Bar */}
+            
             <div className="quick-info">
                 <div className="info-item">
                     <span className="info-label">Location</span>
@@ -171,7 +168,7 @@ const MonasteryDetails = () => {
                 </div>
             </div>
 
-            {/* Action Buttons */}
+            
             <div className="action-buttons">
                 <button onClick={handleGetDirections} className="btn btn-primary">
                     <i>🗺️</i> Get Directions
@@ -190,7 +187,7 @@ const MonasteryDetails = () => {
                 </button>
             </div>
 
-            {/* Tab Navigation */}
+            
             <div className="tab-navigation">
                 <button 
                     className={`tab ${activeTab === 'overview' ? 'active' : ''}`}
@@ -218,7 +215,7 @@ const MonasteryDetails = () => {
                 </button>
             </div>
 
-            {/* Tab Content */}
+            
             <div className="tab-content">
                 {activeTab === 'overview' && (
                     <div className="overview-content">
@@ -440,7 +437,7 @@ const MonasteryDetails = () => {
                 )}
             </div>
 
-            {/* Gallery Section */}
+            
             <div className="gallery-section">
                 <div className="gallery-header">
                     <h2 className="gallery-title">
@@ -456,6 +453,12 @@ const MonasteryDetails = () => {
                         let imagePath;
                         if (monastery.name === 'Rumtek Monastery') {
                             imagePath = `/images/slide/Rumtek-Monastery-${imageNum}.jpg`;
+                        } else if (monastery.name === 'Bumtar Namdroling Monastery') {
+                            imagePath = `/images/Bumtar Namdroling Monastery${imageNum}.jpg`;
+                        } else if (monastery.name === 'Ngadag Monastery') {
+                            imagePath = `/images/Ngadag-Monastery${imageNum}.jpg`;
+                        } else if (["Doling Monastery", "Karma Raptenling Monastery"].includes(monastery.name)) {
+                            imagePath = `/images/${monastery.name.replace(/ /g, '-')}${imageNum}.jpg`;
                         } else {
                             const nameMapping = {
                                 'Pemayangtse Monastery': 'Pemangytse',
@@ -471,7 +474,6 @@ const MonasteryDetails = () => {
                             const baseName = nameMapping[monastery.name] || monastery.name;
                             imagePath = `/images/slide/${baseName}${imageNum}.jpg`;
                         }
-                        
                         return (
                             <div key={imageNum} className="gallery-card">
                                 <div className="gallery-card-image">
@@ -507,7 +509,7 @@ const MonasteryDetails = () => {
                 </div>
             </div>
 
-            {/* Call to Action */}
+            
             <div className="cta-section">
                 <h2>Ready to Visit {monastery.name}?</h2>
                 <p>Plan your spiritual journey to this sacred monastery</p>

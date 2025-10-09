@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import './ImageSlideshow.css';
 
 const ImageSlideshow = ({ monasteryName, imageName }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
-    const [images, setImages] = useState([]);
-    const [imageLoadError, setImageLoadError] = useState({});
-
-    // Function to generate slide image names based on monastery name
+    
     const generateSlideImages = useCallback(() => {
         let baseName = '';
-        
-        // Map monastery names to their slide image base names
         const nameMapping = {
             'Rumtek Monastery': 'Rumtek-Monastery-',
             'Pemayangtse Monastery': 'Pemangytse',
@@ -22,50 +17,66 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             'Ralang Monastery': 'Ralang-Monastery',
             'Tsuklakhang Gonpa': 'Tsuklakhang-Gonpa',
             'Kathog Lake Monastery': 'Kathog',
-            'Lingdum Zurmang Monastery': 'Lingdum-Zurmang'
+            'Lingdum Zurmang Monastery': 'Lingdum-Zurmang',
+            'Bumtar Namdroling Monastery': 'Bumtar Namdroling Monastery',
+            'Doling Monastery': 'Doling-Monastery',
+            'Karma Raptenling Monastery': 'Karma-Raptenling-Monastery',
+            'Ngadag Monastery': 'Ngadag-Monastery'
         };
-
         baseName = nameMapping[monasteryName] || monasteryName;
 
-        // Generate 4 slide images for each monastery
-        const slideImages = [];
-        for (let i = 1; i <= 4; i++) {
-            // Handle special case for Rumtek Monastery which has different naming pattern
-            let imagePath;
-            if (monasteryName === 'Rumtek Monastery') {
-                imagePath = `/images/slide/Rumtek-Monastery-${i}.jpg`;
-            } else {
-                imagePath = `/images/slide/${baseName}${i}.jpg`;
-            }
-            
-            slideImages.push({
-                src: imagePath,
+        
+        if (monasteryName === 'Bumtar Namdroling Monastery') {
+            return [1,2,3,4].map(i => ({
+                src: `/images/Bumtar Namdroling Monastery${i}.jpg`,
                 alt: `${monasteryName} - Image ${i}`,
-                fallback: `/images/${imageName}` // Fallback to main image
-            });
+                fallback: `/images/${imageName}`
+            }));
         }
 
-        return slideImages;
+        
+        if (["Doling Monastery", "Karma Raptenling Monastery", "Ngadag Monastery"].includes(monasteryName)) {
+            const availableImages = [];
+            for (let i = 1; i <= 4; i++) {
+                availableImages.push({
+                    src: `/images/${baseName}${i}.jpg`,
+                    alt: `${monasteryName} - Image ${i}`,
+                    fallback: `/images/${imageName}`
+                });
+            }
+            return availableImages;
+        }
+        
+        return [1,2,3,4].map(i => ({
+            src: monasteryName === 'Rumtek Monastery'
+                ? `/images/slide/Rumtek-Monastery-${i}.jpg`
+                : `/images/slide/${baseName}${i}.jpg`,
+            alt: `${monasteryName} - Image ${i}`,
+            fallback: `/images/${imageName}`
+        }));
     }, [monasteryName, imageName]);
 
+    
+    const images = useMemo(() => generateSlideImages(), [generateSlideImages]);
+    const [imageLoadError, setImageLoadError] = useState({});
+
+    
     useEffect(() => {
-        const slideImages = generateSlideImages();
-        setImages(slideImages);
         setCurrentSlide(0);
-    }, [generateSlideImages]);
+    }, [monasteryName]);
 
-    // Auto-play functionality with smoother transitions
+    
     useEffect(() => {
+        let interval = null;
+        
         if (isPlaying && images.length > 1) {
-            const interval = setInterval(() => {
-                setCurrentSlide((prev) => {
-                    const nextSlide = (prev + 1) % images.length;
-                    return nextSlide;
-                });
-            }, 5000); // Change slide every 5 seconds for smoother experience
-
-            return () => clearInterval(interval);
+            interval = setInterval(() => {
+                setCurrentSlide((prev) => (prev + 1) % images.length);
+            }, 5000);
         }
+        return () => {
+            if (interval) clearInterval(interval);
+        };
     }, [isPlaying, images.length]);
 
     const goToSlide = (index) => {
@@ -92,11 +103,26 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
         setImageLoadError(prev => ({ ...prev, [index]: false }));
     };
 
-    if (images.length === 0) {
+    
+    const validImages = images.filter((img, idx) => !imageLoadError[idx]);
+    const hasAtLeastOneImage = validImages.length > 0;
+    if (images.length === 0 || !hasAtLeastOneImage) {
         return (
             <div className="slideshow-loading">
                 <div className="loading-spinner"></div>
-                <p>Loading images...</p>
+                <p style={{color:'red'}}>No images available for this monastery.</p>
+            </div>
+        );
+    }
+
+    
+    const allImagesFailed = images.every((_, idx) => imageLoadError[idx]);
+    if (allImagesFailed) {
+        console.error('All images failed to load for', monasteryName, images.map(img => img.src));
+        return (
+            <div className="slideshow-loading">
+                <div className="loading-spinner"></div>
+                <p style={{color:'red'}}>No images available for this monastery.</p>
             </div>
         );
     }
@@ -104,20 +130,24 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
     return (
         <div className="image-slideshow">
             <div className="slideshow-container">
-                {/* Main Image Display */}
+                
                 <div className="slide-display">
-                    {images.map((image, index) => (
-                        <div
-                            key={index}
-                            className={`slide ${index === currentSlide ? 'active' : ''}`}
-                        >
+                    {images.length > 0 && (
+                        <div className={`slide active${images.length === 1 ? ' single' : ''}`}> 
                             <img
-                                src={imageLoadError[index] ? image.fallback : image.src}
-                                alt={image.alt}
-                                onError={() => handleImageError(index)}
-                                onLoad={() => handleImageLoad(index)}
+                                src={imageLoadError[currentSlide] ? images[currentSlide].fallback : images[currentSlide].src}
+                                alt={images[currentSlide].alt}
+                                onError={() => handleImageError(currentSlide)}
+                                onLoad={() => handleImageLoad(currentSlide)}
                             />
-                            {/* Image Overlay */}
+                            {imageLoadError[currentSlide] && (
+                                <div className="image-error-message">
+                                    <span style={{color: 'red', fontWeight: 'bold'}}>Image not found:</span>
+                                    <div>{images[currentSlide].src}</div>
+                                    <div>Showing fallback image.</div>
+                                </div>
+                            )}
+                            
                             <div className="slide-overlay">
                                 <h1 className="monastery-title">{monasteryName}</h1>
                                 <div className="slide-info">
@@ -127,25 +157,25 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    )}
                 </div>
 
-                {/* Navigation Arrows */}
-                <button className="nav-btn prev-btn" onClick={goToPrevious}>
-                    <i className="nav-icon">❮</i>
-                </button>
-                <button className="nav-btn next-btn" onClick={goToNext}>
-                    <i className="nav-icon">❯</i>
-                </button>
+                
+                <div className="slideshow-nav-btns">
+                    <button className="nav-btn prev-btn" onClick={goToPrevious}>
+                        <i className="nav-icon">❮</i>
+                    </button>
+                    <button className="nav-btn next-btn" onClick={goToNext}>
+                        <i className="nav-icon">❯</i>
+                    </button>
+                    <button className="play-pause-btn" onClick={togglePlayPause}>
+                        <i className="play-icon">
+                            {isPlaying ? '⏸️' : '▶️'}
+                        </i>
+                    </button>
+                </div>
 
-                {/* Play/Pause Button */}
-                <button className="play-pause-btn" onClick={togglePlayPause}>
-                    <i className="play-icon">
-                        {isPlaying ? '⏸️' : '▶️'}
-                    </i>
-                </button>
-
-                {/* Slide Indicators */}
+                
                 <div className="slide-indicators">
                     {images.map((_, index) => (
                         <button
@@ -156,17 +186,19 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                     ))}
                 </div>
 
-                {/* Thumbnail Navigation */}
+                
                 <div className="thumbnail-navigation">
                     {images.map((image, index) => (
                         <div
                             key={index}
-                            className={`thumbnail ${index === currentSlide ? 'active' : ''}`}
+                            className={`thumbnail${index === currentSlide ? ' active' : ''}`}
+                            style={{ minWidth: '60px', minHeight: '40px' }}
                             onClick={() => goToSlide(index)}
                         >
                             <img
                                 src={imageLoadError[index] ? image.fallback : image.src}
                                 alt={`Thumbnail ${index + 1}`}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 onError={() => handleImageError(index)}
                                 onLoad={() => handleImageLoad(index)}
                             />
@@ -178,7 +210,7 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                 </div>
             </div>
 
-            {/* Slideshow Controls */}
+            
             <div className="slideshow-controls">
                 <div className="control-group">
                     <button 

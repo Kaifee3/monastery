@@ -3,11 +3,11 @@
     "id": 1,
     "name": "Rumtek Monastery",
     "location": "Rumtek, East Sikkim",
-    "established": "1966",
+    "established": "1740 (Original), 1966 (Present)",
     "imageName": "Rumtek-Monastery-1.webp",
     "latitude": 27.3539,
     "longitude": 88.6207,
-    "history": "Rumtek Monastery is a gompa located in the Rumtek village in Gangtok, Sikkim. It is the seat-in-exile of the Gyalwang Karmapa, inaugurated in 1966 by the 16th Karmapa. It is also known as the Dharmachakra Centre and is one of the most significant monasteries of Tibetan Buddhism outside Tibet."
+    "history": "Rumtek Monastery is a gompa located in Rumtek village near Gangtok, Sikkim. The original monastery was built around 1740 by the 9th Karmapa. The present structure was inaugurated in 1966 by the 16th Karmapa and serves as the seat-in-exile of the Gyalwang Karmapa. Also known as the Dharmachakra Centre, it is one of the most significant monasteries of Tibetan Buddhism outside Tibet."
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "imageName": "Pemangytse.webp",
     "latitude": 27.2051,
     "longitude": 88.2134,
-    "history": "Pemayangtse Monastery is a Buddhist monastery in Pelling, Sikkim. Planned, designed and founded by Lama Lhatsun Chempo in 1705, it is one of the oldest and premier monasteries of Sikkim. The monastery follows the Nyingma order of Tibetan Buddhism and houses some of the most ancient Buddhist scriptures."
+    "history": "Pemayangtse Monastery is a Buddhist monastery in Pelling, Sikkim. Founded by Lama Lhatsun Chempo in 1705, it is one of the oldest and premier monasteries of Sikkim. The monastery follows the Nyingma order of Tibetan Buddhism and houses some of the most ancient Buddhist scriptures."
   },
   {
     "id": 3,
@@ -27,7 +27,7 @@
     "imageName": "Tashiding-Monastery.webp",
     "latitude": 27.3372,
     "longitude": 88.2714,
-    "history": "Tashiding Monastery is a Buddhist monastery of the Nyingma sect of Tibetan Buddhism in Western Sikkim. It is located on top of the hill rising between the Rathong chu and the Rangeet River. The monastery is considered sacred by Buddhists and is famous for its holy water and the Bhumchu festival."
+    "history": "Tashiding Monastery is a Buddhist monastery of the Nyingma sect of Tibetan Buddhism in Western Sikkim. It is located on top of a hill between the Rathong Chu and the Rangeet River. The monastery is considered sacred by Buddhists and is famous for its holy water and the annual Bhumchu festival."
   },
   {
     "id": 4,
@@ -37,7 +37,7 @@
     "imageName": "Enchey Monastery.webp",
     "latitude": 27.3408,
     "longitude": 88.6200,
-    "history": "Enchey Monastery was established in 1840 by Lama Druptob Karpo, who belonged to the Nyingma order of Vajrayana Buddhism. The monastery is built on the site blessed by Lama Druptob Karpo and is famous for its annual Chaam dance performed by monks during the Chaam festival."
+    "history": "Enchey Monastery was established in 1840 by Lama Druptob Karpo, who belonged to the Nyingma order of Vajrayana Buddhism. Built on the site blessed by Lama Druptob Karpo, the monastery is famous for its annual Chaam dance performed by monks during the Chaam festival."
   },
   {
     "id": 5,
@@ -63,11 +63,11 @@
     "id": 7,
     "name": "Ralang Monastery",
     "location": "Ralang, West Sikkim",
-    "established": "1768",
+    "established": "1730 (Old), 1995 (New)",
     "imageName": "Ralang-Monastery.webp",
     "latitude": 27.2833,
     "longitude": 88.5500,
-    "history": "Ralang Monastery, also known as Ralung Monastery, was built in 1768 and belongs to the Kagyupa sect. The monastery is famous for the Pang Lhabsol festival and houses many ancient artifacts and scriptures. It is considered one of the most sacred monasteries in Sikkim."
+    "history": "Ralang Monastery, also known as Ralung Monastery, was originally built around 1730 by the fourth Chogyal Gyurmed Namgyal after his pilgrimage to Tibet. The New Ralang Monastery (Palchen Choeling) was established in 1995. The monastery belongs to the Kagyupa sect and is famous for the Pang Lhabsol festival and its sacred artifacts."
   },
   {
     "id": 8,
@@ -77,7 +77,7 @@
     "imageName": "Tsuklakhang-Gonpa.webp",
     "latitude": 27.3333,
     "longitude": 88.6167,
-    "history": "Tsuklakhang Gonpa, also known as the Royal Chapel, is the main monastery in Gangtok. Built in 1894, it serves as the royal chapel of the Chogyals and contains a large collection of scriptures and religious artifacts. The monastery is an important center for Buddhist learning and meditation."
+    "history": "Tsuklakhang Gonpa, also known as the Royal Chapel, is the main monastery in Gangtok. Built in 1894 during the reign of Thutob Namgyal, it served as the royal chapel of the Chogyals and contains a large collection of scriptures and religious artifacts. The monastery is an important center for Buddhist learning and meditation."
   },
   {
     "id": 9,
@@ -87,7 +87,7 @@
     "imageName": "Kathog.webp",
     "latitude": 27.2167,
     "longitude": 88.5833,
-    "history": "Kathog Lake Monastery is a relatively new but spiritually significant monastery built near the sacred Kathog Lake. The monastery follows the Nyingma tradition and is known for its peaceful environment and meditation retreats. The lake is considered sacred and is believed to have healing properties."
+    "history": "Kathog Lake Monastery is a relatively new but spiritually significant monastery built near the sacred Kathog Lake. While the present monastery was built around 2000, the lake itself has been revered for centuries and is believed to possess healing properties. The monastery follows the Nyingma tradition and is known for its peaceful environment and meditation retreats."
   },
   {
     "id": 10,
@@ -97,6 +97,46 @@
     "imageName": "Lingdum-Zurmang.webp",
     "latitude": 27.2833,
     "longitude": 88.5167,
-    "history": "Lingdum Zurmang Monastery is a modern monastery that follows the Zurmang Kagyu tradition of Tibetan Buddhism. Established in 1999, it is known for its beautiful architecture that blends traditional Tibetan design with modern elements. The monastery is a center for Buddhist studies and meditation practices."
+    "history": "Lingdum Zurmang Monastery is a modern monastery that follows the Zurmang Kagyu tradition of Tibetan Buddhism. Established in 1999, it is known for its beautiful architecture blending traditional Tibetan design with modern elements. The monastery is a center for Buddhist studies and meditation practices."
+  },
+  {
+    "id": 11,
+    "name": "Bumtar Namdroling Monastery",
+    "location": "Bumtar, South Sikkim",
+    "established": "1939",
+    "imageName": "Bumtar Namdroling Monastery1.jpg",
+    "latitude": 27.3000,
+    "longitude": 88.6000,
+    "history": "Bumtar Namdroling Monastery is a vibrant Buddhist monastery located in Bumtar, South Sikkim. Established in 1939, it is known for its beautiful murals, peaceful surroundings, and annual religious festivals. The monastery is a center for spiritual learning and community gatherings."
+  },
+  {
+    "id": 12,
+    "name": "Doling Monastery",
+    "location": "Doling, South Sikkim",
+    "established": "1760",
+    "imageName": "Doling-Monastery1.jpg",
+    "latitude": 27.2300,
+    "longitude": 88.4200,
+    "history": "Doling Monastery is a historic Buddhist monastery located in South Sikkim. Built around 1760, it is known for its serene environment and beautiful architecture. It is an important spiritual center for the local community and hosts several annual festivals and rituals."
+  },
+  {
+    "id": 13,
+    "name": "Karma Raptenling Monastery",
+    "location": "South Sikkim",
+    "established": "1960",
+    "imageName": "Karma-Raptenling-Monastery1.jpg",
+    "latitude": 27.2500,
+    "longitude": 88.4100,
+    "history": "Karma Raptenling Monastery is a prominent monastery in South Sikkim, founded around 1960. It is known for its vibrant community and traditional Buddhist practices. The monastery is a center for learning and meditation, attracting visitors and devotees from across the region."
+  },
+  {
+    "id": 14,
+    "name": "Ngadag Monastery",
+    "location": "South Sikkim",
+    "established": "1690",
+    "imageName": "Ngadag-Monastery1.jpg",
+    "latitude": 27.2400,
+    "longitude": 88.4300,
+    "history": "Ngadag Monastery, originally built around 1690 by the Chogyals of Sikkim, is one of the oldest monasteries in South Sikkim. It was initially constructed as a palace and later converted into a monastery. A newer structure was built later to withstand earthquakes. It is renowned for its spiritual ambiance, beautiful surroundings, and annual religious ceremonies."
   }
 ]

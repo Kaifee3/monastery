@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import monasteryData from '../data/monasteries.json';
 
 const useMonasteryData = () => {
     const [monasteries, setMonasteries] = useState([]);
@@ -6,94 +7,11 @@ const useMonasteryData = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Mock data based on your images - replace with actual API call later
-        const mockData = [
-            {
-                id: 1,
-                name: "Rumtek Monastery",
-                location: "Rumtek, East Sikkim",
-                established: "1966",
-                imageName: "Rumtek-Monastery-1.webp",
-                history: "Rumtek Monastery is a gompa located in the Rumtek village in Gangtok, Sikkim. It is the seat-in-exile of the Gyalwang Karmapa, inaugurated in 1966 by the 16th Karmapa. It is also known as the Dharmachakra Centre and is one of the most significant monasteries of Tibetan Buddhism outside Tibet."
-            },
-            {
-                id: 2,
-                name: "Pemayangtse Monastery",
-                location: "Pelling, West Sikkim",
-                established: "1705",
-                imageName: "Pemangytse.webp",
-                history: "Pemayangtse Monastery is a Buddhist monastery in Pelling, Sikkim. Planned, designed and founded by Lama Lhatsun Chempo in 1705, it is one of the oldest and premier monasteries of Sikkim. The monastery follows the Nyingma order of Tibetan Buddhism and houses some of the most ancient Buddhist scriptures."
-            },
-            {
-                id: 3,
-                name: "Tashiding Monastery",
-                location: "Tashiding, West Sikkim",
-                established: "1641",
-                imageName: "Tashiding-Monastery.webp",
-                history: "Tashiding Monastery is a Buddhist monastery of the Nyingma sect of Tibetan Buddhism in Western Sikkim. It is located on top of the hill rising between the Rathong chu and the Rangeet River. The monastery is considered sacred by Buddhists and is famous for its holy water and the Bhumchu festival."
-            },
-            {
-                id: 4,
-                name: "Enchey Monastery",
-                location: "Gangtok, East Sikkim",
-                established: "1840",
-                imageName: "Enchey Monastery.webp",
-                history: "Enchey Monastery was established in 1840 by Lama Druptob Karpo, who belonged to the Nyingma order of Vajrayana Buddhism. The monastery is built on the site blessed by Lama Druptob Karpo and is famous for its annual Chaam dance performed by monks during the Chaam festival."
-            },
-            {
-                id: 5,
-                name: "Dubdi Monastery",
-                location: "Yuksom, West Sikkim",
-                established: "1701",
-                imageName: "Dubdi Monastery.webp",
-                history: "Dubdi Monastery, also known as Hermit's Cell, is a Buddhist monastery of the Nyingma sect. It is the oldest monastery in Sikkim, established in 1701 by Chogyal Namgyal along with Lama Lhatsun Chenpo. The monastery is situated on a hilltop and offers panoramic views of the surrounding mountains."
-            },
-            {
-                id: 6,
-                name: "Phodong Monastery",
-                location: "Phodong, North Sikkim",
-                established: "1721",
-                imageName: "Phodong-Monastery.webp",
-                history: "Phodong Monastery is one of the most beautiful monasteries in Sikkim, established in 1721 and rebuilt in 1947. It belongs to the Kagyupa sect and is known for its impressive architecture and the annual festival of Losoong. The monastery houses about 260 monks and is famous for its butter sculptures."
-            },
-            {
-                id: 7,
-                name: "Ralang Monastery",
-                location: "Ralang, West Sikkim",
-                established: "1768",
-                imageName: "Ralang-Monastery.webp",
-                history: "Ralang Monastery, also known as Ralung Monastery, was built in 1768 and belongs to the Kagyupa sect. The monastery is famous for the Pang Lhabsol festival and houses many ancient artifacts and scriptures. It is considered one of the most sacred monasteries in Sikkim."
-            },
-            {
-                id: 8,
-                name: "Tsuklakhang Gonpa",
-                location: "Gangtok, East Sikkim",
-                established: "1894",
-                imageName: "Tsuklakhang-Gonpa.webp",
-                history: "Tsuklakhang Gonpa, also known as the Royal Chapel, is the main monastery in Gangtok. Built in 1894, it serves as the royal chapel of the Chogyals and contains a large collection of scriptures and religious artifacts. The monastery is an important center for Buddhist learning and meditation."
-            },
-            {
-                id: 9,
-                name: "Kathog Lake Monastery",
-                location: "Pakyong, East Sikkim",
-                established: "2000",
-                imageName: "Kathog.webp",
-                history: "Kathog Lake Monastery is a relatively new but spiritually significant monastery built near the sacred Kathog Lake. The monastery follows the Nyingma tradition and is known for its peaceful environment and meditation retreats. The lake is considered sacred and is believed to have healing properties."
-            },
-            {
-                id: 10,
-                name: "Lingdum Zurmang Monastery",
-                location: "Ranka, East Sikkim",
-                established: "1999",
-                imageName: "Lingdum-Zurmang.webp",
-                history: "Lingdum Zurmang Monastery is a modern monastery that follows the Zurmang Kagyu tradition of Tibetan Buddhism. Established in 1999, it is known for its beautiful architecture that blends traditional Tibetan design with modern elements. The monastery is a center for Buddhist studies and meditation practices."
-            }
-        ];
-
+        // Load data from monasteries.json
         setTimeout(() => {
-            setMonasteries(mockData);
+            setMonasteries(monasteryData);
             setLoading(false);
-        }, 1000);
+        }, 500);
     }, []);
 
     return { monasteries, loading, error };

@@ -1,4 +1,3 @@
-/* ImageSlideshow.css */
 .image-slideshow {
     position: relative;
     width: 100%;
@@ -7,24 +6,23 @@
     overflow: hidden;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    transform: translateZ(0); /* Force hardware acceleration */
-    backface-visibility: hidden; /* Prevent flickering */
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
-/* Slideshow Container */
 .slideshow-container {
     position: relative;
     width: 100%;
     height: 100%;
     background: #000;
-    transform: translateZ(0); /* Force hardware acceleration */
+    transform: translateZ(0);
 }
 
-/* Slide Display */
 .slide-display {
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 .slide {
@@ -35,12 +33,21 @@
     height: 100%;
     opacity: 0;
     transition: opacity 0.6s ease-in-out;
-    transform: translateZ(0); /* Force hardware acceleration */
-    backface-visibility: hidden; /* Prevent flickering */
+}
+
+.slide.single {
+    transition: none !important;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .slide.active {
     opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
 }
 
 .slide img {
@@ -48,11 +55,10 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transform: translateZ(0); /* Hardware acceleration */
-    backface-visibility: hidden; /* Prevent flickering */
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
-/* Slide Overlay */
 .slide-overlay {
     position: absolute;
     bottom: 0;
@@ -67,7 +73,6 @@
 .monastery-title {
     font-size: 2.5rem;
     font-weight: 700;
-    margin: 0 0 1rem 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     line-height: 1.2;
 }
@@ -88,7 +93,6 @@
     backdrop-filter: blur(10px);
 }
 
-/* Navigation Buttons */
 .nav-btn {
     position: absolute;
     top: 50%;
@@ -130,7 +134,6 @@
     justify-content: center;
 }
 
-/* Play/Pause Button */
 .play-pause-btn {
     position: absolute;
     top: 20px;
@@ -158,7 +161,6 @@
     justify-content: center;
 }
 
-/* Slide Indicators */
 .slide-indicators {
     position: absolute;
     bottom: 20px;
@@ -184,7 +186,6 @@
     background: white;
 }
 
-/* Thumbnail Navigation */
 .thumbnail-navigation {
     position: absolute;
     bottom: 20px;
@@ -245,7 +246,6 @@
     opacity: 1;
 }
 
-/* Slideshow Controls */
 .slideshow-controls {
     position: absolute;
     top: 20px;
@@ -294,7 +294,6 @@
     border-radius: 2px;
 }
 
-/* Loading State */
 .slideshow-loading {
     display: flex;
     flex-direction: column;
@@ -321,7 +320,6 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .image-slideshow {
         height: 50vh;
@@ -357,7 +355,7 @@
     }
 
     .thumbnail-navigation {
-        display: none; /* Hide thumbnails on mobile */
+        display: none;
     }
 
     .slideshow-controls {
@@ -411,7 +409,6 @@
     }
 }
 
-/* Prevent layout shifts and vibration */
 * {
     box-sizing: border-box;
 }
@@ -421,7 +418,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Prevent vibration by stabilizing transforms */
 .nav-btn,
 .play-pause-btn,
 .thumbnail,
@@ -430,7 +426,6 @@
     transform: translateZ(0);
 }
 
-/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
     .slide {
         transition: opacity 0.3s ease;
@@ -442,7 +437,6 @@
         transition: none;
     }
     
-    /* Disable animations for users who prefer reduced motion */
     * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
@@ -450,7 +444,6 @@
     }
 }
 
-/* Focus States for Accessibility */
 .nav-btn:focus,
 .play-pause-btn:focus,
 .indicator:focus,
@@ -460,7 +453,6 @@
     outline-offset: 2px;
 }
 
-/* High Contrast Mode */
 @media (prefers-contrast: high) {
     .slide-overlay {
         background: rgba(0, 0, 0, 0.9);
