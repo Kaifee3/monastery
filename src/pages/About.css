@@ -12,7 +12,7 @@
 .about-hero {
   width: 100%;
   height: 40vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #daa03c 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +51,7 @@
   display: block;
   font-size: 1.8rem;
   font-weight: 400;
-  color: #f0f0f0;
+  color: #fcf9f9;
   margin-top: 0.5rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }

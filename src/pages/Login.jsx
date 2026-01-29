@@ -18,22 +18,56 @@ export default function Login() {
             setLoginStatus("");
             setIsLoading(true);
             
-            const url = "https://cafe-backend-umber.vercel.app/api/users/login";
+            const url = "https://monestry-backend.vercel.app/api/users/login";
             const result = await axios.post(url, loginData);
+            
+            // Log the response to debug
+            console.log("Login response:", result.data);
             
             // Show success message
             setLoginStatus("Login successful! Redirecting...");
             setIsLoading(false);
             
-            // Set authentication state with user data
-            login({
-                email: loginData.email,
-                ...result.data // Include any additional user data from the response
-            });
+            // Store the token if it's provided in the response
+            if (result.data.token) {
+                localStorage.setItem('token', result.data.token);
+            }
             
-            // Add a small delay to show the success message before navigating
+            // Handle different response structures
+            let userData;
+            if (result.data.user) {
+                // If user data is in result.data.user
+                userData = {
+                    ...result.data.user,
+                    email: result.data.user.email || loginData.email
+                };
+            } else if (result.data.role) {
+                // If user data is directly in result.data
+                userData = {
+                    ...result.data,
+                    email: result.data.email || loginData.email
+                };
+            } else {
+                // Fallback
+                userData = {
+                    email: loginData.email,
+                    role: 'user', // default role
+                    ...result.data
+                };
+            }
+            
+            console.log("User data to save:", userData);
+            
+            // Set authentication state with user data
+            login(userData);
+            
+            // Redirect to admin panel if user is admin, otherwise to home
             setTimeout(() => {
-                Navigate("/");
+                if (userData.role === 'admin') {
+                    Navigate("/admin");
+                } else {
+                    Navigate("/");
+                }
             }, 1500);
         } catch (err) {
             console.log(err);

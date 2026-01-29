@@ -9,7 +9,8 @@ export default function Register() {
     const handleSubmit=async()=>{
         try{
             // const url="http://localhost:8080/api/users/register"
-            const url="https://cafe-backend-umber.vercel.app/api/users/register"
+            // const url="https://cafe-backend-umber.vercel.app/api/users/register"
+            const url="https://monestry-backend.vercel.app/api/users/register"
             const result= await axios.post(url,user)
             setError("Successfully Register")
             // Redirect to login page after successful registration
@@ -27,7 +28,7 @@ export default function Register() {
     <div className="register-wrapper">
       <div className="form-container">
         <h2>Create Your Account</h2>
-        {error && <div className={error.includes("successfully") ? "success-message" : "error-message"}>{error}</div>}
+        {error && <div className={error.toLowerCase().includes("successfully") ? "success-message" : "error-message"}>{error}</div>}
         <p>
           <input 
             type="text" 

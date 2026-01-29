@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import './Header.css';
@@ -6,6 +6,13 @@ import CulturalCalendar from '../CulturalCalendar/CulturalCalendar';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { isAuthenticated, logout, user } = useAuth();
+
+    // Debug logging
+    useEffect(() => {
+        console.log("Header - isAuthenticated:", isAuthenticated);
+        console.log("Header - user data:", user);
+        console.log("Header - user role:", user?.role);
+    }, [isAuthenticated, user]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -22,9 +29,8 @@ const Header = () => {
 
     return (
         <header className="header">
-            <div className="nav">
-                <Link to="/" className="logo" onClick={closeMenu}>Monastery360</Link>
-                
+            <div className="nav glass-nav">
+                <Link to="/" className="logo animated-gradient" onClick={closeMenu}>Monastery360</Link>
                 <button 
                     className="menu-toggle" 
                     onClick={toggleMenu}
@@ -36,7 +42,6 @@ const Header = () => {
                         <span></span>
                     </span>
                 </button>
-
                 <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                     <ul className="nav-links">
                         <li><Link to="/" onClick={closeMenu}>Home</Link></li>
@@ -44,14 +49,16 @@ const Header = () => {
                         <li><Link to="/cultural-calendar" onClick={closeMenu}>Cultural Calendar</Link></li>
                         <li><Link to="/about" onClick={closeMenu}>About Us</Link></li>
                         <li><Link to="/contact" onClick={closeMenu}>Contact Us</Link></li>
-                            {!isAuthenticated ? (
-                                <li><Link to="/login" onClick={closeMenu}>Login/Signup</Link></li>
-                            ) : (
-                                <>
-                                    
-                                    <li><Link to="/profile" onClick={closeMenu}>Profile</Link></li>
-                                </>
-                            )}
+                        {!isAuthenticated ? (
+                            <li><Link to="/login" onClick={closeMenu}>Login/Signup</Link></li>
+                        ) : (
+                            <>
+                                <li><Link to="/profile" onClick={closeMenu}>Profile</Link></li>
+                                {user?.role === 'admin' && (
+                                    <li><Link to="/admin" onClick={closeMenu} className="admin-link">Admin Panel</Link></li>
+                                )}
+                            </>
+                        )}
                     </ul>
                 </nav>
             </div>

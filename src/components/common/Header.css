@@ -62,11 +62,13 @@
 .nav-links a {
   text-decoration: none;
   color: #333;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.5rem 0;
-  transition: color 0.3s ease;
+  font-size: 1.08rem;
+  font-weight: 600;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  transition: color 0.3s, background 0.3s, box-shadow 0.3s;
   display: block;
+  position: relative;
 }
 
 /* Underline effect on hover */
@@ -74,11 +76,12 @@
   content: '';
   position: absolute;
   width: 0%;
-  height: 2px;
+  height: 3px;
   bottom: 0;
   left: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  transition: width 0.3s ease;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  transition: width 0.3s cubic-bezier(.4,0,.2,1);
 }
 
 .nav-links a:hover::after {
@@ -86,8 +89,38 @@
 }
 
 .nav-links a:hover {
-  color: #764ba2;
+  color: #43cea2;
+  background: rgba(102,126,234,0.08);
+  box-shadow: 0 2px 8px rgba(67,206,162,0.08);
   text-decoration: none;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.5rem;
+  box-shadow: 0 2px 8px rgba(102,126,234,0.15);
+  border: 2px solid #43cea2;
+  background: #fff;
+}
+.logo.animated-gradient {
+  background: linear-gradient(270deg, #667eea, #764ba2, #43cea2, #185a9d);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 8s ease infinite;
+}
+@keyframes gradientMove {
+  0% {background-position:0% 50%}
+  50% {background-position:100% 50%}
+  100% {background-position:0% 50%}
 }
 
 /* Hamburger Menu Button */
@@ -206,14 +239,23 @@
   }
 
   .nav-links a {
-    font-size: 1.1rem;
-    padding: 1rem;
-    color: #333;
+  font-size: 1.1rem;
+  padding: 1rem;
+  color: #333;
+  border-radius: 12px;
+  transition: color 0.3s, background 0.3s, box-shadow 0.3s, transform 0.2s;
+  box-shadow: 0 1px 4px rgba(67,206,162,0.04);
   }
 
   .nav-links a:hover {
-    background-color: #f8f9fa;
-    border-radius: 8px;
+  background-color: #eaf6f3;
+  color: #43cea2;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(67,206,162,0.15);
+  transform: scale(1.07);
+  border: 2px solid;
+  border-image: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  border-image-slice: 1;
   }
 }
 
@@ -304,4 +346,43 @@
     font-size: 1rem;
     padding: 0.75rem;
   }
+}
+
+/* Admin Link and Logout Button Styles */
+.admin-link {
+  background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  font-size: 0.85rem !important;
+}
+
+.admin-link:hover {
+  background: linear-gradient(135deg, #c0392b, #a93226) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3) !important;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #7f8c8d, #6c7b7d);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(149, 165, 166, 0.3);
 }

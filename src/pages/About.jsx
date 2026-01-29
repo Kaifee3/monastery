@@ -4,6 +4,7 @@ import './About.css';
 const About = () => {
     const teamMembers = [
         { name: "Kaifee Azam", role: "Web Developer" },
+        { name: "Sonal Kumar", role: "Web Developer" },
         { name: "Shubham Sharma", role: "Cyber Security" },
         { name: "Baibhavi Pandey", role: "Web Developer" },
         { name: "Abdul Yahiya", role: "Web Developer" },

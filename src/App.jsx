@@ -18,6 +18,7 @@ import Virtual from './pages/Virtual';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import Admin from './pages/Admin';
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/virtual-tour" element={<VirtualTour />} />
           <Route path="/interactive-map" element={<InteractiveMap />} />
           <Route path="/cultural-calendar" element={<CulturalCalendar />} />

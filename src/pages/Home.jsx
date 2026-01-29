@@ -15,13 +15,25 @@ const Home = () => {
         '/images/Home5.jpg'
     ];
 
+    const [isPaused, setIsPaused] = useState(false);
+
     useEffect(() => {
         const slideInterval = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % slides.length);
+            if (!isPaused) setCurrentSlide((prev) => (prev + 1) % slides.length);
         }, 4000); // Change slide every 4 seconds
 
         return () => clearInterval(slideInterval);
-    }, [slides.length]);
+    }, [slides.length, isPaused]);
+
+    // Keyboard navigation
+    useEffect(() => {
+        const handleKey = (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        };
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, []);
 
     const nextSlide = () => {
         setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -37,8 +49,8 @@ const Home = () => {
 
     return (
         <div className="home-container">
-            {/* Hero Slideshow Section */}
-            <div className="hero-slideshow">
+           
+            <div className="hero-slideshow" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
                 <div className="slideshow-container">
                     {slides.map((slide, index) => (
                         <div
@@ -50,20 +62,16 @@ const Home = () => {
                                 <div className="slide-overlay">
                                     <h1 style={{ color: 'yellow' }}>Welcome to Monastery360</h1>
                                     <p style={{ color: 'yellow' }}>Explore the rich heritage of Sikkim's monasteries.</p>
+                                    <div className="slide-cta">
+                                        <button className="cta-button" onClick={() => window.location.href = '/monasteries'}>Explore Monasteries</button>
+                                    </div>
                                 </div>
                             )}
                         </div>
                     ))}
                     
-                    {/* Navigation Arrows */}
-                    <button className="slide-nav prev circle" onClick={prevSlide}>
-                        <span className="arrow">&#8249;</span>
-                    </button>
-                    <button className="slide-nav next circle" onClick={nextSlide}>
-                        <span className="arrow">&#8250;</span>
-                    </button>
+                    {/* Navigation buttons removed per request */}
                     
-                    {/* Dots Indicator */}
                     <div className="dots-container">
                         {slides.map((_, index) => (
                             <span
@@ -73,8 +81,15 @@ const Home = () => {
                             ></span>
                         ))}
                     </div>
+
+                    {/* Progress bar */}
+                    <div className="slideshow-progress">
+                        <div className="progress-bar" style={{ animationDuration: `${isPaused ? 0 : 4}s` }} data-active={currentSlide}></div>
+                    </div>
                 </div>
             </div>
+
+            <hr className="slideshow-divider" />
 
             <div className="section-wrapper">
                 <div className="section-card">
@@ -82,7 +97,6 @@ const Home = () => {
                 </div>
                 
             </div>
-                {/* ChatBot Button Floating on Home Page */}
                 <ChatBot />
         </div>
     );
