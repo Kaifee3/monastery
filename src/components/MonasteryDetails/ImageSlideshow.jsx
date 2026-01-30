@@ -3,7 +3,6 @@ import './ImageSlideshow.css';
 
 const ImageSlideshow = ({ monasteryName, imageName }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(true);
     
     const generateSlideImages = useCallback(() => {
         let baseName = '';
@@ -29,6 +28,7 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
         if (monasteryName === 'Bumtar Namdroling Monastery') {
             return [1,2,3,4].map(i => ({
                 src: `/images/Bumtar Namdroling Monastery${i}.jpg`,
+                srcset: `/images/Bumtar Namdroling Monastery${i}.jpg 1x, /images/Bumtar Namdroling Monastery${i}.jpg 2x`,
                 alt: `${monasteryName} - Image ${i}`,
                 fallback: `/images/${imageName}`
             }));
@@ -40,6 +40,7 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             for (let i = 1; i <= 4; i++) {
                 availableImages.push({
                     src: `/images/${baseName}${i}.jpg`,
+                    srcset: `/images/${baseName}${i}.jpg 1x, /images/${baseName}${i}.jpg 2x`,
                     alt: `${monasteryName} - Image ${i}`,
                     fallback: `/images/${imageName}`
                 });
@@ -51,6 +52,9 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             src: monasteryName === 'Rumtek Monastery'
                 ? `/images/slide/Rumtek-Monastery-${i}.jpg`
                 : `/images/slide/${baseName}${i}.jpg`,
+            srcset: monasteryName === 'Rumtek Monastery'
+                ? `/images/slide/Rumtek-Monastery-${i}.jpg 1x, /images/slide/Rumtek-Monastery-${i}.jpg 2x`
+                : `/images/slide/${baseName}${i}.jpg 1x, /images/slide/${baseName}${i}.jpg 2x`,
             alt: `${monasteryName} - Image ${i}`,
             fallback: `/images/${imageName}`
         }));
@@ -66,18 +70,7 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
     }, [monasteryName]);
 
     
-    useEffect(() => {
-        let interval = null;
-        
-        if (isPlaying && images.length > 1) {
-            interval = setInterval(() => {
-                setCurrentSlide((prev) => (prev + 1) % images.length);
-            }, 5000);
-        }
-        return () => {
-            if (interval) clearInterval(interval);
-        };
-    }, [isPlaying, images.length]);
+
 
     const goToSlide = (index) => {
         setCurrentSlide(index);
@@ -91,9 +84,7 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
         setCurrentSlide((prev) => (prev + 1) % images.length);
     };
 
-    const togglePlayPause = () => {
-        setIsPlaying(!isPlaying);
-    };
+
 
     const handleImageError = (index) => {
         setImageLoadError(prev => ({ ...prev, [index]: true }));
@@ -135,7 +126,10 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                         <div className={`slide active${images.length === 1 ? ' single' : ''}`}> 
                             <img
                                 src={imageLoadError[currentSlide] ? images[currentSlide].fallback : images[currentSlide].src}
+                                srcSet={!imageLoadError[currentSlide] && images[currentSlide].srcset ? images[currentSlide].srcset : undefined}
                                 alt={images[currentSlide].alt}
+                                loading="eager"
+                                decoding="async"
                                 onError={() => handleImageError(currentSlide)}
                                 onLoad={() => handleImageLoad(currentSlide)}
                             />
@@ -162,11 +156,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                     <button className="nav-btn next-btn" onClick={goToNext}>
                         <i className="nav-icon">❯</i>
                     </button>
-                    <button className="play-pause-btn" onClick={togglePlayPause}>
-                        <i className="play-icon">
-                            {isPlaying ? '⏸️' : '▶️'}
-                        </i>
-                    </button>
                 </div>
                 <div className="slide-indicators">
                     {images.map((_, index) => (
@@ -187,8 +176,11 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                         >
                             <img
                                 src={imageLoadError[index] ? image.fallback : image.src}
+                                srcSet={!imageLoadError[index] && image.srcset ? image.srcset : undefined}
                                 alt={`Thumbnail ${index + 1}`}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                loading="lazy"
+                                decoding="async"
                                 onError={() => handleImageError(index)}
                                 onLoad={() => handleImageLoad(index)}
                             />
@@ -199,24 +191,7 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                     ))}
                 </div>
             </div>
-            <div className="slideshow-controls">
-                <div className="control-group">
-                    <button 
-                        className={`control-btn ${!isPlaying ? 'active' : ''}`} 
-                        onClick={togglePlayPause}
-                    >
-                        {isPlaying ? '⏸️ Pause' : '▶️ Play'}
-                    </button>
-                    <div className="slide-progress">
-                        <div 
-                            className="progress-bar" 
-                            style={{ 
-                                width: `${((currentSlide + 1) / images.length) * 100}%` 
-                            }}
-                        />
-                    </div>
-                </div>
-            </div>
+
         </div>
     );
 };

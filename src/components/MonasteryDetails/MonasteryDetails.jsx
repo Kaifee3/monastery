@@ -135,7 +135,6 @@ const MonasteryDetails = () => {
 
     return (
             <div className="monastery-details">
-                {/* Top navigation bar: back button left, All Monasteries right */}
                 <div className="top-nav-bar">
                     <div className="top-nav-left">
                         <button className="btn btn-outline back-btn-small" onClick={() => navigate('/monasteries')}>
