@@ -1,7 +1,3 @@
-/* ============================
-   Header Styles
-============================ */
-
 .header {
   width: 100%;
   position: sticky;
@@ -11,7 +7,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Navigation Container */
 .nav {
   max-width: 1500px;
   margin: 0 auto;
@@ -23,7 +18,6 @@
   min-height: 60px;
 }
 
-/* Logo with gradient text */
 .logo {
   font-size: 1.6rem;
   font-weight: 700;
@@ -37,13 +31,11 @@
   z-index: 1001;
 }
 
-/* Navigation Menu */
 .nav-menu {
   display: flex;
   align-items: center;
 }
 
-/* Nav Links */
 .nav-links {
   list-style: none;
   display: flex;
@@ -71,7 +63,6 @@
   position: relative;
 }
 
-/* Underline effect on hover */
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -123,7 +114,6 @@
   100% {background-position:0% 50%}
 }
 
-/* Hamburger Menu Button */
 .menu-toggle {
   display: none;
   background: none;
@@ -134,7 +124,6 @@
   position: relative;
 }
 
-/* Hamburger Icon */
 .hamburger {
   display: flex;
   flex-direction: column;
@@ -170,7 +159,6 @@
   top: 16px;
 }
 
-/* Hamburger Animation */
 .hamburger.active span:nth-child(1) {
   top: 8px;
   transform: rotate(135deg);
@@ -186,7 +174,6 @@
   transform: rotate(-135deg);
 }
 
-/* Mobile Responsive Styles */
 @media (max-width: 768px) {
   .nav {
     padding: 1rem;
@@ -259,7 +246,6 @@
   }
 }
 
-/* Authentication Styles */
 .welcome-text {
   color: #333;
   font-weight: 500;
@@ -294,7 +280,6 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* Mobile styles for auth elements */
 @media (max-width: 768px) {
   .welcome-text {
     font-size: 1rem;
@@ -313,7 +298,6 @@
   }
 }
 
-/* Tablet Responsive */
 @media (max-width: 1024px) and (min-width: 769px) {
   .nav {
     padding: 1rem 2rem;
@@ -328,7 +312,6 @@
   }
 }
 
-/* Large Mobile Devices */
 @media (max-width: 480px) {
   .nav {
     padding: 0.75rem;
@@ -348,7 +331,6 @@
   }
 }
 
-/* Admin Link and Logout Button Styles */
 .admin-link {
   background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
   color: white !important;

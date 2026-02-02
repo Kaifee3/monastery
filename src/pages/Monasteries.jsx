@@ -140,13 +140,10 @@ const Monasteries = () => {
         <div className="monasteries-page" style={{ padding: '0', margin: '0' }}>
             <div className="hero-section" style={{
                 background: `
-                    radial-gradient(ellipse at top left, rgba(38, 159, 44, 0.4) 0%, transparent 50%),
-                    radial-gradient(ellipse at top right, rgba(25, 31, 19, 0.3) 0%, transparent 50%),
-                    radial-gradient(ellipse at bottom center, rgba(76, 175, 80, 0.3) 0%, transparent 70%),
                     linear-gradient(135deg, 
-                        #2e7d32 0%, 
-                        #8bc34a 50%,
-                        #4caf50 100%
+                        #100db8 0%, 
+                        #100db8 50%,
+                        #100db8 100%
                     )
                 `,
                 position: 'relative',
@@ -158,7 +155,6 @@ const Monasteries = () => {
                 boxShadow: '0 8px 25px rgba(46, 125, 50, 0.2)',
                 marginBottom: '20px'
             }}>
-                {/* Enhanced warm pattern overlay */}
                 <div style={{
                     position: 'absolute',
                     top: 0,
@@ -171,28 +167,6 @@ const Monasteries = () => {
                     `,
                     backgroundSize: '60px 60px, 40px 40px',
                     opacity: 0.6,
-                    pointerEvents: 'none'
-                }}></div>
-
-                {/* Warm glow effects */}
-                <div style={{
-                    position: 'absolute',
-                    top: '-10%',
-                    left: '-10%',
-                    width: '40%',
-                    height: '80%',
-                    background: 'radial-gradient(circle, rgba(255, 140, 0, 0.3) 0%, transparent 70%)',
-                    filter: 'blur(40px)',
-                    pointerEvents: 'none'
-                }}></div>
-                <div style={{
-                    position: 'absolute',
-                    top: '-10%',
-                    right: '-10%',
-                    width: '40%',
-                    height: '80%',
-                    background: 'radial-gradient(circle, rgba(255, 69, 0, 0.3) 0%, transparent 70%)',
-                    filter: 'blur(40px)',
                     pointerEvents: 'none'
                 }}></div>
 
@@ -783,7 +757,7 @@ const Monasteries = () => {
             <div 
                 className="cta-section"
                 style={{
-                    background: 'linear-gradient(135deg, #7e8dcd 0%, #9778b6 100%)',
+                    background: 'linear-gradient(135deg, #000000 0%, #000000 100%)',
                     position: 'relative',
                     overflow: 'hidden',
                     padding: '60px 20px',

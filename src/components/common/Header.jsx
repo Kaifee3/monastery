@@ -7,7 +7,6 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { isAuthenticated, logout, user } = useAuth();
 
-    // Debug logging
     useEffect(() => {
         console.log("Header - isAuthenticated:", isAuthenticated);
         console.log("Header - user data:", user);

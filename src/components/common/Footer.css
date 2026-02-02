@@ -1,7 +1,3 @@
-/* ============================
-   Footer Styles (Updated)
-============================ */
-
 .footer {
   background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
   color: #ecf0f1;
@@ -13,7 +9,6 @@
   width: 100%;
 }
 
-/* Footer Content Grid */
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -21,6 +16,11 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   padding: 0 2rem;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
 }
 
 .footer-section h3 {
@@ -37,7 +37,6 @@
   font-size: 0.95rem;
 }
 
-/* Footer Links */
 .footer-section ul {
   list-style: none;
   padding: 0;
@@ -74,7 +73,6 @@
   width: 100%;
 }
 
-/* Footer Navigation (About Us | Contact Us | Privacy Policy) */
 .footer-nav {
   display: flex;
   justify-content: center;
@@ -110,7 +108,6 @@
   width: 100%;
 }
 
-/* Footer Bottom */
 .footer-bottom {
   border-top: 1px solid #3d4f5f;
   margin-top: 2rem;
@@ -120,7 +117,6 @@
   font-size: 0.9rem;
 }
 
-/* Social Icons (Optional) */
 .footer-social {
   display: flex;
   gap: 0.8rem;
@@ -145,7 +141,6 @@
   transform: translateY(-2px);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .footer-content {
     grid-template-columns: 1fr;
