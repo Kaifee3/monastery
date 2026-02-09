@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import useMonasteryData from '../hooks/useMonasteryData';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useWishlist } from '../contexts/WishlistContext';
 import '../styles/Monasteries.css';
 
 const Monasteries = () => {
     const { monasteries, loading, error } = useMonasteryData();
     const { isAuthenticated, user } = useAuth();
+    const { toggleWishlistItem, isInWishlist, loading: wishlistLoading } = useWishlist();
     const navigate = useNavigate();
     const [filteredMonasteries, setFilteredMonasteries] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -69,6 +71,27 @@ const Monasteries = () => {
 
     const handleVirtualTour = (monastery) => {
         navigate(`/virtual/${monastery.id}`);
+    };
+
+    const handleToggleWishlist = async (e, monasteryId) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (!isAuthenticated) {
+            navigate('/login');
+            return;
+        }
+        
+        console.log('Monasteries page: Toggling wishlist for monastery:', monasteryId);
+        
+        try {
+            const result = await toggleWishlistItem(monasteryId);
+            if (result !== false) {
+                console.log('Wishlist toggle successful');
+            }
+        } catch (error) {
+            console.error('Error in handleToggleWishlist:', error);
+        }
     };
 
     const regions = ['All', 'East Sikkim', 'West Sikkim', 'North Sikkim', 'South Sikkim'];
@@ -498,6 +521,14 @@ const Monasteries = () => {
                                             <div className="established-badge">
                                                 Est. {monastery.established}
                                             </div>
+                                            <button 
+                                                className={`wishlist-btn ${isInWishlist(monastery.id) ? 'in-wishlist' : ''}`}
+                                                onClick={(e) => handleToggleWishlist(e, monastery.id)}
+                                                disabled={wishlistLoading}
+                                                title={isInWishlist(monastery.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+                                            >
+                                                {isInWishlist(monastery.id) ? '🤍' : '❤️'}
+                                            </button>
                                         </div>
                                     </Link>
                                 </div>

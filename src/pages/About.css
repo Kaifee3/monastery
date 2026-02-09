@@ -1,14 +1,9 @@
-/* ============================
-   About Page Styles
-============================ */
-
 .about-container {
   width: 100%;
   min-height: 100vh;
   background: linear-gradient(135deg, #f8f9fa 0%, #eef1f5 100%);
 }
 
-/* Hero Section */
 .about-hero {
   width: 100%;
   height: 40vh;

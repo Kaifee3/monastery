@@ -8,15 +8,12 @@ export default function Register() {
     const [error,setError]=useState()
     const handleSubmit=async()=>{
         try{
-            // const url="http://localhost:8080/api/users/register"
-            // const url="https://cafe-backend-umber.vercel.app/api/users/register"
             const url="https://monestry-backend.vercel.app/api/users/register"
             const result= await axios.post(url,user)
             setError("Successfully Register")
-            // Redirect to login page after successful registration
             setTimeout(() => {
                 navigate('/login');
-            }, 2000); // Wait 2 seconds to show success message before redirecting
+            }, 2000);
         }
         catch(err){
             console.log(err)

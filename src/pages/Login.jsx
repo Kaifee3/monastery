@@ -21,47 +21,38 @@ export default function Login() {
             const url = "https://monestry-backend.vercel.app/api/users/login";
             const result = await axios.post(url, loginData);
             
-            // Log the response to debug
             console.log("Login response:", result.data);
             
-            // Show success message
             setLoginStatus("Login successful! Redirecting...");
             setIsLoading(false);
             
-            // Store the token if it's provided in the response
             if (result.data.token) {
                 localStorage.setItem('token', result.data.token);
             }
             
-            // Handle different response structures
             let userData;
             if (result.data.user) {
-                // If user data is in result.data.user
                 userData = {
                     ...result.data.user,
                     email: result.data.user.email || loginData.email
                 };
             } else if (result.data.role) {
-                // If user data is directly in result.data
                 userData = {
                     ...result.data,
                     email: result.data.email || loginData.email
                 };
             } else {
-                // Fallback
                 userData = {
                     email: loginData.email,
-                    role: 'user', // default role
+                    role: 'user',
                     ...result.data
                 };
             }
             
             console.log("User data to save:", userData);
             
-            // Set authentication state with user data
             login(userData);
             
-            // Redirect to admin panel if user is admin, otherwise to home
             setTimeout(() => {
                 if (userData.role === 'admin') {
                     Navigate("/admin");
@@ -78,18 +69,14 @@ export default function Login() {
 
     const handleGoogleLogin = async (credentialResponse) => {
         try {
-            // Clear any previous status and set loading
             setLoginStatus("");
             setIsLoading(true);
             
-            // Decode the JWT token from Google
             const decoded = JSON.parse(atob(credentialResponse.credential.split('.')[1]));
             
-            // Show success message
             setLoginStatus("Google login successful! Redirecting...");
             setIsLoading(false);
             
-            // Set authentication state with Google user data
             login({
                 email: decoded.email,
                 name: decoded.name,
@@ -97,7 +84,6 @@ export default function Login() {
                 provider: 'google'
             });
             
-            // Add a small delay to show the success message before navigating
             setTimeout(() => {
                 Navigate("/");
             }, 1500);
@@ -109,8 +95,7 @@ export default function Login() {
     };
 
     useEffect(() => {
-        // Check if Google Client ID is configured
-        const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+        const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID; 
         
         if (!googleClientId || googleClientId === "your_google_client_id_here.apps.googleusercontent.com") {
             console.warn("Google Client ID not configured. Please set REACT_APP_GOOGLE_CLIENT_ID in your .env file");
@@ -119,7 +104,6 @@ export default function Login() {
         
 
 
-        // Load Google Identity Services script
         const script = document.createElement('script');
         script.src = 'https://accounts.google.com/gsi/client';
         script.async = true;
@@ -136,8 +120,7 @@ export default function Login() {
                         cancel_on_tap_outside: true
                     });
                     
-                    // Only render button if element exists
-                    const buttonElement = document.getElementById("google-signin-button");
+                    const buttonElement = document.getElementById("google-signin-button"); 
                     if (buttonElement) {
                         window.google.accounts.id.renderButton(
                             buttonElement,
@@ -161,8 +144,7 @@ export default function Login() {
         };
 
         return () => {
-            // Clean up script only if it exists
-            if (script.parentNode) {
+            if (script.parentNode) { 
                 document.head.removeChild(script);
             }
         };
@@ -199,8 +181,7 @@ export default function Login() {
                     </button>
                 </p>
                 
-                {/* Show Google login - will show warning if not properly configured */}
-                <div className="divider">
+                <div className="divider"> 
                     <span>or</span>
                 </div>
                 

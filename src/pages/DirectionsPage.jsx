@@ -156,7 +156,6 @@ const DirectionsPage = () => {
                     <h2>Getting Your Location...</h2>
                     <p>Calculating the best routes to your destination</p>
                 </div>
-                {/* Top Back Button */}
                 <div className="bottom-back-btn-container" style={{ textAlign: 'center', margin: '2rem 0' }}>
                     <button onClick={() => navigate(-1)} className="back-button bottom-back-button">
                         ← Back
@@ -194,13 +193,12 @@ const DirectionsPage = () => {
 
     return (
             <div className="directions-page">
-                {/* Top Back Button - renamed and moved above header */}
                 <div className="top-back-btn-container" style={{ textAlign: 'center', margin: '2rem 0' }}>
                     <button onClick={() => navigate(-1)} className="back-button top-back-button">
                         ← Back
                     </button>
                 </div>
-                {/* Header */}
+
                 <div className="directions-header">
                 <div className="header-content">
                     <div className="destination-info">
@@ -210,9 +208,7 @@ const DirectionsPage = () => {
                 </div>
             </div>
 
-            {/* Main Content */}
             <div className="directions-content">
-                {/* Map Section */}
                 <div className="map-section">
                     <div className="map-container">
                         <iframe
@@ -236,7 +232,6 @@ const DirectionsPage = () => {
                     </div>
                 </div>
 
-                {/* Route Options */}
                 <div className="route-section">
                     <h2>Choose Your Route</h2>
                     <div className="route-tabs">

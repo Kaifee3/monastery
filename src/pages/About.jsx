@@ -13,7 +13,6 @@ const About = () => {
 
     return (
         <div className="about-container">
-            {/* Hero Section */}
             <section className="about-hero">
                 <div className="hero-content">
                     <h1 className="about-title">
@@ -23,9 +22,7 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Main Content */}
             <div className="about-content">
-                {/* Introduction Section */}
                 <section className="intro-section">
                     <div className="content-card">
                         <p className="intro-text">
@@ -51,7 +48,6 @@ const About = () => {
                     </div>
                 </section>
 
-                {/* Team Section */}
                 <section className="team-section">
                     <div className="content-card">
                         <h2 className="section-title">
@@ -84,7 +80,6 @@ const About = () => {
                     </div>
                 </section>
 
-                {/* Mission Section */}
                 <section className="mission-section">
                     <div className="content-card mission-card">
                         <h2 className="section-title">

@@ -9,17 +9,14 @@ export default function Admin() {
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
   
-  // State management
   const [users, setUsers] = useState([]);
   const [dashboardStats, setDashboardStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   
-  // Active tab state
   const [activeTab, setActiveTab] = useState('users');
   
-  // Review management states
   const [reviews, setReviews] = useState([]);
   const [reviewStats, setReviewStats] = useState(null);
   const [selectedReview, setSelectedReview] = useState(null);
@@ -31,18 +28,15 @@ export default function Admin() {
     limit: 10
   });
   
-  // Modal and form states
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   
-  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [usersPerPage] = useState(10);
   
-  // Form data
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

@@ -4,7 +4,6 @@ import './Contact.css';
 const Contact = () => {
     return (
         <div className="contact-container">
-            {/* Hero Section */}
             <section className="contact-hero">
                 <div className="hero-content">
                     <h1 className="contact-title">
@@ -14,7 +13,6 @@ const Contact = () => {
                 </div>
             </section>
 
-            {/* Contact Form Section */}
             <div className="contact-content">
                 <div className="row justify-content-center">
                     <div className="col-md-7 ftco-animate text-center">
@@ -118,8 +116,7 @@ const Contact = () => {
                     </div>
                 </div>
 
-                {/* Contact Information Section */}
-                <div className="contact-info-section">
+                <div className="contact-info-section">" 
                     <div className="contact-info-card">
                         <h2>Get in Touch</h2>
                         <div className="contact-details">

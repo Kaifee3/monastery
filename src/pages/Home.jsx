@@ -20,12 +20,11 @@ const Home = () => {
     useEffect(() => {
         const slideInterval = setInterval(() => {
             if (!isPaused) setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 4000); // Change slide every 4 seconds
+        }, 4000);
 
         return () => clearInterval(slideInterval);
     }, [slides.length, isPaused]);
 
-    // Keyboard navigation
     useEffect(() => {
         const handleKey = (e) => {
             if (e.key === 'ArrowLeft') prevSlide();
@@ -70,8 +69,6 @@ const Home = () => {
                         </div>
                     ))}
                     
-                    {/* Navigation buttons removed per request */}
-                    
                     <div className="dots-container">
                         {slides.map((_, index) => (
                             <span
@@ -82,7 +79,6 @@ const Home = () => {
                         ))}
                     </div>
 
-                    {/* Progress bar */}
                     <div className="slideshow-progress">
                         <div className="progress-bar" style={{ animationDuration: `${isPaused ? 0 : 4}s` }} data-active={currentSlide}></div>
                     </div>
