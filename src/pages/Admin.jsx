@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../contexts/AuthContext";
+import { reviewAPI } from "../services/reviewAPI";
 import "./Admin.css";
 
 export default function Admin() {
@@ -14,6 +15,21 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  
+  // Active tab state
+  const [activeTab, setActiveTab] = useState('users');
+  
+  // Review management states
+  const [reviews, setReviews] = useState([]);
+  const [reviewStats, setReviewStats] = useState(null);
+  const [selectedReview, setSelectedReview] = useState(null);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [reviewFilters, setReviewFilters] = useState({
+    status: '',
+    difficulty: '',
+    page: 1,
+    limit: 10
+  });
   
   // Modal and form states
   const [showAddModal, setShowAddModal] = useState(false);
@@ -178,7 +194,96 @@ export default function Admin() {
     setShowEditModal(false);
     setShowDeleteModal(false);
     setSelectedUser(null);
+    setShowReviewModal(false);
+    setSelectedReview(null);
     resetForm();
+  };
+
+  // Review Management Functions
+  const fetchReviews = async () => {
+    try {
+      setLoading(true);
+      const params = {
+        ...reviewFilters,
+        page: reviewFilters.page,
+        limit: reviewFilters.limit
+      };
+      
+      // Remove empty filters
+      Object.keys(params).forEach(key => {
+        if (params[key] === '') delete params[key];
+      });
+
+      const response = await reviewAPI.getAllReviewsForAdmin(params);
+      setReviews(response.reviews || []);
+      setError('');
+    } catch (err) {
+      console.error('Error fetching reviews:', err);
+      setError('Failed to load reviews');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchReviewStats = async () => {
+    try {
+      const response = await reviewAPI.getReviewDashboardStats();
+      setReviewStats(response.stats);
+    } catch (err) {
+      console.error('Error fetching review stats:', err);
+    }
+  };
+
+  const updateReviewStatus = async (reviewId, status, adminNote = '') => {
+    try {
+      await reviewAPI.updateReviewStatus(reviewId, { status, adminNote });
+      setSuccess(`Review ${status} successfully`);
+      fetchReviews();
+      setShowReviewModal(false);
+    } catch (err) {
+      setError(err.response?.data?.message || `Failed to ${status} review`);
+    }
+  };
+
+  const deleteReview = async (reviewId) => {
+    if (!window.confirm('Are you sure you want to delete this review?')) {
+      return;
+    }
+    
+    try {
+      await reviewAPI.deleteReviewByAdmin(reviewId);
+      setSuccess('Review deleted successfully');
+      fetchReviews();
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to delete review');
+    }
+  };
+
+  const handleReviewFilterChange = (key, value) => {
+    setReviewFilters(prev => ({
+      ...prev,
+      [key]: value,
+      page: 1 // Reset to first page when filter changes
+    }));
+  };
+
+  // Fetch reviews when tab changes or filters change
+  useEffect(() => {
+    if (activeTab === 'reviews') {
+      fetchReviews();
+      fetchReviewStats();
+    }
+  }, [activeTab, reviewFilters]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
   // Clear messages after 3 seconds
@@ -201,12 +306,14 @@ export default function Admin() {
       <div className="admin-header">
         <h1>Admin Dashboard</h1>
         <div className="admin-actions">
-          <button 
-            className="btn-primary" 
-            onClick={() => setShowAddModal(true)}
-          >
-            Add New User
-          </button>
+          {activeTab === 'users' && (
+            <button 
+              className="btn-primary" 
+              onClick={() => setShowAddModal(true)}
+            >
+              Add New User
+            </button>
+          )}
           <button 
             className="btn-secondary" 
             onClick={() => {
@@ -219,12 +326,28 @@ export default function Admin() {
         </div>
       </div>
 
+      {/* Tab Navigation */}
+      <div className="admin-tabs">
+        <button 
+          className={`tab-btn ${activeTab === 'users' ? 'active' : ''}`}
+          onClick={() => setActiveTab('users')}
+        >
+          User Management
+        </button>
+        <button 
+          className={`tab-btn ${activeTab === 'reviews' ? 'active' : ''}`}
+          onClick={() => setActiveTab('reviews')}
+        >
+          Review Management
+        </button>
+      </div>
+
       {/* Messages */}
       {error && <div className="message error-message">{error}</div>}
       {success && <div className="message success-message">{success}</div>}
 
       {/* Dashboard Stats */}
-      {dashboardStats && (
+      {activeTab === 'users' && dashboardStats && (
         <div className="dashboard-stats">
           <div className="stat-card">
             <h3>{dashboardStats.totalUsers || 0}</h3>
@@ -238,54 +361,76 @@ export default function Admin() {
             <h3>{dashboardStats.adminUsers || 0}</h3>
             <p>Admin Users</p>
           </div>
-          <div className="stat-card">
-            <h3>{dashboardStats.regularUsers || 0}</h3>
-            <p>Regular Users</p>
-          </div>
         </div>
       )}
 
-      {/* Users Table */}
-      <div className="users-section">
-        <h2>User Management</h2>
-        <div className="table-container">
-          <table className="users-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Created Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((tableUser) => (
-                <tr key={tableUser._id}>
-                  <td>{`${tableUser.firstName} ${tableUser.lastName}`}</td>
-                  <td>{tableUser.email}</td>
-                  <td>
-                    <span className={`role-badge ${tableUser.role}`}>
-                      {tableUser.role}
-                    </span>
-                  </td>
-                  <td>
-                    <span className={`status-badge ${tableUser.status || 'active'}`}>
-                      {tableUser.status || 'active'}
-                    </span>
-                  </td>
-                  <td>{new Date(tableUser.createdAt).toLocaleDateString()}</td>
-                  <td className="actions">
-                    {/* Don't allow admin to edit/delete themselves */}
-                    {tableUser._id !== user?._id && tableUser.email !== user?.email && (
-                      <>
-                        <button 
-                          className="btn-edit" 
-                          onClick={() => openEditModal(tableUser)}
-                        >
-                          Edit
-                        </button>
+      {activeTab === 'reviews' && reviewStats && (
+        <div className="dashboard-stats">
+          {reviewStats.overallStats && reviewStats.overallStats[0] && (
+            <>
+              <div className="stat-card">
+                <h3>{reviewStats.overallStats[0].totalReviews || 0}</h3>
+                <p>Total Reviews</p>
+              </div>
+              <div className="stat-card">
+                <h3>{reviewStats.overallStats[0].pendingReviews || 0}</h3>
+                <p>Pending Reviews</p>
+              </div>
+              <div className="stat-card">
+                <h3>{reviewStats.overallStats[0].approvedReviews || 0}</h3>
+                <p>Approved Reviews</p>
+              </div>
+              <div className="stat-card">
+                <h3>{reviewStats.overallStats[0].averageRating?.toFixed(1) || 'N/A'}</h3>
+                <p>Average Rating</p>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
+      {/* Tab Content */}
+      {activeTab === 'users' ? (
+        <div className="admin-content user-management">
+          <h2>User Management</h2>
+          <div className="table-container">
+            <table className="users-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Created Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((tableUser) => (
+                  <tr key={tableUser._id}>
+                    <td>{`${tableUser.firstName} ${tableUser.lastName}`}</td>
+                    <td>{tableUser.email}</td>
+                    <td>
+                      <span className={`role-badge ${tableUser.role}`}>
+                        {tableUser.role}
+                      </span>
+                    </td>
+                    <td>
+                      <span className={`status-badge ${tableUser.status || 'active'}`}>
+                        {tableUser.status || 'active'}
+                      </span>
+                    </td>
+                    <td>{new Date(tableUser.createdAt).toLocaleDateString()}</td>
+                    <td className="actions">
+                      {/* Don't allow admin to edit/delete themselves */}
+                      {tableUser._id !== user?._id && tableUser.email !== user?.email && (
+                        <>
+                          <button 
+                            className="btn-edit" 
+                            onClick={() => openEditModal(tableUser)}
+                          >
+                            Edit
+                          </button>
                         <button 
                           className="btn-delete" 
                           onClick={() => openDeleteModal(tableUser)}
@@ -323,7 +468,112 @@ export default function Admin() {
             </button>
           </div>
         )}
-      </div>
+        </div>
+      ) : (
+        /* Review Management Content */
+        <div className="admin-content review-management">
+          <h2>Review Management</h2>
+          
+          {/* Review Filters */}
+          <div className="review-filters">
+            <select 
+              value={reviewFilters.status}
+              onChange={(e) => handleReviewFilterChange('status', e.target.value)}
+            >
+              <option value="">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+            
+            <select 
+              value={reviewFilters.difficulty}
+              onChange={(e) => handleReviewFilterChange('difficulty', e.target.value)}
+            >
+              <option value="">All Difficulty</option>
+              <option value="easy">Easy</option>
+              <option value="moderate">Moderate</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+
+          {/* Reviews Table */}
+          <div className="table-container">
+            <table className="reviews-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Rating</th>
+                  <th>Difficulty</th>
+                  <th>Comment</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {reviews.map((review) => (
+                  <tr key={review._id}>
+                    <td>{review.userName}</td>
+                    <td>
+                      <div className="rating-stars">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <span 
+                            key={star} 
+                            className={`star ${star <= review.rating ? 'filled' : ''}`}
+                          >
+                            ⭐
+                          </span>
+                        ))}
+                        ({review.rating})
+                      </div>
+                    </td>
+                    <td>
+                      <span className={`difficulty-badge ${review.difficulty}`}>
+                        {review.difficulty}
+                      </span>
+                    </td>
+                    <td className="review-comment">
+                      {review.comment.length > 50 
+                        ? `${review.comment.substring(0, 50)}...` 
+                        : review.comment}
+                    </td>
+                    <td>
+                      <span className={`status-badge ${review.status}`}>
+                        {review.status}
+                      </span>
+                    </td>
+                    <td>{formatDate(review.createdAt)}</td>
+                    <td className="actions">
+                      <button 
+                        className="btn-view" 
+                        onClick={() => {
+                          setSelectedReview(review);
+                          setShowReviewModal(true);
+                        }}
+                      >
+                        View
+                      </button>
+                      <button 
+                        className="btn-delete" 
+                        onClick={() => deleteReview(review._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {reviews.length === 0 && !loading && (
+            <div className="no-reviews">
+              <p>No reviews found matching the current filters.</p>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Add User Modal */}
       {showAddModal && (
@@ -449,6 +699,85 @@ export default function Admin() {
               <button type="button" className="btn-delete" onClick={handleDeleteUser}>
                 Delete User
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Review Detail Modal */}
+      {showReviewModal && selectedReview && (
+        <div className="modal-overlay" onClick={closeModals}>
+          <div className="modal-content review-modal" onClick={(e) => e.stopPropagation()}>
+            <h2>Review Details</h2>
+            <div className="review-details">
+              <div className="review-info">
+                <div className="info-row">
+                  <label>User:</label>
+                  <span>{selectedReview.userName}</span>
+                </div>
+                <div className="info-row">
+                  <label>Rating:</label>
+                  <div className="rating-stars">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span 
+                        key={star} 
+                        className={`star ${star <= selectedReview.rating ? 'filled' : ''}`}
+                      >
+                        ⭐
+                      </span>
+                    ))}
+                    ({selectedReview.rating}/5)
+                  </div>
+                </div>
+                <div className="info-row">
+                  <label>Difficulty:</label>
+                  <span className={`difficulty-badge ${selectedReview.difficulty}`}>
+                    {selectedReview.difficulty}
+                  </span>
+                </div>
+                <div className="info-row">
+                  <label>Status:</label>
+                  <span className={`status-badge ${selectedReview.status}`}>
+                    {selectedReview.status}
+                  </span>
+                </div>
+                <div className="info-row">
+                  <label>Date:</label>
+                  <span>{formatDate(selectedReview.createdAt)}</span>
+                </div>
+              </div>
+              
+              <div className="review-comment-full">
+                <label>Comment:</label>
+                <p>{selectedReview.comment}</p>
+              </div>
+              
+              {selectedReview.adminNote && (
+                <div className="admin-note">
+                  <label>Admin Note:</label>
+                  <p>{selectedReview.adminNote}</p>
+                </div>
+              )}
+            </div>
+            
+            <div className="modal-actions review-actions">
+              <button type="button" onClick={closeModals}>Close</button>
+              {selectedReview.status === 'pending' && (
+                <>
+                  <button 
+                    className="btn-approve" 
+                    onClick={() => updateReviewStatus(selectedReview._id, 'approved')}
+                  >
+                    Approve
+                  </button>
+                  <button 
+                    className="btn-reject" 
+                    onClick={() => updateReviewStatus(selectedReview._id, 'rejected')}
+                  >
+                    Reject
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

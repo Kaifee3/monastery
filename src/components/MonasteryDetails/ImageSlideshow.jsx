@@ -20,13 +20,28 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             'Bumtar Namdroling Monastery': 'Bumtar Namdroling Monastery',
             'Doling Monastery': 'Doling-Monastery',
             'Karma Raptenling Monastery': 'Karma-Raptenling-Monastery',
-            'Ngadag Monastery': 'Ngadag-Monastery'
+            'Ngadag Monastery': 'Ngadag-Monastery',
+            'Aden Wolung Monastery': 'ADEN WOLUNG',
+            'Chakung Monastery': 'CHAKUNG',
+            'Dodak Tamu Monastery': 'DODAK TAMU',
+            'Druk Monastery': 'Druk',
+            'Hungri Monastery': 'HUNGRI',
+            'Khachoedpalri Monastery': 'KHACHOEDPALRI',
+            'Lhuntse Monastery': 'LHUNTSE',
+            'Melli-Atsing Monastery': 'MELLI-ATSING',
+            'Nubling Monastery': 'NUBLING',
+            'Okhery Monastery': 'OKHERY',
+            'Pegmantysse Monastery': 'pegmantysse',
+            'Rinchen Choling Monastery': 'RINCHEN CHOLING',
+            'Rinchenpung Monastery': 'RINCHENPUNG',
+            'Sinon Monastery': 'Sinon',
+            'Sri Badam Monastery': 'SRI BADAM',
+            'Tashi Samboling Monastery': 'TASHI SAMBOLING'
         };
         baseName = nameMapping[monasteryName] || monasteryName;
 
-        
         if (monasteryName === 'Bumtar Namdroling Monastery') {
-            return [1,2,3,4].map(i => ({
+            return [1,2,3].map(i => ({
                 src: `/images/Bumtar Namdroling Monastery${i}.jpg`,
                 srcset: `/images/Bumtar Namdroling Monastery${i}.jpg 1x, /images/Bumtar Namdroling Monastery${i}.jpg 2x`,
                 alt: `${monasteryName} - Image ${i}`,
@@ -34,10 +49,9 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             }));
         }
 
-        
         if (["Doling Monastery", "Karma Raptenling Monastery", "Ngadag Monastery"].includes(monasteryName)) {
             const availableImages = [];
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 3; i++) {
                 availableImages.push({
                     src: `/images/${baseName}${i}.jpg`,
                     srcset: `/images/${baseName}${i}.jpg 1x, /images/${baseName}${i}.jpg 2x`,
@@ -47,8 +61,88 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             }
             return availableImages;
         }
+
+        const westRegionMonasteries = [
+            'Aden Wolung Monastery', 'Dodak Tamu Monastery', 
+            'Lhuntse Monastery', 'Rinchen Choling Monastery', 'Tashi Samboling Monastery'
+        ];
         
-        return [1,2,3,4].map(i => ({
+        const mixedExtensionMonasteries = [
+            'Hungri Monastery', 'Khachoedpalri Monastery', 'Nubling Monastery',
+            'Okhery Monastery', 'Pegmantysse Monastery', 'Rinchenpung Monastery',
+            'Sri Badam Monastery', 'Chakung Monastery', 'Druk Monastery', 'Melli-Atsing Monastery'
+        ];
+
+        if (westRegionMonasteries.includes(monasteryName)) {
+            return [
+                {
+                    src: `/images/${baseName}.jfif`,
+                    srcset: `/images/${baseName}.jfif 1x, /images/${baseName}.jfif 2x`,
+                    alt: `${monasteryName} - Image 1`,
+                    fallback: `/images/${imageName}`
+                },
+                {
+                    src: `/images/${baseName}1.jfif`,
+                    srcset: `/images/${baseName}1.jfif 1x, /images/${baseName}1.jfif 2x`,
+                    alt: `${monasteryName} - Image 2`,
+                    fallback: `/images/${imageName}`
+                },
+                {
+                    src: `/images/${baseName}2.jfif`,
+                    srcset: `/images/${baseName}2.jfif 1x, /images/${baseName}2.jfif 2x`,
+                    alt: `${monasteryName} - Image 3`,
+                    fallback: `/images/${imageName}`
+                }
+            ];
+        }
+
+        if (mixedExtensionMonasteries.includes(monasteryName)) {
+            const extensions = {
+                'Hungri Monastery': ['.jpg', '1.jpg', '2.jpg'],
+                'Khachoedpalri Monastery': ['.jpg', '1.JPG', '2.jpg'],
+                'Nubling Monastery': ['.jpg', '1.jfif', '2.jpg'],
+                'Okhery Monastery': ['.jpg', '1.jfif', '2.jfif'],
+                'Pegmantysse Monastery': ['.jpg', '1.jfif', '2.jpg'],
+                'Rinchenpung Monastery': ['.jpg', '1.jfif', '2.jpg'],
+                'Sri Badam Monastery': ['.jpg', '1.jpg', '2.png'],
+                'Chakung Monastery': ['.jfif', ' 1.jfif', ' 2.jpg'],
+                'Druk Monastery': ['.jfif', '1.jfif', '2.jpg'],
+                'Melli-Atsing Monastery': ['.jfif', '1.jfif', '2.jpg']
+            };
+            
+            const exts = extensions[monasteryName];
+            return exts ? exts.map((ext, index) => ({
+                src: `/images/${baseName}${ext}`,
+                srcset: `/images/${baseName}${ext} 1x, /images/${baseName}${ext} 2x`,
+                alt: `${monasteryName} - Image ${index + 1}`,
+                fallback: `/images/${imageName}`
+            })) : [];
+        }
+
+        if (monasteryName === 'Sinon Monastery') {
+            return [
+                {
+                    src: `/images/Sinon.png`,
+                    srcset: `/images/Sinon.png 1x, /images/Sinon.png 2x`,
+                    alt: `${monasteryName} - Image 1`,
+                    fallback: `/images/${imageName}`
+                },
+                {
+                    src: `/images/Sinon1.png`,
+                    srcset: `/images/Sinon1.png 1x, /images/Sinon1.png 2x`,
+                    alt: `${monasteryName} - Image 2`,
+                    fallback: `/images/${imageName}`
+                },
+                {
+                    src: `/images/Sinon2.png`,
+                    srcset: `/images/Sinon2.png 1x, /images/Sinon2.png 2x`,
+                    alt: `${monasteryName} - Image 3`,
+                    fallback: `/images/${imageName}`
+                }
+            ];
+        }
+        
+        return [1,2,3].map(i => ({
             src: monasteryName === 'Rumtek Monastery'
                 ? `/images/slide/Rumtek-Monastery-${i}.jpg`
                 : `/images/slide/${baseName}${i}.jpg`,
@@ -60,17 +154,12 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
         }));
     }, [monasteryName, imageName]);
 
-    
     const images = useMemo(() => generateSlideImages(), [generateSlideImages]);
     const [imageLoadError, setImageLoadError] = useState({});
 
-    
     useEffect(() => {
         setCurrentSlide(0);
     }, [monasteryName]);
-
-    
-
 
     const goToSlide = (index) => {
         setCurrentSlide(index);
@@ -84,8 +173,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
         setCurrentSlide((prev) => (prev + 1) % images.length);
     };
 
-
-
     const handleImageError = (index) => {
         setImageLoadError(prev => ({ ...prev, [index]: true }));
     };
@@ -94,7 +181,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
         setImageLoadError(prev => ({ ...prev, [index]: false }));
     };
 
-    
     const validImages = images.filter((img, idx) => !imageLoadError[idx]);
     const hasAtLeastOneImage = validImages.length > 0;
     if (images.length === 0 || !hasAtLeastOneImage) {
@@ -106,7 +192,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
         );
     }
 
-    
     const allImagesFailed = images.every((_, idx) => imageLoadError[idx]);
     if (allImagesFailed) {
         console.error('All images failed to load for', monasteryName, images.map(img => img.src));
@@ -141,7 +226,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                                 </div>
                             )}
                             <div className="slide-overlay">
-                                {/* Show monastery name only on the first slide */}
                                 {currentSlide === 0 && (
                                     <h1 className="monastery-title">{monasteryName}</h1>
                                 )}

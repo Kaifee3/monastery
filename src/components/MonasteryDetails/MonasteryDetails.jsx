@@ -2,14 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import useMonasteryData from '../../hooks/useMonasteryData';
 import ImageSlideshow from './ImageSlideshow';
+import ReviewSection from './ReviewSection';
+import { useAuth } from '../../contexts/AuthContext';
 import './MonasteryDetails.css';
 
 const MonasteryDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { monasteries, loading, error } = useMonasteryData();
+    const { isAuthenticated } = useAuth();
     const [monastery, setMonastery] = useState(null);
     const [activeTab, setActiveTab] = useState('overview');
+    const handleReviewButtonClick = () => {
+        console.log('Review button clicked, current tab:', activeTab);
+        setActiveTab('reviews');
+        console.log('Tab set to reviews');
+        
+        setTimeout(() => {
+            const tabNavigation = document.querySelector('.tab-navigation');
+            if (tabNavigation) {
+                tabNavigation.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+                console.log('Scrolled to tab navigation');
+            }
+        }, 100);
+    };
 
     useEffect(() => {
         if (monasteries.length > 0) {
@@ -223,6 +242,12 @@ const MonasteryDetails = () => {
                     onClick={() => setActiveTab('routes')}
                 >
                     Routes & Transport
+                </button>
+                <button 
+                    className={`tab ${activeTab === 'reviews' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('reviews')}
+                >
+                    Reviews & Experiences
                 </button>
             </div>
 
@@ -446,6 +471,10 @@ const MonasteryDetails = () => {
                         </section>
                     </div>
                 )}
+
+                {activeTab === 'reviews' && (
+                    <ReviewSection monasteryId={monastery.id} monasteryName={monastery.name} />
+                )}
             </div>
 
             
@@ -460,9 +489,10 @@ const MonasteryDetails = () => {
                     </p>
                 </div>
                 <div className="image-gallery-cards">
-                    {[1, 2, 3, 4].map((imageNum) => {
+                    {[1, 2, 3].map((imageNum) => {
                         let imagePath;
                         const nameMapping = {
+                            'Rumtek Monastery': 'Rumtek-Monastery',
                             'Pemayangtse Monastery': 'Pemangytse',
                             'Tashiding Monastery': 'Tashiding-Monastery',
                             'Enchey Monastery': 'Enchey Monastery',
@@ -473,13 +503,72 @@ const MonasteryDetails = () => {
                             'Kathog Lake Monastery': 'Kathog',
                             'Lingdum Zurmang Monastery': 'Lingdum-Zurmang',
                             'Bumtar Namdroling Monastery': 'Bumtar Namdroling Monastery',
-                            'Doling Monastery': 'Doling Monastery',
-                            'Karma Raptenling Monastery': 'Karma Raptenling Monastery',
+                            'Doling Monastery': 'Doling-Monastery',
+                            'Karma Raptenling Monastery': 'Karma-Raptenling-Monastery',
                             'Ngadag Monastery': 'Ngadag-Monastery',
-                            'Rumtek Monastery': 'Rumtek-Monastery'
+                            'Aden Wolung Monastery': 'ADEN WOLUNG',
+                            'Chakung Monastery': 'CHAKUNG',
+                            'Dodak Tamu Monastery': 'DODAK TAMU',
+                            'Druk Monastery': 'Druk',
+                            'Hungri Monastery': 'HUNGRI',
+                            'Khachoedpalri Monastery': 'KHACHOEDPALRI',
+                            'Lhuntse Monastery': 'LHUNTSE',
+                            'Melli-Atsing Monastery': 'MELLI-ATSING',
+                            'Nubling Monastery': 'NUBLING',
+                            'Okhery Monastery': 'OKHERY',
+                            'Pegmantysse Monastery': 'pegmantysse',
+                            'Rinchen Choling Monastery': 'RINCHEN CHOLING',
+                            'Rinchenpung Monastery': 'RINCHENPUNG',
+                            'Sinon Monastery': 'Sinon',
+                            'Sri Badam Monastery': 'SRI BADAM',
+                            'Tashi Samboling Monastery': 'TASHI SAMBOLING'
                         };
+
                         const baseName = nameMapping[monastery.name] || monastery.name.replace(/ /g, '-');
-                        imagePath = `/images/slide/${baseName}${imageNum}.jpg`;
+
+                        if (monastery.name === 'Bumtar Namdroling Monastery') {
+                            imagePath = `/images/Bumtar Namdroling Monastery${imageNum}.jpg`;
+                        } else if (['Doling Monastery', 'Karma Raptenling Monastery', 'Ngadag Monastery'].includes(monastery.name)) {
+                            imagePath = `/images/${baseName}${imageNum}.jpg`;
+                        } else if (['Aden Wolung Monastery', 'Dodak Tamu Monastery', 'Lhuntse Monastery', 'Rinchen Choling Monastery', 'Tashi Samboling Monastery'].includes(monastery.name)) {
+                            imagePath = imageNum === 1 ? `/images/${baseName}.jfif` : `/images/${baseName}${imageNum}.jfif`;
+                        } else if (monastery.name === 'Chakung Monastery') {
+                            const extensions = ['.jfif', ' 1.jfif', ' 2.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Druk Monastery') {
+                            const extensions = ['.jfif', '1.jfif', '2.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Melli-Atsing Monastery') {
+                            const extensions = ['.jfif', '1.jfif', '2.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Hungri Monastery') {
+                            const extensions = ['.jpg', '1.jpg', '2.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Khachoedpalri Monastery') {
+                            const extensions = ['.jpg', '1.JPG', '2.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Nubling Monastery') {
+                            const extensions = ['.jpg', '1.jfif', '2.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Okhery Monastery') {
+                            const extensions = ['.jpg', '1.jfif', '2.jfif'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Pegmantysse Monastery') {
+                            const extensions = ['.jpg', '1.jfif', '2.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Rinchenpung Monastery') {
+                            const extensions = ['.jpg', '1.jfif', '2.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Sri Badam Monastery') {
+                            const extensions = ['.jpg', '1.jpg', '2.png'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Sinon Monastery') {
+                            const extensions = ['.png', '1.png', '2.png'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else {
+                            imagePath = `/images/slide/${baseName}${imageNum}.jpg`;
+                        }
+
                         return (
                             <div key={imageNum} className="gallery-card">
                                 <div className="gallery-card-image">
@@ -512,6 +601,50 @@ const MonasteryDetails = () => {
                             </div>
                         );
                     })}
+                </div>
+            </div>
+
+            <div className="quick-review-section">
+                <div className="quick-review-header">
+                    <h2>
+                        <span className="review-icon">⭐</span>
+                        Share Your Experience
+                    </h2>
+                    <p>Help fellow travelers by sharing your visit experience at {monastery.name}</p>
+                </div>
+
+                <div className="quick-review-content">
+                    
+                    <div className="review-actions-preview">
+                        {isAuthenticated ? (
+                            <>
+                                <button 
+                                    className="btn btn-primary review-btn"
+                                    onClick={handleReviewButtonClick}
+                                >
+                                    Write a Review
+                                </button>
+                                <button 
+                                    className="btn btn-outline review-btn"
+                                    onClick={handleReviewButtonClick}
+                                >
+                                    Read All Reviews
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/login" className="btn btn-primary review-btn">
+                                    Login to Review
+                                </Link>
+                                <button 
+                                    className="btn btn-outline review-btn"
+                                    onClick={handleReviewButtonClick}
+                                >
+                                    Read Reviews
+                                </button>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
 

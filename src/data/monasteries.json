@@ -138,5 +138,165 @@
     "latitude": 27.2400,
     "longitude": 88.4300,
     "history": "Ngadag Monastery, originally built around 1690 by the Chogyals of Sikkim, is one of the oldest monasteries in South Sikkim. It was initially constructed as a palace and later converted into a monastery. A newer structure was built later to withstand earthquakes. It is renowned for its spiritual ambiance, beautiful surroundings, and annual religious ceremonies."
+  },
+  {
+    "id": 15,
+    "name": "Aden Wolung Monastery",
+    "location": "Aden Wolung, West Sikkim",
+    "established": "1860",
+    "imageName": "ADEN WOLUNG.jfif",
+    "latitude": 27.2800,
+    "longitude": 88.1800,
+    "history": "Aden Wolung Monastery is a sacred Buddhist monastery located in West Sikkim, established around 1860. Known for its serene mountain setting and traditional architecture, the monastery serves as an important spiritual center for the local community. It follows the Nyingma tradition and is famous for its annual festivals and meditation retreats."
+  },
+  {
+    "id": 16,
+    "name": "Chakung Monastery",
+    "location": "Chakung, West Sikkim",
+    "established": "1750",
+    "imageName": "CHAKUNG.jfif",
+    "latitude": 27.2600,
+    "longitude": 88.1600,
+    "history": "Chakung Monastery, founded around 1750, is one of the historic monasteries of West Sikkim. The monastery is known for its beautiful location amidst the Himalayan foothills and its rich collection of religious artifacts. It serves as a center for Buddhist learning and community gatherings, maintaining the ancient traditions of Tibetan Buddhism."
+  },
+  {
+    "id": 17,
+    "name": "Dodak Tamu Monastery",
+    "location": "Dodak Tamu, West Sikkim",
+    "established": "1680",
+    "imageName": "DODAK TAMU.jfif",
+    "latitude": 27.3100,
+    "longitude": 88.1900,
+    "history": "Dodak Tamu Monastery is one of the oldest monasteries in West Sikkim, established around 1680. The monastery is renowned for its ancient Buddhist scriptures and traditional architecture. It has been a significant center for spiritual learning and meditation practices, attracting pilgrims and scholars from across the Himalayan region."
+  },
+  {
+    "id": 18,
+    "name": "Druk Monastery",
+    "location": "Druk, West Sikkim",
+    "established": "1700",
+    "imageName": "Druk.jfif",
+    "latitude": 27.2900,
+    "longitude": 88.2100,
+    "history": "Druk Monastery, founded around 1700, is a prominent monastery in West Sikkim known for its peaceful atmosphere and stunning mountain views. The monastery follows the Drukpa Kagyu tradition and is famous for its annual Cham dance performances and religious ceremonies. It serves as an important pilgrimage site for Buddhist devotees."
+  },
+  {
+    "id": 19,
+    "name": "Hungri Monastery",
+    "location": "Hungri, West Sikkim",
+    "established": "1840",
+    "imageName": "HUNGRI.jpg",
+    "latitude": 27.2700,
+    "longitude": 88.1700,
+    "history": "Hungri Monastery, established around 1840, is a sacred Buddhist monastery nestled in the hills of West Sikkim. The monastery is known for its traditional Tibetan architecture and serves as a center for Buddhist meditation and religious studies. It plays a vital role in preserving the cultural heritage of the region."
+  },
+  {
+    "id": 20,
+    "name": "Khachoedpalri Monastery",
+    "location": "Khachoedpalri, West Sikkim",
+    "established": "1700",
+    "imageName": "KHACHOEDPALRI.jpg",
+    "latitude": 27.3200,
+    "longitude": 88.1500,
+    "history": "Khachoedpalri Monastery is located near the sacred Khachoedpalri Lake, established around 1700. The monastery is considered one of the most sacred sites in Sikkim, where it is believed that the wishes of devotees are fulfilled. The monastery and the nearby wish-fulfilling lake are important pilgrimage destinations for Buddhists and Hindus alike."
+  },
+  {
+    "id": 21,
+    "name": "Lhuntse Monastery",
+    "location": "Lhuntse, West Sikkim",
+    "established": "1720",
+    "imageName": "LHUNTSE.jfif",
+    "latitude": 27.2500,
+    "longitude": 88.1400,
+    "history": "Lhuntse Monastery, founded around 1720, is a historic monastery in West Sikkim known for its beautiful murals and ancient Buddhist texts. The monastery follows the Nyingma tradition and is famous for its spiritual retreats and meditation programs. It has been a center of Buddhist learning for over three centuries."
+  },
+  {
+    "id": 22,
+    "name": "Melli-Atsing Monastery",
+    "location": "Melli-Atsing, West Sikkim",
+    "established": "1850",
+    "imageName": "MELLI-ATSING.jfif",
+    "latitude": 27.2400,
+    "longitude": 88.1300,
+    "history": "Melli-Atsing Monastery, established around 1850, is a peaceful monastery located in the lower regions of West Sikkim. The monastery is known for its community-oriented approach and serves as a center for local religious activities. It plays an important role in preserving Buddhist traditions and providing spiritual guidance to the local community."
+  },
+  {
+    "id": 23,
+    "name": "Nubling Monastery",
+    "location": "Nubling, West Sikkim",
+    "established": "1860",
+    "imageName": "NUBLING1.jfif",
+    "latitude": 27.2200,
+    "longitude": 88.1200,
+    "history": "Nubling Monastery, founded around 1860, is a traditional Buddhist monastery situated in the scenic landscape of West Sikkim. The monastery is known for its ancient architecture and serves as a spiritual sanctuary for meditation and prayer. It continues to maintain the rich Buddhist heritage of the region."
+  },
+  {
+    "id": 24,
+    "name": "Okhery Monastery",
+    "location": "Okhery, West Sikkim",
+    "established": "1880",
+    "imageName": "OKHERY1.jfif",
+    "latitude": 27.3300,
+    "longitude": 88.2000,
+    "history": "Okhery Monastery, established around 1880, is a serene monastery located in the hills of West Sikkim. The monastery is known for its traditional Tibetan Buddhist practices and beautiful mountain setting. It serves as a center for religious studies and spiritual development, attracting visitors seeking peace and enlightenment."
+  },
+  {
+    "id": 25,
+    "name": "Pegmantysse Monastery",
+    "location": "Pegmantysse, West Sikkim",
+    "established": "1900",
+    "imageName": "pegmantysse1.jfif",
+    "latitude": 27.2300,
+    "longitude": 88.1100,
+    "history": "Pegmantysse Monastery, founded around 1900, is a relatively modern monastery that has quickly become an important spiritual center in West Sikkim. The monastery is known for its active community involvement and traditional Buddhist teachings. It serves as a bridge between ancient Buddhist wisdom and contemporary spiritual needs."
+  },
+  {
+    "id": 26,
+    "name": "Rinchen Choling Monastery",
+    "location": "Rinchen Choling, West Sikkim",
+    "established": "1840",
+    "imageName": "RINCHEN CHOLING.jfif",
+    "latitude": 27.2600,
+    "longitude": 88.1800,
+    "history": "Rinchen Choling Monastery, established around 1840, is a precious jewel among the monasteries of West Sikkim. The name 'Rinchen Choling' means 'Precious Dharma Place,' and it lives up to its name by being a center of Buddhist learning and spiritual practice. The monastery is known for its beautiful architecture and religious festivals."
+  },
+  {
+    "id": 27,
+    "name": "Rinchenpung Monastery",
+    "location": "Rinchenpung, West Sikkim",
+    "established": "1890",
+    "imageName": "RINCHENPUNG1.jfif",
+    "latitude": 27.2800,
+    "longitude": 88.1900,
+    "history": "Rinchenpung Monastery, founded around 1890, is a historic monastery known for its strategic location and spiritual significance. The monastery has been a guardian of Buddhist traditions and serves as a center for religious ceremonies and festivals. It is particularly famous for its annual celebrations and traditional mask dances."
+  },
+  {
+    "id": 28,
+    "name": "Sinon Monastery",
+    "location": "Sinon, West Sikkim",
+    "established": "1920",
+    "imageName": "Sinon.png",
+    "latitude": 27.3000,
+    "longitude": 88.2200,
+    "history": "Sinon Monastery, established around 1920, is one of the more recent additions to the monastic heritage of West Sikkim. Despite its relatively recent establishment, the monastery has become an important center for Buddhist practice and community activities. It is known for its modern approach to traditional Buddhist teachings."
+  },
+  {
+    "id": 29,
+    "name": "Sri Badam Monastery",
+    "location": "Sri Badam, West Sikkim",
+    "established": "1870",
+    "imageName": "SRI BADAM.jpg",
+    "latitude": 27.2700,
+    "longitude": 88.1600,
+    "history": "Sri Badam Monastery, founded around 1870, is a peaceful monastery located in the serene environment of West Sikkim. The monastery is known for its dedication to preserving Buddhist scriptures and providing spiritual education. It serves as a center for meditation retreats and religious studies, attracting scholars and practitioners from various regions."
+  },
+  {
+    "id": 30,
+    "name": "Tashi Samboling Monastery",
+    "location": "Tashi Samboling, West Sikkim",
+    "established": "1830",
+    "imageName": "TASHI SAMBOLING.jfif",
+    "latitude": 27.2900,
+    "longitude": 88.2000,
+    "history": "Tashi Samboling Monastery, established around 1830, is an auspicious monastery whose name means 'Place of Good Fortune and Complete Liberation.' The monastery is renowned for its spiritual atmosphere and traditional Buddhist practices. It serves as a center for religious festivals, meditation programs, and Buddhist philosophy studies."
   }
 ]
