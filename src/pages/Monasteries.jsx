@@ -487,303 +487,62 @@ const Monasteries = () => {
                 </div>
             </div>
 
-            <div className={`monasteries-container ${viewMode}-view`} style={{
-                padding: '0 20px',
+            <div style={{
+                padding: '60px 20px',
                 margin: '0 auto',
-                maxWidth: '1200px'
+                maxWidth: '800px',
+                textAlign: 'center'
             }}>
-                {filteredMonasteries.length === 0 ? (
-                    <div className="no-results">
-                        <div className="no-results-icon">🏛️</div>
-                        <h3>No monasteries found</h3>
-                        <p>Try adjusting your search or filter criteria</p>
-                    </div>
-                ) : (
-                    <div className={`monastery-${viewMode}`}>
-                        {pagedMonasteries.map((monastery, index) => (
-                            <div 
-                                key={monastery.id} 
-                                className={`monastery-card ${viewMode}-card`}
-                                style={{ animationDelay: `${index * 0.1}s` }}
-                                data-monastery-id={monastery.id}
-                            >
-                                <div className="monastery-image">
-                                    <Link to={`/monasteries/${monastery.id}`}>
-                                        <img 
-                                            src={`/images/${monastery.imageName || 'default-monastery.jpg'}`} 
-                                            alt={monastery.name}
-                                            loading="lazy"
-                                            onError={(e) => {
-                                                e.target.src = '/images/default-monastery.jpg';
-                                            }}
-                                        />
-                                        <div className="image-overlay">
-                                            <div className="established-badge">
-                                                Est. {monastery.established}
-                                            </div>
-                                            <button 
-                                                className={`wishlist-btn ${isInWishlist(monastery.id) ? 'in-wishlist' : ''}`}
-                                                onClick={(e) => handleToggleWishlist(e, monastery.id)}
-                                                disabled={wishlistLoading}
-                                                title={isInWishlist(monastery.id) ? 'Remove from wishlist' : 'Add to wishlist'}
-                                            >
-                                                {isInWishlist(monastery.id) ? '🤍' : '❤️'}
-                                            </button>
-                                        </div>
-                                    </Link>
-                                </div>
-
-                                <div className="monastery-content">
-                                    <div className="monastery-header" style={{
-                                        marginBottom: '8px'
-                                    }}>
-                                        <h2 className="monastery-name" style={{
-                                            marginBottom: '6px'
-                                        }}>{monastery.name}</h2>
-                                        <div className="monastery-meta" style={{
-                                            gap: '12px'
-                                        }}>
-                                            <span className="location">
-                                                <i>📍</i> {monastery.location}
-                                            </span>
-                                            <span className="established">
-                                                <i>🏛️</i> {monastery.established}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <p className="monastery-history" style={{
-                                        marginBottom: '10px',
-                                        lineHeight: '1.4',
-                                        marginTop: '0'
-                                    }}>{monastery.history}</p>
-
-                                    <div className="monastery-features" style={{
-                                        marginBottom: '12px',
-                                        gap: '8px'
-                                    }}>
-                                        <span 
-                                            className="feature-tag virtual-tour-tag"
-                                            onClick={() => handleVirtualTour(monastery)}
-                                            title="View in 3D on Google Earth"
-                                        >
-                                            🌍 3D Tour
-                                        </span>
-                                        <span className="feature-tag">🎧 Audio</span>
-                                        <span 
-                                            className="feature-tag virtual-tour-tag"
-                                            onClick={() => handleVirtualTour(monastery)}
-                                            title="View in 3D on Google Earth"
-                                        >
-                                            � 360° View
-                                        </span>
-                                    </div>
-
-                                    <div className="monastery-actions" style={{
-                                        display: 'flex',
-                                        gap: '8px',
-                                        flexWrap: 'nowrap',
-                                        justifyContent: 'space-between',
-                                        margin: '0',
-                                        alignItems: 'center',
-                                        padding: '0',
-                                        width: '100%'
-                                    }}>
-                                        <Link 
-                                            to={`/monasteries/${monastery.id}`} 
-                                            className="btn btn-primary"
-                                            style={{
-                                                fontSize: '0.75rem',
-                                                padding: '8px 6px',
-                                                whiteSpace: 'nowrap',
-                                                flex: '1 1 0',
-                                                textAlign: 'center',
-                                                textDecoration: 'none',
-                                                background: 'linear-gradient(135deg, #2e7d32, #4caf50)',
-                                                color: 'white',
-                                                border: 'none',
-                                                borderRadius: '6px',
-                                                fontWeight: '600',
-                                                cursor: 'pointer',
-                                                transition: 'all 0.3s ease',
-                                                height: '36px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                minWidth: '0',
-                                                maxWidth: 'none'
-                                            }}
-                                        >
-                                            <i>👁️</i> Explore
-                                        </Link>
-                                        <button 
-                                            onClick={() => handleViewRoutes(monastery)}
-                                            className="btn btn-secondary"
-                                            style={{
-                                                fontSize: '0.75rem',
-                                                padding: '8px 6px',
-                                                whiteSpace: 'nowrap',
-                                                flex: '1 1 0',
-                                                background: 'transparent',
-                                                color: '#2e7d32',
-                                                border: '1px solid #2e7d32',
-                                                borderRadius: '6px',
-                                                fontWeight: '600',
-                                                cursor: 'pointer',
-                                                transition: 'all 0.3s ease',
-                                                height: '36px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                minWidth: '0',
-                                                maxWidth: 'none'
-                                            }}
-                                        >
-                                            <i>🗺️</i> Directions
-                                        </button>
-                                        <button 
-                                            className="btn btn-outline monastery-weather-btn"
-                                            onClick={() => handleWeatherUpdate(monastery)}
-                                            style={{
-                                                fontSize: '0.75rem',
-                                                padding: '8px 6px',
-                                                whiteSpace: 'nowrap',
-                                                flex: '1 1 0',
-                                                background: 'transparent',
-                                                color: '#2e7d32',
-                                                border: '1px solid #2e7d32',
-                                                borderRadius: '6px',
-                                                fontWeight: '600',
-                                                cursor: 'pointer',
-                                                transition: 'all 0.3s ease',
-                                                height: '36px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                minWidth: '0',
-                                                maxWidth: 'none'
-                                            }}
-                                        >
-                                            <i>🌤️</i> Weather
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div className="card-footer" style={{
-                                    marginTop: '12px',
-                                    paddingTop: '12px',
-                                    borderTop: '1px solid rgba(0,0,0,0.1)'
-                                }}>
-                                    <div className="rating">
-                                        <span className="stars">⭐⭐⭐⭐⭐</span>
-                                        <span className="rating-text">4.8 (127 reviews)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </div>
-
-            {filteredMonasteries.length > monasteriesPerPage && (
-                <div className="pagination-bar" style={{ 
-                    display: 'flex', 
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    margin: '20px 0',
-                    padding: '15px',
-                    background: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '15px',
-                    boxShadow: '0 2px 15px rgba(0, 0, 0, 0.08)',
-                    backdropFilter: 'blur(10px)'
+                <div style={{
+                    background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+                    borderRadius: '20px',
+                    padding: '40px',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
                 }}>
-                    <button
-                        className="btn btn-secondary"
-                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                        disabled={currentPage === 1}
-                        style={{ 
-                            marginRight: '1rem', 
-                            minWidth: '100px', 
-                            padding: '12px 20px', 
-                            fontSize: '0.95rem',
-                            background: currentPage === 1 ? '#95a5a6' : 'linear-gradient(135deg, #2e7d32, #4caf50)',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '30px',
-                            fontWeight: '700',
-                            textTransform: 'uppercase',
-                            letterSpacing: '1px',
-                            cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-                            transition: 'all 0.3s ease',
-                            boxShadow: currentPage === 1 ? 'none' : '0 6px 20px rgba(46, 125, 50, 0.4)',
-                            transform: 'translateY(0)'
-                        }}
-                        onMouseEnter={(e) => {
-                            if (currentPage !== 1) {
-                                e.target.style.transform = 'translateY(-3px)';
-                                e.target.style.boxShadow = '0 8px 25px rgba(46, 125, 50, 0.5)';
-                            }
-                        }}
-                        onMouseLeave={(e) => {
-                            if (currentPage !== 1) {
-                                e.target.style.transform = 'translateY(0)';
-                                e.target.style.boxShadow = '0 6px 20px rgba(46, 125, 50, 0.4)';
-                            }
-                        }}
-                    >
-                        ← Previous
-                    </button>
-                    <span style={{ 
-                        fontWeight: 'bold', 
-                        margin: '0 1.5rem',
-                        background: 'linear-gradient(135deg, #2e7d32, #4caf50)',
-                        color: 'white',
-                        padding: '10px 20px',
-                        borderRadius: '20px',
-                        fontSize: '1rem',
-                        letterSpacing: '0.5px',
-                        boxShadow: '0 4px 15px rgba(46, 125, 50, 0.3)'
+                    <div style={{ fontSize: '4rem', marginBottom: '20px' }}>🏛️</div>
+                    <h2 style={{
+                        fontSize: '2rem',
+                        color: '#2e7d32',
+                        marginBottom: '15px',
+                        fontWeight: '700'
                     }}>
-                        Page {currentPage} of {totalPages}
-                    </span>
-                    <button
-                        className="btn btn-secondary"
-                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                        disabled={currentPage === totalPages}
-                        style={{ 
-                            marginLeft: '1rem', 
-                            minWidth: '100px', 
-                            padding: '12px 20px', 
-                            fontSize: '0.95rem',
-                            background: currentPage === totalPages ? '#95a5a6' : 'linear-gradient(135deg, #2e7d32, #4caf50)',
+                        Explore Monasteries in Historic Places
+                    </h2>
+                    <p style={{
+                        fontSize: '1.1rem',
+                        color: '#555',
+                        marginBottom: '30px',
+                        lineHeight: '1.6'
+                    }}>
+                        Experience our enhanced monastery viewing with detailed cards, virtual tours, and interactive features in the Historic Places section.
+                    </p>
+                    <Link
+                        to="/historic-places"
+                        style={{
+                            display: 'inline-block',
+                            padding: '15px 40px',
+                            background: 'linear-gradient(135deg, #2e7d32, #4caf50)',
                             color: 'white',
-                            border: 'none',
-                            borderRadius: '30px',
-                            fontWeight: '700',
-                            textTransform: 'uppercase',
-                            letterSpacing: '1px',
-                            cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
-                            transition: 'all 0.3s ease',
-                            boxShadow: currentPage === totalPages ? 'none' : '0 6px 20px rgba(46, 125, 50, 0.4)',
-                            transform: 'translateY(0)'
+                            textDecoration: 'none',
+                            borderRadius: '50px',
+                            fontSize: '1.1rem',
+                            fontWeight: '600',
+                            boxShadow: '0 6px 20px rgba(46, 125, 50, 0.4)',
+                            transition: 'all 0.3s ease'
                         }}
                         onMouseEnter={(e) => {
-                            if (currentPage !== totalPages) {
-                                e.target.style.transform = 'translateY(-3px)';
-                                e.target.style.boxShadow = '0 8px 25px rgba(46, 125, 50, 0.5)';
-                            }
+                            e.target.style.transform = 'translateY(-3px)';
+                            e.target.style.boxShadow = '0 8px 25px rgba(46, 125, 50, 0.5)';
                         }}
                         onMouseLeave={(e) => {
-                            if (currentPage !== totalPages) {
-                                e.target.style.transform = 'translateY(0)';
-                                e.target.style.boxShadow = '0 6px 20px rgba(46, 125, 50, 0.4)';
-                            }
+                            e.target.style.transform = 'translateY(0)';
+                            e.target.style.boxShadow = '0 6px 20px rgba(46, 125, 50, 0.4)';
                         }}
                     >
-                        Next →
-                    </button>
+                        View Historic Places →
+                    </Link>
                 </div>
-            )}
+            </div>
 
             <div 
                 className="cta-section"

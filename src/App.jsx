@@ -6,6 +6,7 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Home from './pages/Home';
 import Monasteries from './pages/Monasteries';
+import HistoricPlaces from './pages/HistoricPlaces';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import DirectionsPage from './pages/DirectionsPage';
@@ -30,6 +31,7 @@ const App = () => {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/historic-places" element={<HistoricPlaces />} />
             <Route path="/monasteries" element={<Monasteries />} />
             <Route path="/monasteries/:id" element={<MonasteryDetails />} />
             <Route path="/virtual/:id" element={<Virtual />} />

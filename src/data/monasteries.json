@@ -298,5 +298,185 @@
     "latitude": 27.2900,
     "longitude": 88.2000,
     "history": "Tashi Samboling Monastery, established around 1830, is an auspicious monastery whose name means 'Place of Good Fortune and Complete Liberation.' The monastery is renowned for its spiritual atmosphere and traditional Buddhist practices. It serves as a center for religious festivals, meditation programs, and Buddhist philosophy studies."
+  },
+  {
+    "id": 31,
+    "name": "Enchey Monastery",
+    "location": "Gangtok, East Sikkim",
+    "established": "1840",
+    "imageName": "Enchey-Monastery1.png",
+    "latitude": 27.3408,
+    "longitude": 88.6200,
+    "history": "Enchey Monastery, established in 1840 by Lama Druptob Karpo of the Nyingma order, is one of the most important monasteries in Gangtok. The name 'Enchey' means 'solitary temple.' Built on a site blessed by Lama Druptob Karpo, who is believed to have the power to fly, the monastery commands a panoramic view of the Kanchenjunga range. It is famous for its annual Chaam dance performed during the Chaam festival in December or January."
+  },
+  {
+    "id": 32,
+    "name": "Kathog Dorjeden Monastery",
+    "location": "Pakyong, East Sikkim",
+    "established": "2000",
+    "imageName": "Kathog-Dorjeden-Monastery1.jpg",
+    "latitude": 27.2180,
+    "longitude": 88.5850,
+    "history": "Kathog Dorjeden Monastery is a significant spiritual center in East Sikkim, established around 2000. Named after the ancient Kathog lineage, one of the six main monasteries of the Nyingma school, it maintains the sacred traditions of Tibetan Buddhism. The monastery is known for its peaceful environment, beautiful architecture, and serves as a center for meditation retreats and Buddhist studies. It attracts devotees and visitors seeking spiritual guidance and blessings."
+  },
+  {
+    "id": 33,
+    "name": "Lingdok Tsangkhar Monastery",
+    "location": "Lingdok, East Sikkim",
+    "established": "1850",
+    "imageName": "Lingdok-Tsangkhar-Monastery1.jpg",
+    "latitude": 27.3150,
+    "longitude": 88.5950,
+    "history": "Lingdok Tsangkhar Monastery, founded around 1850, is a historic monastery nestled in the scenic hills of East Sikkim. The monastery follows the Nyingma tradition and is renowned for its ancient Buddhist scriptures and sacred relics. 'Tsangkhar' means 'white house' in Tibetan, reflecting the monastery's pristine white architecture. It serves as an important spiritual center for the local community, hosting annual religious ceremonies and providing Buddhist education to monks and devotees."
+  },
+  {
+    "id": 34,
+    "name": "Linkoed Monastery",
+    "location": "Rhenock, East Sikkim",
+    "established": "1890",
+    "imageName": "Linkoed-Monastery1.png",
+    "latitude": 27.2450,
+    "longitude": 88.5650,
+    "history": "Linkoed Monastery, established around 1890, is a hidden gem in the lower regions of East Sikkim. The monastery is known for its tranquil setting amidst lush green forests and terraced fields. Following the Kagyu tradition of Tibetan Buddhism, it has been a guardian of Buddhist teachings for over a century. The monastery features traditional Sikkimese architecture and houses ancient murals and thangkas. It plays a vital role in preserving the cultural and spiritual heritage of the region."
+  },
+  {
+    "id": 35,
+    "name": "Old Rumtek Monastery",
+    "location": "Rumtek, East Sikkim",
+    "established": "1740",
+    "imageName": "Old-Rumtek-Monastery1.png",
+    "latitude": 27.3520,
+    "longitude": 88.6180,
+    "history": "Old Rumtek Monastery, originally built around 1740 by the 9th Karmapa Wangchuk Dorje, holds immense historical significance in Sikkim's Buddhist heritage. Predating the current Rumtek Monastery, it served as the primary seat of the Karmapa lineage in Sikkim for over two centuries. Though smaller than its modern counterpart, the Old Rumtek Monastery retains its unique charm with ancient murals, sacred relics, and a deeply spiritual atmosphere. It continues to be an important pilgrimage site and meditation center."
+  },
+  {
+    "id": 36,
+    "name": "Pabyuk Monastery",
+    "location": "Pakyong, East Sikkim",
+    "established": "1880",
+    "imageName": "Pabyuk-Monastery1.png",
+    "latitude": 27.2250,
+    "longitude": 88.5750,
+    "history": "Pabyuk Monastery, founded around 1880, is a serene monastery located in the picturesque Pakyong region of East Sikkim. The monastery belongs to the Kagyu sect and is known for its beautiful location overlooking valleys and mountains. 'Pabyuk' in the local language refers to the unique geographical features of the area. The monastery serves as a center for Buddhist learning, meditation practices, and hosts several annual festivals that attract devotees from across Sikkim."
+  },
+  {
+    "id": 37,
+    "name": "Ray Mindu Katenling Monastery",
+    "location": "Martam, East Sikkim",
+    "established": "1870",
+    "imageName": "Ray-Mindu-Katenling-Monastery1.png",
+    "latitude": 27.2850,
+    "longitude": 88.5550,
+    "history": "Ray Mindu Katenling Monastery, established around 1870, is a prominent monastery in the Martam area of East Sikkim. The monastery's name reflects its association with spiritual enlightenment and Buddhist teachings. It follows the Nyingma tradition and is particularly known for its collection of rare Buddhist texts and artifacts. The monastery has been instrumental in spreading Buddhist education in the region and continues to serve as an important center for religious ceremonies, meditation retreats, and community gatherings."
+  },
+  {
+    "id": 38,
+    "name": "Tsuklakhang Monastery",
+    "location": "Gangtok, East Sikkim",
+    "established": "1894",
+    "imageName": "Tsuklakhang-Monastery1.png",
+    "latitude": 27.3333,
+    "longitude": 88.6167,
+    "history": "Tsuklakhang Monastery, also known as the Royal Chapel, was built in 1894 during the reign of Chogyal Thutob Namgyal. Located in the heart of Gangtok, it served as the royal monastery and personal chapel of the Chogyal (monarch) of Sikkim. The monastery houses an extensive collection of Buddhist scriptures, including the complete Kangyur and Tangyur (commentaries on the teachings of Buddha). It features exquisite murals, statues, and thangkas. The monastery remains a major center for Buddhist religious activities and is visited by devotees and tourists throughout the year."
+  },
+  {
+    "id": 39,
+    "name": "Labrang Monastery",
+    "location": "Labrang, East Sikkim",
+    "established": "1814",
+    "imageName": "LABRANG MONASTEY 1.jpg",
+    "latitude": 27.3100,
+    "longitude": 88.5800,
+    "history": "Labrang Monastery, established around 1814, is a significant Buddhist monastery in East Sikkim. Named after the famous Labrang Monastery in Tibet, it follows the Gelug tradition of Tibetan Buddhism. The monastery is known for its beautiful architecture featuring traditional Tibetan designs and serves as an important center for Buddhist philosophy and monastic education. It houses a valuable collection of Buddhist texts, thangkas, and ritual objects. The monastery plays a vital role in preserving the spiritual and cultural heritage of the region."
+  },
+  {
+    "id": 40,
+    "name": "Lachen Ngodub Choling Monastery",
+    "location": "Lachen, North Sikkim",
+    "established": "1858",
+    "imageName": "LACHEN NGODUB CHOLING MONASTERY 1.jpg",
+    "latitude": 27.6950,
+    "longitude": 88.5450,
+    "history": "Lachen Ngodub Choling Monastery, founded around 1858, is one of the most important monasteries in North Sikkim. Located in the picturesque village of Lachen at an altitude of about 2,750 meters, the monastery belongs to the Nyingma order. 'Ngodub Choling' means 'Monastery of the Accomplished Ones,' reflecting its spiritual significance. The monastery is renowned for its annual Guru Rinpoche festival and serves as a spiritual beacon for the local Bhutia community. It features beautiful murals and houses sacred relics passed down through generations."
+  },
+  {
+    "id": 41,
+    "name": "Lachen Thangu Monastery",
+    "location": "Thangu Valley, North Sikkim",
+    "established": "1880",
+    "imageName": "LACHEN THANGU MONASTERY 1.jpg",
+    "latitude": 27.7500,
+    "longitude": 88.5800,
+    "history": "Lachen Thangu Monastery, established around 1880, is situated in the remote and breathtakingly beautiful Thangu Valley near the Indo-China border. At an altitude of approximately 3,962 meters, it is one of the highest monasteries in Sikkim. The monastery follows the Nyingma tradition and serves the spiritual needs of the nomadic yak herders and local communities in this high-altitude region. Despite its remote location, the monastery maintains strong Buddhist traditions and is known for its resilience against harsh Himalayan winters."
+  },
+  {
+    "id": 42,
+    "name": "Lingthem Gonpa Chophel Dargyeling",
+    "location": "Lingthem, East Sikkim",
+    "established": "1862",
+    "imageName": "LINGTHEM GONPA CHOPHEL DARGYELING 1.jpg",
+    "latitude": 27.3300,
+    "longitude": 88.5650,
+    "history": "Lingthem Gonpa Chophel Dargyeling, founded around 1862, is a historically significant monastery in East Sikkim. The name 'Chophel Dargyeling' translates to 'Place Where Dharma Flourishes and Spreads.' This monastery belongs to the Nyingma sect and is known for its extensive library of Buddhist scriptures and ancient manuscripts. The monastery has been a center for religious learning and meditation practices for over 160 years. It features magnificent wall paintings depicting the life of Buddha and various Buddhist deities, and continues to be an important pilgrimage site for devotees."
+  },
+  {
+    "id": 43,
+    "name": "Phensang Monastery",
+    "location": "Phensang, East Sikkim",
+    "established": "1840",
+    "imageName": "Phensang Monastery 1.jpg",
+    "latitude": 27.2950,
+    "longitude": 88.5750,
+    "history": "Phensang Monastery, established around 1840, is a serene monastery known for its peaceful setting amidst the lush forests of East Sikkim. The monastery follows the Kagyu tradition and has been a center for Buddhist meditation and spiritual practices for nearly two centuries. Phensang Monastery is particularly renowned for its three-year retreat program, where monks undergo intensive meditation training in complete isolation. The monastery features traditional Sikkimese architecture with beautifully painted woodwork and houses several sacred Buddhist texts and artifacts."
+  },
+  {
+    "id": 44,
+    "name": "Phodong Karma Tashi Chokhorling Monastery",
+    "location": "Phodong, North Sikkim",
+    "established": "1740",
+    "imageName": "PHODONG KARMA TASHI CHOKHORLING MONASTERY 1.jpg",
+    "latitude": 27.4850,
+    "longitude": 88.7180,
+    "history": "Phodong Karma Tashi Chokhorling Monastery, originally established around 1740 and rebuilt in 1947, is one of the most beautiful and spiritually significant monasteries in North Sikkim. The name 'Tashi Chokhorling' means 'Auspicious Dharma Wheel Place.' Belonging to the Kagyupa sect, the monastery can accommodate about 260 monks and is famous for its annual Losar (Tibetan New Year) celebrations and Chaam dances. The monastery is renowned for its elaborate butter sculptures (tormas), ancient thangkas, and a magnificent collection of Buddhist scriptures. Its architecture showcases classic Tibetan style with intricate woodwork and colorful murals."
+  },
+  {
+    "id": 45,
+    "name": "Silem Phagyal Tashi Dargyeling Monastery",
+    "location": "Silem, South Sikkim",
+    "established": "1850",
+    "imageName": "SILEM PHAGYAL TASHI DARGYELING MONASTERY 1.jpg",
+    "latitude": 27.1800,
+    "longitude": 88.4800,
+    "history": "Silem Phagyal Tashi Dargyeling Monastery, founded around 1850, is a prominent monastery in South Sikkim. 'Phagyal Tashi Dargyeling' translates to 'The Auspicious and Victorious Place of Dharma Spreading.' This monastery follows the Nyingma tradition and is known for its annual Pang Lhabsol festival, which celebrates the guardian deities of Sikkim. The monastery sits at a strategic location offering panoramic views of the surrounding valleys and is famous for its medicinal plant garden. It serves as an important center for Buddhist philosophy studies and traditional Tibetan medicine."
+  },
+  {
+    "id": 46,
+    "name": "Singchit Ngadag Monastery",
+    "location": "Singchit, East Sikkim",
+    "established": "1820",
+    "imageName": "SINGCHIT NGADAG MONASTERY 1.jpg",
+    "latitude": 27.2400,
+    "longitude": 88.5500,
+    "history": "Singchit Ngadag Monastery, established around 1820, is a historic monastery located in the Singchit region of East Sikkim. 'Ngadag' refers to the local guardian deity, and the monastery is believed to protect and bless the surrounding villages. Belonging to the Kagyu sect, this monastery is known for its unique architectural style that blends traditional Tibetan and Sikkimese elements. The monastery houses ancient Buddhist scriptures, prayer wheels, and sacred artifacts. It plays a crucial role in preserving local Buddhist traditions and hosts several annual religious festivals that bring together the community."
+  },
+  {
+    "id": 47,
+    "name": "Tholung Monastery",
+    "location": "Tholung Valley, North Sikkim",
+    "established": "1765",
+    "imageName": "THOLUNG MONASTERY 1.jpg",
+    "latitude": 27.6500,
+    "longitude": 88.6200,
+    "history": "Tholung Monastery, established around 1765, is one of the oldest and most sacred monasteries in North Sikkim. Located in the mystical Tholung Valley, which is considered one of the hidden valleys (beyul) in Tibetan Buddhism, the monastery belongs to the Nyingma order. The name 'Tholung' means 'Valley of the Head,' as legend says that the valley resembles the shape of a horse's head. The monastery was blessed by Guru Padmasambhava and is surrounded by numerous meditation caves used by ancient Buddhist masters. It is particularly famous for its sacred hot springs and annual Kagyed dance festival. The monastery serves as a gateway to many high-altitude pilgrimage sites."
+  },
+  {
+    "id": 48,
+    "name": "Tingbung Monastery",
+    "location": "Tingbung, East Sikkim",
+    "established": "1835",
+    "imageName": "TINGBUNG MONASTERY 1.jpg",
+    "latitude": 27.2650,
+    "longitude": 88.5650,
+    "history": "Tingbung Monastery, founded around 1835, is a beautiful monastery situated in the tranquil Tingbung area of East Sikkim. The monastery follows the Nyingma tradition and is known for its peaceful environment ideal for meditation and spiritual contemplation. It features traditional Sikkimese architecture with intricately carved wooden pillars and colorfully painted walls depicting Buddhist legends. The monastery houses a valuable collection of ancient Buddhist texts and ritual instruments. Tingbung Monastery is particularly renowned for its annual Mahakala puja (prayer ceremony) and serves as an important spiritual center for surrounding villages, maintaining strong connections with the local community."
   }
 ]

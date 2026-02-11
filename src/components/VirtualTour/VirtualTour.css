@@ -18,6 +18,7 @@
     position: relative;
     width: 100%;
     box-sizing: border-box;
+    z-index: 1; /* Keep below sticky header (header has z-index: 2000) */
 }
 
 .virtual-tour::before {

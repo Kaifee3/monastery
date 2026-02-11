@@ -13,18 +13,43 @@
     box-sizing: border-box;
 }
 
+body {
+    overflow-x: hidden;
+}
+
+/* Improve touch target sizes for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .btn,
+    .view-btn,
+    .region-select,
+    .search-input,
+    .wishlist-btn,
+    .monastery-weather-btn {
+        min-height: 44px;
+    }
+    
+    .wishlist-btn {
+        min-width: 100%;
+    }
+}
+
 .monasteries-page {
     min-height: 100vh;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    overflow-x: hidden;
+    width: 100%;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 
 .hero-section {
     background: linear-gradient(135deg, rgba(94, 201, 128, 0.95), rgba(4, 126, 65, 0.95));
     color: white;
-    padding: 100px 20px;
+    padding: clamp(50px, 10vw, 100px) clamp(15px, 5vw, 20px);
     text-align: center;
-    border-radius: 20px;
+    border-radius: clamp(10px, 3vw, 20px);
+    margin: 0 clamp(10px, 2vw, 20px);
 }
 
 .hero-content {
@@ -51,8 +76,8 @@
 .hero-stats {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    margin-top: 40px;
+    gap: clamp(20px, 5vw, 40px);
+    margin-top: clamp(20px, 5vw, 40px);
     flex-wrap: wrap;
 }
 
@@ -62,7 +87,7 @@
 
 .stat-number {
     display: block;
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 700;
     color: #f39c12;
 }
@@ -77,7 +102,7 @@
 
 .controls-section {
     background: rgba(255, 255, 255, 0.95);
-    padding: 15px 20px;
+    padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 20px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
@@ -109,13 +134,14 @@
 
 .search-input {
     width: 100%;
-    padding: 14px 50px;
+    padding: clamp(12px, 2vw, 14px) 50px;
     border: 2px solid #ecf0f1;
     border-radius: 50px;
-    font-size: 0.95rem;
+    font-size: clamp(0.85rem, 1.5vw, 0.95rem);
     transition: all 0.4s ease;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    min-height: 44px;
 }
 
 .search-input:focus {
@@ -151,7 +177,7 @@
 }
 
 .region-select {
-    padding: 10px 16px;
+    padding: clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 16px);
     border: 2px solid #ecf0f1;
     border-radius: 30px;
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
@@ -159,8 +185,9 @@
     transition: all 0.4s ease;
     font-weight: 500;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
     min-width: 120px;
+    min-height: 44px;
 }
 
 .region-select:focus {
@@ -183,16 +210,19 @@
 }
 
 .view-btn {
-    padding: 8px 14px;
+    padding: clamp(6px, 1.5vw, 8px) clamp(10px, 2vw, 14px);
     border: none;
     background: transparent;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 0.85rem;
+    font-size: clamp(0.75rem, 1.3vw, 0.85rem);
     font-weight: 600;
     color: #7f8c8d;
     white-space: nowrap;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
 }
 
 .view-btn.active {
@@ -228,12 +258,13 @@
 .auth-prompt {
     background: white;
     border-radius: 20px;
-    padding: 50px;
+    padding: clamp(30px, 5vw, 50px);
     max-width: 600px;
     width: 100%;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 0 15px;
 }
 
 .auth-icon {
@@ -438,20 +469,46 @@
 .monasteries-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: clamp(20px, 5vw, 40px) clamp(15px, 3vw, 20px);
+    overflow-x: hidden;
 }
 
 .monastery-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 35px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+    gap: clamp(20px, 3vw, 35px);
     justify-items: center;
 }
 
 @media (max-width: 1200px) {
     .monastery-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
         gap: 30px;
+    }
+    
+    .monastery-card {
+        max-width: 100%;
+    }
+}
+
+/* Tablet Landscape and Small Desktop */
+@media (max-width: 1024px) {
+    .hero-section {
+        padding: clamp(40px, 8vw, 80px) clamp(15px, 4vw, 20px);
+    }
+    
+    .monastery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+        gap: 25px;
+    }
+    
+    .list-card {
+        flex-direction: column;
+    }
+    
+    .list-card .monastery-image {
+        width: 100%;
+        height: 250px;
     }
 }
 
@@ -487,6 +544,8 @@
     position: relative;
     width: 100%;
     max-width: 460px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .list-card.monastery-card {
@@ -522,7 +581,7 @@
 }
 
 .grid-card .monastery-image {
-    height: 250px;
+    height: clamp(200px, 30vw, 250px);
     position: relative;
     overflow: hidden;
 }
@@ -537,9 +596,9 @@
 }
 
 .list-card .monastery-image {
-    width: 350px;
+    width: clamp(240px, 25vw, 300px);
     height: auto;
-    min-height: 180px;
+    min-height: 240px;
     flex-shrink: 0;
     position: relative;
 }
@@ -549,8 +608,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 30px;
+    padding: clamp(20px, 3vw, 30px);
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    min-width: 0;
+    overflow: hidden;
 }
 
 .list-card .monastery-actions {
@@ -563,6 +624,12 @@
     padding: 15px 30px;
     background: linear-gradient(135deg, rgba(248, 249, 250, 0.9), rgba(236, 240, 241, 0.8));
     border-top: 1px solid rgba(236, 240, 241, 0.6);
+}
+
+.list-card .wishlist-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.9rem;
 }
 
 
@@ -689,61 +756,51 @@
     transform: translateY(0);
 }
 
-/* Wishlist Button Styles */
+/* Wishlist Button Styles - Now at bottom of card */
 .wishlist-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    padding: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    gap: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 2;
-    opacity: 0;
-    transform: scale(0.8);
-}
-
-.monastery-card:hover .wishlist-btn {
-    opacity: 1;
-    transform: scale(1);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .wishlist-btn:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: scale(1.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .wishlist-btn.in-wishlist {
-    background: rgba(231, 76, 60, 0.9);
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: white;
 }
 
-.wishlist-btn.in-wishlist:hover {
-    background: rgba(231, 76, 60, 1);
+.wishlist-btn:not(.in-wishlist) {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
 }
 
 .wishlist-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    transform: scale(0.8);
+    transform: translateY(0);
 }
 
 .wishlist-btn:disabled:hover {
-    transform: scale(0.8);
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .monastery-content {
-    padding: 28px;
+    padding: clamp(20px, 4vw, 28px);
     position: relative;
 }
 
@@ -763,6 +820,9 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     transition: all 0.3s ease;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .monastery-card:hover .monastery-name {
@@ -790,13 +850,23 @@
     line-height: 1.7;
     margin-bottom: 20px;
     overflow: visible;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .monastery-features {
     display: flex;
     gap: 10px;
     margin-bottom: 24px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.monastery-features::-webkit-scrollbar {
+    display: none;
 }
 
 .feature-tag {
@@ -869,14 +939,14 @@
 }
 
 .btn {
-    padding: 14px 22px;
+    padding: clamp(12px, 2vw, 14px) clamp(18px, 3vw, 22px);
     border: none;
     border-radius: 30px;
     cursor: pointer;
     text-decoration: none;
     text-align: center;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-flex;
     align-items: center;
@@ -884,6 +954,7 @@
     gap: 10px;
     flex: 1;
     min-width: fit-content;
+    min-height: 44px;
     position: relative;
     overflow: hidden;
     letter-spacing: 0.3px;
@@ -956,6 +1027,10 @@
     background: linear-gradient(135deg, rgba(248, 249, 250, 0.8), rgba(255, 255, 255, 0.9));
     margin: 0 -28px -24px -28px;
     border-radius: 0 0 24px 24px;
+}
+
+.card-footer .wishlist-btn {
+    margin: 0;
 }
 
 .rating {
@@ -1098,9 +1173,10 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    padding: 20px;
+    padding: clamp(10px, 3vw, 20px);
     backdrop-filter: blur(5px);
     animation: fadeIn 0.3s ease;
+    overflow-y: auto;
 }
 
 @keyframes fadeIn {
@@ -1113,13 +1189,14 @@
     border-radius: 20px;
     max-width: 600px;
     width: 100%;
-    max-height: 80vh;
+    max-height: calc(100vh - 40px);
     overflow-y: auto;
     box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.3),
         0 8px 24px rgba(0, 0, 0, 0.2);
     transform: scale(0.9);
     animation: modalSlideIn 0.3s ease forwards;
+    margin: auto;
 }
 
 @keyframes modalSlideIn {
@@ -1301,9 +1378,16 @@
 
 
 @media (max-width: 768px) {
+    .modal-overlay {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 30px;
+    }
+    
     .modal-content {
-        margin: 20px;
-        max-height: 90vh;
+        margin: 0 auto;
+        max-height: calc(100vh - 60px);
+        border-radius: 16px;
     }
     
     .monastery-preview {
@@ -1318,7 +1402,7 @@
     }
     
     .tour-features {
-        gap: 20px;
+        gap: 15px;
     }
     
     .modal-footer {
@@ -1330,10 +1414,15 @@
     .btn-confirm {
         width: 100%;
         justify-content: center;
+        min-height: 44px;
     }
     
     .modal-header {
         padding: 20px 25px 15px;
+    }
+    
+    .modal-header h3 {
+        font-size: clamp(1.4rem, 4vw, 1.8rem);
     }
     
     .modal-body {
@@ -1347,16 +1436,40 @@
 
 @media (max-width: 480px) {
     .modal-overlay {
-        padding: 10px;
+        padding: 8px;
+        padding-top: 20px;
+    }
+    
+    .modal-content {
+        border-radius: 12px;
+        max-height: calc(100vh - 40px);
+    }
+    
+    .modal-header {
+        padding: 15px 20px 12px;
     }
     
     .modal-header h3 {
+        font-size: clamp(1.2rem, 5vw, 1.5rem);
+    }
+    
+    .modal-close {
+        width: 36px;
+        height: 36px;
         font-size: 1.5rem;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    .modal-footer {
+        padding: 12px 20px 20px;
     }
     
     .tour-features {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
     }
     
     .feature-item {
@@ -1368,6 +1481,10 @@
     
     .feature-icon {
         font-size: 1.5rem;
+    }
+    
+    .tour-description p {
+        font-size: 0.95rem;
     }
 }
 
@@ -1939,9 +2056,19 @@ html {
     }
 }
 
+/* Tablet and Mobile Devices */
 @media (max-width: 768px) {
+    .hero-section {
+        padding: clamp(40px, 8vw, 60px) 15px;
+        border-radius: 15px;
+    }
+    
     .hero-stats {
         gap: 20px;
+    }
+    
+    .stat-number {
+        font-size: clamp(1.6rem, 5vw, 2rem);
     }
     
     .controls-section {
@@ -1958,17 +2085,36 @@ html {
         order: 1;
         width: 100%;
         margin-bottom: 10px;
+        max-width: 100%;
+    }
+    
+    .search-input {
+        padding: 12px 50px;
     }
     
     .region-filter {
         order: 2;
         flex: 1;
-        min-width: 120px;
+        min-width: 140px;
+    }
+    
+    .region-filter label {
+        font-size: 0.85rem;
+    }
+    
+    .region-select {
+        padding: 10px 14px;
+        font-size: 0.85rem;
     }
     
     .view-toggle {
         order: 3;
         flex-shrink: 0;
+    }
+    
+    .view-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
     }
     
     .monastery-grid {
@@ -1996,8 +2142,13 @@ html {
         padding: 15px 25px;
     }
     
+    .list-card .wishlist-btn {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
     .list-card .monastery-name {
-        font-size: 1.5rem;
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
     }
     
     .list-card .monastery-actions {
@@ -2010,6 +2161,24 @@ html {
         width: 100%;
     }
     
+    .monastery-content {
+        padding: 22px;
+    }
+    
+    .monastery-name {
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
+    }
+    
+    .monastery-features {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .feature-tag {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+    }
+    
     .monastery-actions {
         flex-direction: column;
         gap: 12px;
@@ -2017,27 +2186,59 @@ html {
     
     .btn {
         justify-content: center;
+        width: 100%;
+        min-width: auto;
     }
     
     .cta-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 15px;
     }
     
     .btn-cta, .btn-outline-cta {
         width: 100%;
-        max-width: 300px;
+        max-width: 320px;
+        min-height: 48px;
     }
     
     .monastery-card {
         margin: 0 auto;
-        max-width: 400px;
+        max-width: 100%;
+    }
+    
+    .wishlist-btn {
+        padding: 10px;
+        font-size: 0.85rem;
+        gap: 6px;
     }
 }
 
+/* Small Mobile Devices */
 @media (max-width: 480px) {
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
     .hero-section {
-        padding: 60px 20px;
+        padding: 40px 15px;
+        border-radius: 12px;
+    }
+    
+    .hero-title {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+    
+    .subtitle {
+        font-size: clamp(1rem, 4vw, 1.2rem);
+    }
+    
+    .stat-number {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
     }
     
     .controls-section {
@@ -2056,8 +2257,13 @@ html {
     }
     
     .search-input {
-        padding: 12px 45px;
-        font-size: 0.9rem;
+        padding: 12px 45px 12px 40px;
+        font-size: 0.85rem;
+    }
+    
+    .search-icon {
+        font-size: 1rem;
+        left: 12px;
     }
     
     .region-filter {
@@ -2073,8 +2279,8 @@ html {
     .region-select {
         width: 100%;
         min-width: 0;
-        font-size: 0.85rem;
-        padding: 8px 12px;
+        font-size: 0.8rem;
+        padding: 10px 12px;
     }
     
     .view-toggle {
@@ -2083,20 +2289,51 @@ html {
     }
     
     .view-btn {
-        padding: 6px 10px;
-        font-size: 0.8rem;
+        padding: 8px 10px;
+        font-size: 0.75rem;
+        min-height: 40px;
     }
     
     .monasteries-container {
         padding: 20px 15px;
     }
     
+    .monastery-card {
+        max-width: 100%;
+    }
+    
     .monastery-content {
-        padding: 22px;
+        padding: 18px;
     }
     
     .monastery-name {
-        font-size: 1.4rem;
+        font-size: clamp(1.2rem, 5vw, 1.4rem);
+        margin-bottom: 10px;
+    }
+    
+    .monastery-meta {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .monastery-meta span {
+        font-size: 0.8rem;
+    }
+    
+    .monastery-history {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    
+    .monastery-features {
+        gap: 6px;
+        margin-bottom: 15px;
+    }
+    
+    .feature-tag {
+        font-size: 0.7rem;
+        padding: 6px 10px;
     }
     
     .monastery-actions {
@@ -2104,12 +2341,249 @@ html {
     }
     
     .btn {
-        padding: 12px 18px;
+        padding: 12px 16px;
+        font-size: 0.8rem;
+        min-height: 44px;
+    }
+    
+    .card-footer {
+        padding: 0 18px 18px;
+    }
+    
+    .card-footer .wishlist-btn {
+        padding: 10px 12px;
         font-size: 0.85rem;
     }
     
-    .search-input {
-        padding: 12px 45px;
+    .rating {
+        padding: 0 18px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .stars {
+        font-size: 1rem;
+    }
+    
+    .rating-text {
+        font-size: 0.8rem;
+    }
+    
+    .wishlist-btn {
+        padding: 10px;
+        font-size: 0.8rem;
+        gap: 6px;
+        min-height: 44px;
+    }
+    
+    .cta-section {
+        padding: 50px 15px;
+    }
+    
+    .cta-content h2 {
+        font-size: clamp(1.6rem, 6vw, 2rem);
+    }
+    
+    .cta-content p {
+        font-size: 1rem;
+    }
+    
+    .btn-cta, .btn-outline-cta {
+        padding: 14px 25px;
+        font-size: 1rem;
+        max-width: 100%;
+    }
+}
+
+/* Extra Small Devices (360px and below) */
+@media (max-width: 360px) {
+    .hero-section {
+        padding: 30px 12px;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .subtitle {
         font-size: 0.95rem;
+    }
+    
+    .hero-stats {
+        gap: 15px;
+    }
+    
+    .stat-number {
+        font-size: 1.6rem;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    
+    .controls-section {
+        padding: 8px 12px;
+    }
+    
+    .search-input {
+        padding: 10px 40px 10px 35px;
+        font-size: 0.8rem;
+    }
+    
+    .search-icon {
+        font-size: 0.9rem;
+        left: 10px;
+    }
+    
+    .region-select {
+        font-size: 0.75rem;
+        padding: 8px 10px;
+    }
+    
+    .view-btn {
+        padding: 6px 8px;
+        font-size: 0.7rem;
+    }
+    
+    .monasteries-container {
+        padding: 15px 12px;
+    }
+    
+    .monastery-content {
+        padding: 15px;
+    }
+    
+    .monastery-name {
+        font-size: 1.15rem;
+    }
+    
+    .monastery-meta span {
+        font-size: 0.75rem;
+    }
+    
+    .monastery-history {
+        font-size: 0.85rem;
+    }
+    
+    .feature-tag {
+        font-size: 0.65rem;
+        padding: 5px 8px;
+    }
+    
+    .btn {
+        padding: 10px 14px;
+        font-size: 0.75rem;
+        min-height: 42px;
+    }
+    
+    .wishlist-btn {
+        padding: 8px;
+        font-size: 0.75rem;
+        gap: 5px;
+        min-height: 42px;
+    }
+}
+
+/* Landscape Mode for Mobile Phones */
+@media (max-width: 896px) and (orientation: landscape) {
+    .hero-section {
+        padding: 30px 20px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-stats {
+        margin-top: 20px;
+        gap: 25px;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .controls-section {
+        padding: 10px 15px;
+    }
+    
+    .filter-controls {
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+    
+    .search-container {
+        flex: 1;
+        margin-bottom: 0;
+    }
+    
+    .monastery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: 20px;
+    }
+    
+    .monastery-content {
+        padding: 18px;
+    }
+    
+    .list-card .monastery-image {
+        height: 220px;
+    }
+}
+
+/* Large Desktop and 4K Screens */
+@media (min-width: 1600px) {
+    .monasteries-container {
+        max-width: 1600px;
+    }
+    
+    .monastery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 40px;
+    }
+    
+    .monastery-card {
+        max-width: 480px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .controls-section,
+    .hero-section,
+    .cta-section,
+    .wishlist-btn,
+    .monastery-actions,
+    .view-toggle {
+        display: none !important;
+    }
+    
+    .monasteries-page {
+        background: white;
+    }
+    
+    .monastery-card {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+    
+    .monastery-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

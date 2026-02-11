@@ -15,6 +15,31 @@ const Header = () => {
         console.log("Header - user role:", user?.role);
     }, [isAuthenticated, user]);
 
+    // Prevent body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMenuOpen && window.innerWidth <= 768) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMenuOpen]);
+
+    // Close menu on window resize if switching to desktop view
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 768 && isMenuOpen) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [isMenuOpen]);
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
@@ -36,6 +61,7 @@ const Header = () => {
                     className="menu-toggle" 
                     onClick={toggleMenu}
                     aria-label="Toggle navigation menu"
+                    aria-expanded={isMenuOpen}
                 >
                     <span className={`hamburger ${isMenuOpen ? 'active' : ''}`}>
                         <span></span>
@@ -43,10 +69,11 @@ const Header = () => {
                         <span></span>
                     </span>
                 </button>
+                {isMenuOpen && <div className="nav-overlay" onClick={closeMenu}></div>}
                 <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                     <ul className="nav-links">
                         <li><Link to="/" onClick={closeMenu}>Home</Link></li>
-                        <li><Link to="/monasteries" onClick={closeMenu}>Historic Places</Link></li>
+                        <li><Link to="/historic-places" onClick={closeMenu}>Historic Places</Link></li>
                         <li><Link to="/cultural-calendar" onClick={closeMenu}>Cultural Calendar</Link></li>
                         <li><Link to="/about" onClick={closeMenu}>About Us</Link></li>
                         <li><Link to="/contact" onClick={closeMenu}>Contact Us</Link></li>

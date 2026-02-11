@@ -495,7 +495,7 @@ const MonasteryDetails = () => {
                             'Rumtek Monastery': 'Rumtek-Monastery',
                             'Pemayangtse Monastery': 'Pemangytse',
                             'Tashiding Monastery': 'Tashiding-Monastery',
-                            'Enchey Monastery': 'Enchey Monastery',
+                            'Enchey Monastery': 'Enchey-Monastery',
                             'Dubdi Monastery': 'Dubdi Monastery',
                             'Phodong Monastery': 'Phodong-Monastery',
                             'Ralang Monastery': 'Ralang-Monastery',
@@ -521,7 +521,24 @@ const MonasteryDetails = () => {
                             'Rinchenpung Monastery': 'RINCHENPUNG',
                             'Sinon Monastery': 'Sinon',
                             'Sri Badam Monastery': 'SRI BADAM',
-                            'Tashi Samboling Monastery': 'TASHI SAMBOLING'
+                            'Tashi Samboling Monastery': 'TASHI SAMBOLING',
+                            'Kathog Dorjeden Monastery': 'Kathog-Dorjeden-Monastery',
+                            'Lingdok Tsangkhar Monastery': 'Lingdok-Tsangkhar-Monastery',
+                            'Linkoed Monastery': 'Linkoed-Monastery',
+                            'Old Rumtek Monastery': 'Old-Rumtek-Monastery',
+                            'Pabyuk Monastery': 'Pabyuk-Monastery',
+                            'Ray Mindu Katenling Monastery': 'Ray-Mindu-Katenling-Monastery',
+                            'Tsuklakhang Monastery': 'Tsuklakhang-Monastery',
+                            'Labrang Monastery': 'LABRANG MONASTEY',
+                            'Lachen Ngodub Choling Monastery': 'LACHEN NGODUB CHOLING MONASTERY',
+                            'Lachen Thangu Monastery': 'LACHEN THANGU MONASTERY',
+                            'Lingthem Gonpa Chophel Dargyeling': 'LINGTHEM GONPA CHOPHEL DARGYELING',
+                            'Phensang Monastery': 'Phensang Monastery',
+                            'Phodong Karma Tashi Chokhorling Monastery': 'PHODONG KARMA TASHI CHOKHORLING MONASTERY',
+                            'Silem Phagyal Tashi Dargyeling Monastery': 'SILEM PHAGYAL TASHI DARGYELING MONASTERY',
+                            'Singchit Ngadag Monastery': 'SINGCHIT NGADAG MONASTERY',
+                            'Tholung Monastery': 'THOLUNG MONASTERY',
+                            'Tingbung Monastery': 'TINGBUNG MONASTERY'
                         };
 
                         const baseName = nameMapping[monastery.name] || monastery.name.replace(/ /g, '-');
@@ -565,6 +582,42 @@ const MonasteryDetails = () => {
                         } else if (monastery.name === 'Sinon Monastery') {
                             const extensions = ['.png', '1.png', '2.png'];
                             imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Kathog Dorjeden Monastery') {
+                            imagePath = `/images/${baseName}${imageNum}.jpg`;
+                        } else if (monastery.name === 'Lingdok Tsangkhar Monastery') {
+                            const extensions = ['1.jpg', '2.png', '3.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Linkoed Monastery') {
+                            const extensions = ['1.png', '2.jpg', '3.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Old Rumtek Monastery') {
+                            imagePath = `/images/${baseName}${imageNum}.png`;
+                        } else if (monastery.name === 'Pabyuk Monastery') {
+                            imagePath = `/images/${baseName}${imageNum}.png`;
+                        } else if (monastery.name === 'Ray Mindu Katenling Monastery') {
+                            imagePath = `/images/${baseName}${imageNum}.png`;
+                        } else if (monastery.name === 'Tsuklakhang Monastery') {
+                            imagePath = `/images/${baseName}${imageNum}.png`;
+                        } else if (monastery.name === 'Labrang Monastery') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (monastery.name === 'Lachen Ngodub Choling Monastery') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (monastery.name === 'Lachen Thangu Monastery') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (monastery.name === 'Lingthem Gonpa Chophel Dargyeling') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (monastery.name === 'Phensang Monastery') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (monastery.name === 'Phodong Karma Tashi Chokhorling Monastery') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (monastery.name === 'Silem Phagyal Tashi Dargyeling Monastery') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (monastery.name === 'Singchit Ngadag Monastery') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (monastery.name === 'Tholung Monastery') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (monastery.name === 'Tingbung Monastery') {
+                            imagePath = `/images/${baseName} ${imageNum}.jpg`;
                         } else {
                             imagePath = `/images/slide/${baseName}${imageNum}.jpg`;
                         }
