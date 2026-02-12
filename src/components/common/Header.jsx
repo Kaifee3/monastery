@@ -66,6 +66,7 @@ const Header = () => {
                             <li><Link to="/login" onClick={closeMenu}>Login/Signup</Link></li>
                         ) : (
                             <>
+                                <li><Link to="/wishlist" onClick={closeMenu}>Wishlist</Link></li>
                                 <li><Link to="/profile" onClick={closeMenu}>Profile</Link></li>
                                 {user?.role === 'admin' && (
                                     <li><Link to="/admin" onClick={closeMenu} className="admin-link">Admin Panel</Link></li>
