@@ -14,7 +14,7 @@ body {
   position: relative;
   background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
   padding: 20px;
-  padding-top: 60px;
+  padding-top: 40px;
   box-sizing: border-box;
 }
 
@@ -116,11 +116,11 @@ button {
   overflow: hidden;
 }
 
-button:hover {
+/* button:hover {
   background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
-}
+} */
 
 button:active {
   transform: translateY(0);
@@ -283,9 +283,17 @@ button:active::after {
 }
 
 /* Responsive design */
+@media screen and (max-width: 768px) {
+  .login-wrapper {
+    padding: 15px;
+    padding-top: 75px;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .login-wrapper {
     padding: 10px;
+    padding-top: 70px;
   }
   
   .form-container {
@@ -308,6 +316,11 @@ button:active::after {
 }
 
 @media screen and (max-width: 320px) {
+  .login-wrapper {
+    padding: 10px;
+    padding-top: 65px;
+  }
+  
   .form-container {
     padding: 20px 15px;
   }

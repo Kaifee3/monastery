@@ -42,13 +42,19 @@ body {
 /* Add padding for fixed header on mobile */
 @media (max-width: 768px) {
   body {
-    padding-top: 70px;
+    padding-top: 62px;
   }
 }
 
 @media (max-width: 480px) {
   body {
-    padding-top: 58px;
+    padding-top: 56px;
+  }
+}
+
+@media (max-width: 360px) {
+  body {
+    padding-top: 54px;
   }
 }
 
@@ -117,6 +123,23 @@ a:hover {
 main, .main-content {
   flex: 1;
   padding: 2rem 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure pages don't overlap with fixed header */
+@media (max-width: 768px) {
+  main, .main-content {
+    padding: 1.5rem 0;
+    min-height: calc(100vh - 62px);
+  }
+}
+
+@media (max-width: 480px) {
+  main, .main-content {
+    padding: 1rem 0;
+    min-height: calc(100vh - 56px);
+  }
 }
 
 
@@ -216,6 +239,51 @@ main, .main-content {
   button {
     min-height: 44px;
     min-width: 44px;
+  }
+}
+
+/* Ensure all page containers respect header spacing */
+.home-container,
+.about-container,
+.contact-container,
+.monasteries-page,
+.profile-container,
+.wishlist-container,
+.admin-container {
+  width: 100%;
+  position: relative;
+}
+
+/* Prevent content from jumping on mobile */
+@media (max-width: 768px) {
+  .home-container,
+  .about-container,
+  .contact-container,
+  .monasteries-page {
+    padding-top: 0;
+  }
+}
+
+/* Smooth scrolling behavior with offset for fixed header */
+html {
+  scroll-padding-top: 80px; /* Default for desktop */
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 62px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    scroll-padding-top: 56px;
+  }
+}
+
+@media (max-width: 360px) {
+  html {
+    scroll-padding-top: 54px;
   }
 }
 
