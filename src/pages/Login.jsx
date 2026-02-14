@@ -72,24 +72,69 @@ export default function Login() {
             setLoginStatus("");
             setIsLoading(true);
             
-            const decoded = JSON.parse(atob(credentialResponse.credential.split('.')[1]));
+            console.log("Google login initiated");
             
-            setLoginStatus("Google login successful! Redirecting...");
+            // Try backend authentication first
+            try {
+                const url = "https://monestry-backend.vercel.app/api/users/google-login";
+                const result = await axios.post(url, {
+                    credential: credentialResponse.credential
+                });
+                
+                console.log("Backend Google login response:", result.data);
+                
+                if (result.data.token) {
+                    localStorage.setItem('token', result.data.token);
+                }
+                
+                const userData = {
+                    email: result.data.email || result.data.user?.email,
+                    name: result.data.name || result.data.user?.name,
+                    picture: result.data.picture || result.data.user?.picture,
+                    role: result.data.role || result.data.user?.role || 'user',
+                    provider: 'google',
+                    ...result.data.user
+                };
+                
+                console.log("Google login - User data from backend:", userData);
+                
+                login(userData);
+                setLoginStatus("Google login successful! Redirecting...");
+                
+                setTimeout(() => {
+                    setIsLoading(false);
+                    if (userData.role === 'admin') {
+                        Navigate("/admin");
+                    } else {
+                        Navigate("/");
+                    }
+                }, 1000);
+                
+            } catch (backendError) {
+                console.log("Backend authentication failed, using client-side decoding:", backendError);
+                
+                // Fallback to client-side decoding if backend fails
+                const decoded = JSON.parse(atob(credentialResponse.credential.split('.')[1]));
+                
+                const userData = {
+                    email: decoded.email,
+                    name: decoded.name,
+                    picture: decoded.picture,
+                    role: 'user',
+                    provider: 'google'
+                };
+                
+                console.log("Google login - User data (client-side):", userData);
+                
+                login(userData);
+                setLoginStatus("Google login successful! Redirecting...");
+                
+                setTimeout(() => {
+                    setIsLoading(false);
+                    Navigate("/");
+                }, 1000);
+            }
             
-            const userData = {
-                email: decoded.email,
-                name: decoded.name,
-                picture: decoded.picture,
-                provider: 'google'
-            };
-            
-            console.log("Google login - User data:", userData);
-            
-            login(userData);
-            
-            setIsLoading(false);
-            
-            Navigate("/");
         } catch (err) {
             console.log('Google login error:', err);
             setLoginStatus("Google login failed. Please try again.");
@@ -105,7 +150,14 @@ export default function Login() {
             return;
         }
         
-
+        // Check if script is already loaded
+        if (document.querySelector('script[src="https://accounts.google.com/gsi/client"]')) {
+            // Script already exists, just initialize
+            if (window.google) {
+                initializeGoogleSignIn(googleClientId);
+            }
+            return;
+        }
 
         const script = document.createElement('script');
         script.src = 'https://accounts.google.com/gsi/client';
@@ -115,30 +167,7 @@ export default function Login() {
 
         script.onload = () => {
             if (window.google) {
-                try {
-                    window.google.accounts.id.initialize({
-                        client_id: googleClientId,
-                        callback: handleGoogleLogin,
-                        auto_select: false,
-                        cancel_on_tap_outside: true
-                    });
-                    
-                    const buttonElement = document.getElementById("google-signin-button"); 
-                    if (buttonElement) {
-                        window.google.accounts.id.renderButton(
-                            buttonElement,
-                            { 
-                                theme: "outline", 
-                                size: "large",
-                                text: "continue_with",
-                                width: "100%",
-                                logo_alignment: "left"
-                            }
-                        );
-                    }
-                } catch (error) {
-                    console.error("Error initializing Google Sign-In:", error);
-                }
+                initializeGoogleSignIn(googleClientId);
             }
         };
 
@@ -146,9 +175,41 @@ export default function Login() {
             console.error("Failed to load Google Identity Services script");
         };
 
+        function initializeGoogleSignIn(clientId) {
+            try {
+                window.google.accounts.id.initialize({
+                    client_id: clientId,
+                    callback: handleGoogleLogin,
+                    auto_select: false,
+                    cancel_on_tap_outside: true
+                });
+                
+                const buttonElement = document.getElementById("google-signin-button"); 
+                if (buttonElement) {
+                    // Clear any existing content
+                    buttonElement.innerHTML = '';
+                    
+                    window.google.accounts.id.renderButton(
+                        buttonElement,
+                        { 
+                            theme: "outline", 
+                            size: "large",
+                            text: "continue_with",
+                            width: "100%",
+                            logo_alignment: "left"
+                        }
+                    );
+                }
+            } catch (error) {
+                console.error("Error initializing Google Sign-In:", error);
+            }
+        }
+
+        // Cleanup function - only remove if we added it
         return () => {
-            if (script.parentNode) { 
-                document.head.removeChild(script);
+            const existingScript = document.querySelector('script[src="https://accounts.google.com/gsi/client"]');
+            if (existingScript && existingScript === script) {
+                document.head.removeChild(existingScript);
             }
         };
     }, [handleGoogleLogin]);
