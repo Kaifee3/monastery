@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -67,7 +67,7 @@ export default function Login() {
         }
     };
 
-    const handleGoogleLogin = async (credentialResponse) => {
+    const handleGoogleLogin = useCallback(async (credentialResponse) => {
         try {
             setLoginStatus("");
             setIsLoading(true);
@@ -75,24 +75,27 @@ export default function Login() {
             const decoded = JSON.parse(atob(credentialResponse.credential.split('.')[1]));
             
             setLoginStatus("Google login successful! Redirecting...");
-            setIsLoading(false);
             
-            login({
+            const userData = {
                 email: decoded.email,
                 name: decoded.name,
                 picture: decoded.picture,
                 provider: 'google'
-            });
+            };
             
-            setTimeout(() => {
-                Navigate("/");
-            }, 1500);
+            console.log("Google login - User data:", userData);
+            
+            login(userData);
+            
+            setIsLoading(false);
+            
+            Navigate("/");
         } catch (err) {
             console.log('Google login error:', err);
             setLoginStatus("Google login failed. Please try again.");
             setIsLoading(false);
         }
-    };
+    }, [Navigate, login]);
 
     useEffect(() => {
         const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID; 
@@ -148,7 +151,7 @@ export default function Login() {
                 document.head.removeChild(script);
             }
         };
-    }, []);
+    }, [handleGoogleLogin]);
 
 
 
