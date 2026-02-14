@@ -4,6 +4,7 @@
   padding: 20px;
   background-color: #f8f9fa;
   min-height: 100vh;
+  scroll-behavior: smooth;
 }
 
 .admin-header {
@@ -38,6 +39,15 @@
   text-decoration: none;
   display: inline-block;
   text-align: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+@media (max-width: 768px) {
+  .btn-primary, .btn-secondary, .btn-edit, .btn-delete {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
 
 .btn-primary {
@@ -50,6 +60,11 @@
   transform: translateY(-2px);
 }
 
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
 .btn-secondary {
   background-color: #95a5a6;
   color: white;
@@ -57,6 +72,11 @@
 
 .btn-secondary:hover {
   background-color: #7f8c8d;
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(149, 165, 166, 0.3);
 }
 
 .btn-edit {
@@ -70,6 +90,11 @@
   background-color: #e67e22;
 }
 
+.btn-edit:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.3);
+}
+
 .btn-delete {
   background-color: #e74c3c;
   color: white;
@@ -81,7 +106,11 @@
   background-color: #c0392b;
 }
 
-/* Messages */
+.btn-delete:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+}
+
 .message {
   padding: 15px;
   border-radius: 5px;
@@ -101,7 +130,6 @@
   border: 1px solid #c8e6c9;
 }
 
-/* Dashboard Stats */
 .dashboard-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -137,7 +165,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Users Section */
 .users-section {
   background: white;
   border-radius: 10px;
@@ -154,6 +181,31 @@
 .table-container {
   overflow-x: auto;
   margin-bottom: 20px;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+.table-container::after {
+  content: '← Scroll to see more →';
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+  text-align: center;
+  padding: 5px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .table-container::after {
+    display: block;
+  }
 }
 
 .users-table {
@@ -229,7 +281,6 @@
   border: 1px solid #90caf9;
 }
 
-/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -253,6 +304,11 @@
   border-color: #3498db;
 }
 
+.pagination button:focus:not(:disabled) {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
 .pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -263,7 +319,6 @@
   color: #2c3e50;
 }
 
-/* Modal Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -307,12 +362,31 @@
   border-radius: 5px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+@media (max-width: 768px) {
+  .modal-content input,
+  .modal-content select,
+  .review-filters select {
+    min-height: 44px;
+    font-size: 16px;
+  }
 }
 
 .modal-content input:focus,
 .modal-content select:focus {
   outline: none;
   border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.review-filters select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
 .modal-actions {
@@ -360,7 +434,6 @@
   background-color: #c0392b;
 }
 
-/* Loading State */
 .admin-loading {
   display: flex;
   justify-content: center;
@@ -370,7 +443,31 @@
   color: #7f8c8d;
 }
 
-/* Responsive Design */
+@media (max-width: 1024px) {
+  .admin-container {
+    padding: 15px;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .users-table,
+  .reviews-table {
+    min-width: 800px;
+  }
+}
+
 @media (max-width: 768px) {
   .admin-container {
     padding: 10px;
@@ -380,15 +477,26 @@
     flex-direction: column;
     gap: 15px;
     text-align: center;
+    padding: 15px;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.5rem;
   }
   
   .admin-actions {
     width: 100%;
+    flex-direction: column;
     justify-content: center;
   }
   
+  .admin-actions .btn-primary,
+  .admin-actions .btn-secondary {
+    width: 100%;
+  }
+  
   .dashboard-stats {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: 1fr;
     gap: 15px;
   }
   
@@ -400,13 +508,23 @@
     font-size: 2rem;
   }
   
-  .users-table {
-    font-size: 0.9rem;
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .users-table,
+  .reviews-table {
+    font-size: 0.85rem;
+    min-width: 700px;
   }
   
   .users-table th,
-  .users-table td {
+  .users-table td,
+  .reviews-table th,
+  .reviews-table td {
     padding: 10px 8px;
+    white-space: nowrap;
   }
   
   .actions {
@@ -414,17 +532,109 @@
     gap: 5px;
   }
   
+  .actions .btn-edit,
+  .actions .btn-delete,
+  .actions .btn-view {
+    width: 100%;
+    padding: 8px 10px;
+  }
+  
   .modal-content {
     width: 95%;
     padding: 20px;
+    max-height: 85vh;
   }
   
   .modal-actions {
     flex-direction: column;
   }
+  
+  .modal-actions button {
+    width: 100%;
+  }
+  
+  .pagination {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .pagination button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
 }
 
-/* Tab Navigation */
+@media (max-width: 480px) {
+  .admin-container {
+    padding: 8px;
+  }
+  
+  .admin-header {
+    padding: 12px;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.3rem;
+  }
+  
+  .users-section,
+  .review-management {
+    padding: 15px;
+  }
+  
+  .users-section h2,
+  .review-management h2 {
+    font-size: 1.2rem;
+  }
+  
+  .stat-card h3 {
+    font-size: 1.8rem;
+  }
+  
+  .stat-card p {
+    font-size: 0.85rem;
+  }
+  
+  .btn-primary, 
+  .btn-secondary, 
+  .btn-edit, 
+  .btn-delete {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .modal-content {
+    padding: 15px;
+    max-height: 90vh;
+  }
+  
+  .modal-content h2 {
+    font-size: 1.3rem;
+  }
+  
+  .modal-content input,
+  .modal-content select {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+  
+  .role-badge, 
+  .status-badge, 
+  .difficulty-badge {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+  
+  .review-comment {
+    max-width: 120px;
+    font-size: 0.8rem;
+  }
+  
+  .pagination span {
+    font-size: 0.9rem;
+  }
+}
+
 .admin-tabs {
   display: flex;
   background: white;
@@ -451,13 +661,17 @@
   background: #f8f9fa;
 }
 
+.tab-btn:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
 .tab-btn.active {
   color: #3498db;
   border-bottom-color: #3498db;
   background: #f8f9fa;
 }
 
-/* Review Management */
 .review-management {
   background: white;
   padding: 30px;
@@ -486,6 +700,14 @@
   min-width: 150px;
   cursor: pointer;
   transition: border-color 0.3s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 35px;
 }
 
 .review-filters select:focus {
@@ -635,7 +857,6 @@
   font-style: italic;
 }
 
-/* Review Detail Modal */
 .review-modal {
   max-width: 600px;
   width: 90%;
@@ -713,15 +934,44 @@
   border-top: 1px solid #dee2e6;
 }
 
-/* Responsive Design for Review Management */
+@media (max-width: 1024px) {
+  .review-filters {
+    gap: 12px;
+  }
+  
+  .review-filters select {
+    min-width: 140px;
+  }
+  
+  .reviews-table {
+    min-width: 850px;
+  }
+  
+  .info-row {
+    margin-bottom: 12px;
+  }
+}
+
 @media (max-width: 768px) {
   .admin-tabs {
     margin-bottom: 15px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
   .tab-btn {
     padding: 12px 15px;
     font-size: 0.9rem;
+    white-space: nowrap;
+    min-width: 120px;
+  }
+  
+  .review-management {
+    padding: 20px;
+  }
+  
+  .review-management h2 {
+    font-size: 1.4rem;
   }
   
   .review-filters {
@@ -731,10 +981,12 @@
   
   .review-filters select {
     width: 100%;
+    min-width: unset;
   }
   
   .reviews-table {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    min-width: 700px;
   }
   
   .reviews-table th,
@@ -753,9 +1005,12 @@
   }
   
   .btn-view,
-  .btn-delete {
-    font-size: 0.75rem;
-    padding: 4px 8px;
+  .btn-delete,
+  .btn-approve,
+  .btn-reject {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    width: 100%;
   }
   
   .review-modal {
@@ -776,5 +1031,179 @@
   .review-actions {
     flex-direction: column;
     gap: 8px;
+  }
+  
+  .review-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-tabs {
+    flex-direction: column;
+  }
+  
+  .tab-btn {
+    padding: 10px;
+    font-size: 0.85rem;
+    min-width: unset;
+    border-bottom: 1px solid #dee2e6;
+    border-right: none;
+  }
+  
+  .tab-btn.active {
+    border-bottom: 3px solid #3498db;
+  }
+  
+  .review-management {
+    padding: 15px;
+  }
+  
+  .review-management h2 {
+    font-size: 1.2rem;
+  }
+  
+  .reviews-table {
+    font-size: 0.75rem;
+    min-width: 650px;
+  }
+  
+  .reviews-table th,
+  .reviews-table td {
+    padding: 6px 4px;
+  }
+  
+  .rating-stars .star {
+    font-size: 0.85rem;
+  }
+  
+  .review-comment {
+    max-width: 100px;
+    font-size: 0.75rem;
+  }
+  
+  .difficulty-badge,
+  .status-badge {
+    padding: 2px 6px;
+    font-size: 0.65rem;
+  }
+  
+  .review-modal {
+    padding: 15px;
+  }
+  
+  .review-details {
+    margin: 15px 0;
+  }
+  
+  .info-row {
+    margin-bottom: 12px;
+  }
+  
+  .info-row label {
+    font-size: 0.9rem;
+  }
+  
+  .info-row span {
+    font-size: 0.85rem;
+  }
+  
+  .review-comment-full p {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .admin-note p {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .modal-content {
+    max-height: 80vh;
+  }
+  
+  .review-modal {
+    max-height: 80vh;
+  }
+}
+
+@media (max-width: 360px) {
+  .admin-header h1 {
+    font-size: 1.1rem;
+  }
+  
+  .stat-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-card p {
+    font-size: 0.75rem;
+  }
+  
+  .btn-primary, 
+  .btn-secondary {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .modal-content h2 {
+    font-size: 1.1rem;
+  }
+  
+  .reviews-table {
+    min-width: 600px;
+  }
+}
+
+@media print {
+  .admin-container {
+    max-width: 100%;
+    padding: 0;
+    background-color: white;
+  }
+  
+  .admin-actions,
+  .btn-primary,
+  .btn-secondary,
+  .btn-edit,
+  .btn-delete,
+  .btn-view,
+  .btn-approve,
+  .btn-reject,
+  .modal-overlay,
+  .pagination {
+    display: none !important;
+  }
+  
+  .admin-header {
+    box-shadow: none;
+    border-bottom: 2px solid #000;
+  }
+  
+  .users-table,
+  .reviews-table {
+    page-break-inside: auto;
+  }
+  
+  .users-table tr,
+  .reviews-table tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  
+  .stat-card,
+  .users-section,
+  .review-management {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .admin-container {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
