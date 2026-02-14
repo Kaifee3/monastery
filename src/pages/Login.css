@@ -1,11 +1,9 @@
-/* Main container to center the form */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Wrapper to center the form vertically and horizontally */
 .login-wrapper {
   min-height: 100vh;
   display: flex;
@@ -18,7 +16,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Background pattern overlay */
 .login-wrapper::before {
   content: '';
   position: absolute;
@@ -49,7 +46,6 @@ body {
   z-index: 2;
 }
 
-/* Add a subtle background pattern */
 .form-container::before {
   content: '';
   position: absolute;
@@ -116,12 +112,6 @@ button {
   overflow: hidden;
 }
 
-/* button:hover {
-  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
-} */
-
 button:active {
   transform: translateY(0);
 }
@@ -139,7 +129,6 @@ button:disabled:hover {
   box-shadow: none;
 }
 
-/* Button ripple effect */
 button::after {
   content: '';
   position: absolute;
@@ -182,7 +171,6 @@ button:active::after {
   font-size: 14px;
 }
 
-/* Divider styling */
 .divider {
   text-align: center;
   margin: 25px 0;
@@ -208,7 +196,6 @@ button:active::after {
   z-index: 1;
 }
 
-/* Google login container */
 .google-login-container {
   margin: 20px 0;
 }
@@ -217,7 +204,6 @@ button:active::after {
   margin-bottom: 10px;
 }
 
-/* Google login fallback button */
 .google-login-fallback {
   width: 100%;
   padding: 12px 16px;
@@ -256,7 +242,6 @@ button:active::after {
   flex-shrink: 0;
 }
 
-/* Auth link styling */
 .auth-link {
   text-align: center;
   margin-top: 25px;
@@ -282,7 +267,6 @@ button:active::after {
   text-decoration: underline;
 }
 
-/* Responsive design */
 @media screen and (max-width: 768px) {
   .login-wrapper {
     padding: 15px;
@@ -330,7 +314,6 @@ button:active::after {
   }
 }
 
-/* Float animation keyframes for background particles */
 @keyframes floatParticles {
   0% {
     background-position: 0px 0px, 0px 0px, 0px 0px;
@@ -349,7 +332,6 @@ button:active::after {
   }
 }
 
-/* Keep the old float animation for other elements that might use it */
 @keyframes float {
   0% {
     transform: translateY(0px) rotate(0deg);
@@ -363,4 +345,49 @@ button:active::after {
   100% {
     transform: translateY(0px) rotate(0deg);
   }
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-input-container input {
+  padding-right: 50px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease;
+  width: auto;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-btn:hover {
+  color: #4caf50;
+  background: transparent;
+  transform: translateY(-50%);
+  box-shadow: none;
+}
+
+.password-toggle-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.password-toggle-btn::after {
+  display: none;
+}
+
+.password-toggle-btn svg {
+  display: block;
 }
