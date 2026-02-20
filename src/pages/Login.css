@@ -198,10 +198,26 @@ button:active::after {
 
 .google-login-container {
   margin: 20px 0;
+  min-height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #google-signin-button {
   margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#google-signin-button > div {
+  width: 100% !important;
+}
+
+#google-signin-button iframe {
+  width: 100% !important;
 }
 
 .google-login-fallback {
