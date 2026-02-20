@@ -86,11 +86,11 @@ const ReviewForm = ({ existingReview, monasteryId, monasteryName, onClose, onRev
                 };
                 console.log('Submitting new review data:', reviewData);
                 console.log('User info:', user);
-                console.log('API endpoint:', 'https://monestry-backend.vercel.app/api/reviews');
+                console.log('API endpoint:', 'https://form-backend-gold.vercel.app/api/reviews');
                 
                 console.log('Testing API connectivity...');
                 try {
-                    const testResponse = await fetch('https://monestry-backend.vercel.app/api/reviews/public');
+                    const testResponse = await fetch('https://form-backend-gold.vercel.app/api/reviews/public');
                     console.log('API connectivity test - Status:', testResponse.status);
                     console.log('API connectivity test - OK:', testResponse.ok);
                 } catch (connectError) {

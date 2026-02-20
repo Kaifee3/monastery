@@ -1,12 +1,109 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContext";
 import "./Register.css"
 export default function Register() {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [user,setUser]=useState({})
     const [error,setError]=useState()
     const [showPassword, setShowPassword] = useState(false)
+    const [googleLoaded, setGoogleLoaded] = useState(false)
+    
+    const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+    // Initialize Google Sign-In
+    useEffect(() => {
+        if (!googleClientId) {
+            console.log("Google Client ID not configured");
+            return;
+        }
+
+        const loadGoogleScript = () => {
+            const script = document.createElement('script');
+            script.src = 'https://accounts.google.com/gsi/client';
+            script.async = true;
+            script.defer = true;
+            script.onload = () => {
+                if (window.google) {
+                    window.google.accounts.id.initialize({
+                        client_id: googleClientId,
+                        callback: handleGoogleResponse,
+                        auto_select: false,
+                        cancel_on_tap_outside: true,
+                    });
+                    
+                    // Get the container width for responsive button
+                    const container = document.getElementById("google-signin-button-register");
+                    const containerWidth = container?.offsetWidth;
+                    
+                    window.google.accounts.id.renderButton(
+                        container,
+                        { 
+                            theme: "outline", 
+                            size: "large",
+                            text: "signup_with",
+                            width: containerWidth || 400,
+                            logo_alignment: "left"
+                        }
+                    );
+                    setGoogleLoaded(true);
+                }
+            };
+            document.body.appendChild(script);
+        };
+
+        loadGoogleScript();
+
+        return () => {
+            // Cleanup Google Sign-In
+            const script = document.querySelector('script[src="https://accounts.google.com/gsi/client"]');
+            if (script) {
+                document.body.removeChild(script);
+            }
+        };
+    }, [googleClientId]);
+
+    const handleGoogleResponse = async (response) => {
+        try {
+            setError("");
+            
+            // Send the Google token to backend for verification
+            const url = "https://form-backend-gold.vercel.app/api/users/google-login";
+            const result = await axios.post(url, {
+                credential: response.credential
+            });
+            
+            console.log("Google signup response:", result.data);
+            
+            setError("Successfully registered with Google! Redirecting...");
+            
+            if (result.data.token) {
+                localStorage.setItem('token', result.data.token);
+            }
+            
+            // Backend returns user data at root level: { id, firstName, email, role, token }
+            const userData = {
+                id: result.data.id,
+                firstName: result.data.firstName,
+                email: result.data.email,
+                role: result.data.role || 'user'
+            };
+            
+            console.log("Google user data to save:", userData);
+            
+            login(userData);
+            
+            setTimeout(() => {
+                navigate("/");
+            }, 1500);
+        } catch (err) {
+            console.error("Google signup error:", err);
+            const errorMessage = err.response?.data?.error || err.response?.data?.message || "Google sign up failed. Please try again.";
+            setError(errorMessage);
+        }
+    };
     
     const handleSubmit=async()=>{
         setError("")
@@ -46,7 +143,7 @@ export default function Register() {
         }
         
         try{
-            const url="https://monestry-backend.vercel.app/api/users/register"
+            const url="https://form-backend-gold.vercel.app/api/users/register"
             console.log("Sending registration data:", user)
             const result= await axios.post(url,user)
             console.log("Registration successful:", result.data)
@@ -81,6 +178,18 @@ export default function Register() {
       <div className="form-container">
         <h2>Create Your Account</h2>
         {error && <div className={error.toLowerCase().includes("successfully") ? "success-message" : "error-message"}>{error}</div>}
+        
+        {googleClientId && (
+          <>
+            <div className="google-login-container">
+              <div id="google-signin-button-register"></div>
+            </div>
+            <div className="divider">
+              <span>or sign up with email</span>
+            </div>
+          </>
+        )}
+        
         <p>
           <input 
             type="text" 

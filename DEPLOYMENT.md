@@ -34,7 +34,7 @@ git push origin main
 In the Vercel project settings, add the following environment variables:
 
 - `REACT_APP_GOOGLE_CLIENT_ID`: Your Google OAuth Client ID
-- `REACT_APP_API_URL`: Your backend API URL (already set to https://monestry-backend.vercel.app)
+- `REACT_APP_API_URL`: Your backend API URL (already set to https://form-backend-gold.vercel.app)
 
 ### Step 4: Deploy
 

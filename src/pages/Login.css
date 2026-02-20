@@ -202,6 +202,7 @@ button:active::after {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 #google-signin-button {
@@ -210,14 +211,23 @@ button:active::after {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 100%;
 }
 
 #google-signin-button > div {
   width: 100% !important;
+  max-width: 100% !important;
 }
 
 #google-signin-button iframe {
   width: 100% !important;
+  max-width: 100% !important;
+}
+
+#google-signin-button button,
+#google-signin-button > div > div {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .google-login-fallback {
