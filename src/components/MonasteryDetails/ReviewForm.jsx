@@ -75,8 +75,8 @@ const ReviewForm = ({ existingReview, monasteryId, monasteryName, onClose, onRev
 
         try {
             if (existingReview) {
-                console.log('Updating existing review:', existingReview);
-                await reviewAPI.updateUserReview(formData);
+                console.log('Updating existing review:', existingReview._id);
+                await reviewAPI.updateReview(existingReview._id, formData);
                 onReviewUpdated();
             } else {
                 const reviewData = {
@@ -154,7 +154,7 @@ const ReviewForm = ({ existingReview, monasteryId, monasteryName, onClose, onRev
         setError('');
 
         try {
-            await reviewAPI.deleteUserReview();
+            await reviewAPI.deleteReview(existingReview._id);
             onReviewUpdated();
         } catch (err) {
             console.error('Error deleting review:', err);

@@ -418,5 +418,95 @@
     "latitude": 27.2650,
     "longitude": 88.5650,
     "history": "Tingbung Monastery, founded around 1835, is a beautiful monastery situated in the tranquil Tingbung area of East Sikkim. The monastery follows the Nyingma tradition and is known for its peaceful environment ideal for meditation and spiritual contemplation. It features traditional Sikkimese architecture with intricately carved wooden pillars and colorfully painted walls depicting Buddhist legends. The monastery houses a valuable collection of ancient Buddhist texts and ritual instruments. Tingbung Monastery is particularly renowned for its annual Mahakala puja (prayer ceremony) and serves as an important spiritual center for surrounding villages, maintaining strong connections with the local community."
+  },
+  {
+    "id": 43,
+    "name": "Choten Monastery",
+    "location": "Choten, East Sikkim",
+    "established": "1845",
+    "imageName": "Choten-Monastery1.png",
+    "latitude": 27.3200,
+    "longitude": 88.5900,
+    "history": "Choten Monastery, established around 1845, is a sacred Buddhist monastery in East Sikkim known for its serene mountain setting and traditional architecture. The monastery follows the Nyingma tradition and serves as an important spiritual center for the local community. It is renowned for its beautiful murals, ancient Buddhist scriptures, and peaceful meditation halls that attract devotees and visitors seeking spiritual enlightenment."
+  },
+  {
+    "id": 44,
+    "name": "Kagon Tshechhogling Monastery",
+    "location": "Kagon, East Sikkim",
+    "established": "1820",
+    "imageName": "Kagon-Tshechhogling-Monastery1.png",
+    "latitude": 27.2900,
+    "longitude": 88.5700,
+    "history": "Kagon Tshechhogling Monastery, founded around 1820, is a prominent monastery belonging to the Kagyu sect of Tibetan Buddhism. The name 'Tshechhogling' means 'Place of the Ten Directions.' This monastery is known for its traditional Buddhist teachings, meditation practices, and annual religious festivals. It serves as a center for Buddhist education and spiritual development, maintaining the rich cultural heritage of the region."
+  },
+  {
+    "id": 45,
+    "name": "Lingdum Zurmang Kharwang Gonpa Monastery",
+    "location": "Kharwang, East Sikkim",
+    "established": "1890",
+    "imageName": "Lingdum-Zurmang-Kharwang-Gonpa-Monastery1.png",
+    "latitude": 27.3100,
+    "longitude": 88.5600,
+    "history": "Lingdum Zurmang Kharwang Gonpa Monastery, established around 1890, is part of the renowned Zurmang Kagyu lineage. This monastery is known for its distinctive architecture and serves as a branch of the main Lingdum Zurmang Monastery. It follows traditional Tibetan Buddhist practices and is famous for its meditation retreats, religious ceremonies, and preservation of ancient Buddhist texts."
+  },
+  {
+    "id": 46,
+    "name": "Raloong Monastery",
+    "location": "Raloong, East Sikkim",
+    "established": "1730",
+    "imageName": "Raloong-Monastery1.png",
+    "latitude": 27.2700,
+    "longitude": 88.5400,
+    "history": "Raloong Monastery, founded around 1730, is one of the historic monasteries of East Sikkim. This ancient monastery belongs to the Kagyu sect and has been a center of Buddhist learning for nearly three centuries. The monastery is renowned for its traditional architecture, sacred relics, and annual Cham dance performances. It plays a vital role in preserving the spiritual and cultural traditions of the region."
+  },
+  {
+    "id": 47,
+    "name": "Rumtek Dharma Chakra Centre Monastery",
+    "location": "Rumtek, East Sikkim",
+    "established": "1966",
+    "imageName": "Rumtek-Dharma-Chakra-Centre-Monastey1.png",
+    "latitude": 27.3550,
+    "longitude": 88.6220,
+    "history": "Rumtek Dharma Chakra Centre Monastery, inaugurated in 1966 by the 16th Karmapa, serves as the main seat of the Karmapa lineage in exile. This monastery is one of the most significant centers of Tibetan Buddhism outside Tibet. It houses precious Buddhist artifacts, ancient manuscripts, and religious treasures. The monastery is famous for its elaborate religious ceremonies, traditional architecture, and serves as a major pilgrimage destination for Buddhists worldwide."
+  },
+  {
+    "id": 48,
+    "name": "Sang Ngor Monastery",
+    "location": "Sang Ngor, East Sikkim",
+    "established": "1860",
+    "imageName": "Sang-Ngor-Monastery1.png",
+    "latitude": 27.2800,
+    "longitude": 88.5800,
+    "history": "Sang Ngor Monastery, established around 1860, is a peaceful Buddhist monastery known for its spiritual significance and beautiful mountain location. The monastery follows the Nyingma tradition and is famous for its meditation programs, religious teachings, and community services. It serves as an important center for preserving Buddhist culture and providing spiritual guidance to devotees from across the region."
+  },
+  {
+    "id": 49,
+    "name": "Sichey Dechen Choling Monastery",
+    "location": "Sichey, East Sikkim",
+    "established": "1880",
+    "imageName": "Sichey-Dechen-Choling-Monastery1.png",
+    "latitude": 27.3000,
+    "longitude": 88.6100,
+    "history": "Sichey Dechen Choling Monastery, founded around 1880, is a significant monastery in East Sikkim. The name 'Dechen Choling' means 'Place of Great Bliss and Dharma.' This monastery belongs to the Nyingma sect and is known for its beautiful architecture, ancient Buddhist scriptures, and peaceful environment. It serves as a center for Buddhist education, meditation retreats, and religious ceremonies."
+  },
+  {
+    "id": 50,
+    "name": "Tashi Palden Monastery",
+    "location": "Tashi Palden, East Sikkim",
+    "established": "1875",
+    "imageName": "Tashi-Palden-Monastery1.png",
+    "latitude": 27.2600,
+    "longitude": 88.5550,
+    "history": "Tashi Palden Monastery, established around 1875, is a revered Buddhist monastery known for its auspicious name meaning 'Glorious Good Fortune.' The monastery follows traditional Buddhist practices and is famous for its annual festivals, meditation programs, and spiritual teachings. It serves as an important pilgrimage site and continues to be a beacon of Buddhist wisdom and compassion in East Sikkim."
+  },
+  {
+    "id": 51,
+    "name": "Tinkye Gonjang Monastery",
+    "location": "Tinkye, East Sikkim",
+    "established": "1850",
+    "imageName": "Tinkye-Gonjang-Monastery1.png",
+    "latitude": 27.2750,
+    "longitude": 88.5750,
+    "history": "Tinkye Gonjang Monastery, founded around 1850, is a historic monastery located in the scenic Tinkye region of East Sikkim. The monastery follows the Kagyu tradition and is known for its traditional Tibetan architecture and spiritual significance. It serves as a center for Buddhist learning, meditation practices, and religious ceremonies. The monastery is particularly famous for its collection of ancient thangkas and Buddhist artifacts."
   }
 ]

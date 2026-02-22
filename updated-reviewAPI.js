@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://form-backend-gold.vercel.app/api'; // Updated to match Admin component URL
+const API_BASE_URL = 'https://form-backend-gold.vercel.app/api';
 
 // Create axios instance with default config
 const api = axios.create({
@@ -31,7 +31,6 @@ api.interceptors.response.use(
     },
     (error) => {
         if (error.response?.status === 401) {
-            // Token expired or invalid, redirect to login
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             localStorage.removeItem('isAuthenticated');
@@ -42,7 +41,7 @@ api.interceptors.response.use(
 );
 
 export const reviewAPI = {
-    // Public API - Get all reviews (no approval needed)
+    // Public API - Get all reviews
     getAllReviews: async (params = {}) => {
         const queryParams = new URLSearchParams(params).toString();
         return await api.get(`/reviews/public${queryParams ? `?${queryParams}` : ''}`);
@@ -59,6 +58,7 @@ export const reviewAPI = {
         return await api.post('/reviews', reviewData);
     },
 
+    // Get current user's reviews (supports multiple reviews)
     getUserReviews: async (params = {}) => {
         const queryParams = new URLSearchParams(params).toString();
         return await api.get(`/reviews/my-reviews${queryParams ? `?${queryParams}` : ''}`);
@@ -74,24 +74,11 @@ export const reviewAPI = {
         return await api.delete(`/reviews/${reviewId}`);
     },
 
-    // Legacy methods (deprecated but kept for backward compatibility)
-    updateUserReview: async (reviewData) => {
-        console.warn('updateUserReview is deprecated. Use updateReview(reviewId, reviewData) instead.');
-        return await api.put('/reviews/my-review', reviewData);
-    },
-
-    deleteUserReview: async () => {
-        console.warn('deleteUserReview is deprecated. Use deleteReview(reviewId) instead.');
-        return await api.delete('/reviews/my-review');
-    },
-
     // Admin APIs (require admin role)
     getAllReviewsForAdmin: async (params = {}) => {
         const queryParams = new URLSearchParams(params).toString();
         return await api.get(`/reviews/admin${queryParams ? `?${queryParams}` : ''}`);
     },
-
-    // Note: Review status updates removed - reviews are immediately visible
 
     getReviewDetailsForAdmin: async (reviewId) => {
         return await api.get(`/reviews/admin/${reviewId}`);
@@ -103,6 +90,22 @@ export const reviewAPI = {
 
     getReviewDashboardStats: async () => {
         return await api.get('/reviews/admin/dashboard/stats');
+    },
+
+    // Debug endpoint
+    debugReviewSubmission: async () => {
+        return await api.get('/reviews/debug');
+    },
+
+    // Legacy methods (deprecated) - kept for backward compatibility
+    updateUserReview: async (reviewData) => {
+        console.warn('updateUserReview is deprecated. Use updateReview(reviewId, reviewData) instead.');
+        return await api.put('/reviews/my-review', reviewData);
+    },
+
+    deleteUserReview: async () => {
+        console.warn('deleteUserReview is deprecated. Use deleteReview(reviewId) instead.');
+        return await api.delete('/reviews/my-review');
     }
 };
 

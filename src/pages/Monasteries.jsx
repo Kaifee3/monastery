@@ -625,7 +625,7 @@ const Monasteries = () => {
                                 }}>
                                     <Link to={`/monasteries/${monastery.id}`}>
                                         <img 
-                                            src={`/images/${monastery.imageName || 'default-monastery.jpg'}`} 
+                                            src={`/images/${monastery.imageName || 'Home1.jpg'}`} 
                                             alt={monastery.name}
                                             loading="lazy"
                                             style={{
@@ -635,7 +635,7 @@ const Monasteries = () => {
                                                 transition: 'transform 0.3s ease'
                                             }}
                                             onError={(e) => {
-                                                e.target.src = '/images/default-monastery.jpg';
+                                                e.target.src = '/images/Home1.jpg';
                                             }}
                                             onMouseEnter={(e) => {
                                                 e.target.style.transform = 'scale(1.1)';
@@ -671,16 +671,30 @@ const Monasteries = () => {
                                     width: '100%'
                                 }}>
                                     <div>
-                                        <h2 style={{
-                                            fontSize: isMobile ? '1.2rem' : '1.3rem',
-                                            fontWeight: '700',
-                                            color: '#2e7d32',
-                                            marginBottom: '8px',
-                                            fontFamily: "'Playfair Display', serif",
-                                            lineHeight: '1.3'
-                                        }}>
-                                            {monastery.name}
-                                        </h2>
+                                        <Link 
+                                            to={`/monasteries/${monastery.id}`}
+                                            style={{ textDecoration: 'none', color: 'inherit' }}
+                                        >
+                                            <h2 style={{
+                                                fontSize: isMobile ? '1.2rem' : '1.3rem',
+                                                fontWeight: '700',
+                                                color: '#2e7d32',
+                                                marginBottom: '8px',
+                                                fontFamily: "'Playfair Display', serif",
+                                                lineHeight: '1.3',
+                                                cursor: 'pointer',
+                                                transition: 'color 0.3s ease'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.target.style.color = '#4caf50';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.target.style.color = '#2e7d32';
+                                            }}
+                                            >
+                                                {monastery.name}
+                                            </h2>
+                                        </Link>
 
                                         <div style={{
                                             display: 'flex',
@@ -695,18 +709,32 @@ const Monasteries = () => {
                                             </span>
                                         </div>
 
-                                        <p style={{
-                                            fontSize: '0.9rem',
-                                            color: '#555',
-                                            lineHeight: '1.55',
-                                            marginBottom: '12px',
-                                            display: '-webkit-box',
-                                            WebkitLineClamp: viewMode === 'list' && !isMobile ? 2 : 3,
-                                            WebkitBoxOrient: 'vertical',
-                                            overflow: 'hidden'
-                                        }}>
-                                            {monastery.history}
-                                        </p>
+                                        <Link 
+                                            to={`/monasteries/${monastery.id}`}
+                                            style={{ textDecoration: 'none', color: 'inherit' }}
+                                        >
+                                            <p style={{
+                                                fontSize: '0.9rem',
+                                                color: '#555',
+                                                lineHeight: '1.55',
+                                                marginBottom: '12px',
+                                                display: '-webkit-box',
+                                                WebkitLineClamp: viewMode === 'list' && !isMobile ? 2 : 3,
+                                                WebkitBoxOrient: 'vertical',
+                                                overflow: 'hidden',
+                                                cursor: 'pointer',
+                                                transition: 'color 0.3s ease'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.target.style.color = '#2e7d32';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.target.style.color = '#555';
+                                            }}
+                                            >
+                                                {monastery.history}
+                                            </p>
+                                        </Link>
 
                                         <div style={{
                                             display: 'flex',

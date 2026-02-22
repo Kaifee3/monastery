@@ -228,17 +228,6 @@ export default function Admin() {
     }
   };
 
-  const updateReviewStatus = async (reviewId, status, adminNote = '') => {
-    try {
-      await reviewAPI.updateReviewStatus(reviewId, { status, adminNote });
-      setSuccess(`Review ${status} successfully`);
-      fetchReviews();
-      setShowReviewModal(false);
-    } catch (err) {
-      setError(err.response?.data?.message || `Failed to ${status} review`);
-    }
-  };
-
   const deleteReview = async (reviewId) => {
     if (!window.confirm('Are you sure you want to delete this review?')) {
       return;

@@ -53,7 +53,16 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             'Silem Phagyal Tashi Dargyeling Monastery': 'SILEM PHAGYAL TASHI DARGYELING MONASTERY',
             'Singchit Ngadag Monastery': 'SINGCHIT NGADAG MONASTERY',
             'Tholung Monastery': 'THOLUNG MONASTERY',
-            'Tingbung Monastery': 'TINGBUNG MONASTERY'
+            'Tingbung Monastery': 'TINGBUNG MONASTERY',
+            'Choten Monastery': 'Choten-Monastery',
+            'Kagon Tshechhogling Monastery': 'Kagon-Tshechhogling-Monastery',
+            'Lingdum Zurmang Kharwang Gonpa Monastery': 'Lingdum-Zurmang-Kharwang-Gonpa-Monastery',
+            'Raloong Monastery': 'Raloong-Monastery',
+            'Rumtek Dharma Chakra Centre Monastery': 'Rumtek-Dharma-Chakra-Centre-Monastey',
+            'Sang Ngor Monastery': 'Sang-Ngor-Monastery',
+            'Sichey Dechen Choling Monastery': 'Sichey-Dechen-Choling-Monastery',
+            'Tashi Palden Monastery': 'Tashi-Palden-Monastery',
+            'Tinkye Gonjang Monastery': 'Tinkye-Gonjang-Monastery'
         };
         baseName = nameMapping[monasteryName] || monasteryName;
 
@@ -94,7 +103,9 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             'Labrang Monastery', 'Lachen Ngodub Choling Monastery', 'Lachen Thangu Monastery',
             'Lingthem Gonpa Chophel Dargyeling', 'Phensang Monastery', 'Phodong Karma Tashi Chokhorling Monastery',
             'Silem Phagyal Tashi Dargyeling Monastery', 'Singchit Ngadag Monastery',
-            'Tholung Monastery', 'Tingbung Monastery'
+            'Tholung Monastery', 'Tingbung Monastery', 'Choten Monastery', 'Kagon Tshechhogling Monastery',
+            'Lingdum Zurmang Kharwang Gonpa Monastery', 'Raloong Monastery', 'Rumtek Dharma Chakra Centre Monastery',
+            'Sang Ngor Monastery', 'Sichey Dechen Choling Monastery', 'Tashi Palden Monastery', 'Tinkye Gonjang Monastery'
         ];
 
         if (westRegionMonasteries.includes(monasteryName)) {
@@ -149,7 +160,16 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                 'Silem Phagyal Tashi Dargyeling Monastery': [' 1.jpg', ' 2.jpg', ' 3.jpg'],
                 'Singchit Ngadag Monastery': [' 1.jpg', ' 2.jpg', ' 3.jpg'],
                 'Tholung Monastery': [' 1.jpg', ' 2.jpg', ' 3.jpg'],
-                'Tingbung Monastery': [' 1.jpg', ' 2.jpg', ' 3.jpg']
+                'Tingbung Monastery': [' 1.jpg', ' 2.jpg', ' 3.jpg'],
+                'Choten Monastery': ['1.png', '2.png', '3.png'],
+                'Kagon Tshechhogling Monastery': ['1.png', '2.png', '3.png'],
+                'Lingdum Zurmang Kharwang Gonpa Monastery': ['1.png', '2.png', '3.png'],
+                'Raloong Monastery': ['1.png', '2.png', '3.jpg'],
+                'Rumtek Dharma Chakra Centre Monastery': ['1.png', '2.png', '3.png'],
+                'Sang Ngor Monastery': ['1.png', '2.png', '3.png', '4.png'],
+                'Sichey Dechen Choling Monastery': ['1.png', '2.png'],
+                'Tashi Palden Monastery': ['1.png', '2.png', '3.png'],
+                'Tinkye Gonjang Monastery': ['1.png', '2.png', '3.png']
             };
             
             const exts = extensions[monasteryName];
@@ -201,18 +221,51 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
 
     useEffect(() => {
         setCurrentSlide(0);
+        setImageLoadError({}); // Reset image errors when monastery changes
     }, [monasteryName]);
 
+    // Reset current slide if it becomes invalid due to failed images
+    useEffect(() => {
+        if (images.length > 0) {
+            const validImageIndices = images
+                .map((_, index) => index)
+                .filter(index => !imageLoadError[index]);
+            
+            if (validImageIndices.length > 0 && imageLoadError[currentSlide]) {
+                setCurrentSlide(validImageIndices[0]);
+            }
+        }
+    }, [imageLoadError, currentSlide, images.length]);
+
     const goToSlide = (index) => {
-        setCurrentSlide(index);
+        // Only allow navigation to slides that haven't failed to load
+        if (!imageLoadError[index] && index >= 0 && index < images.length) {
+            setCurrentSlide(index);
+        }
     };
 
     const goToPrevious = () => {
-        setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
+        const validIndices = images
+            .map((_, index) => index)
+            .filter(index => !imageLoadError[index]);
+        
+        if (validIndices.length === 0) return;
+        
+        const currentValidIndex = validIndices.indexOf(currentSlide);
+        const nextValidIndex = currentValidIndex === 0 ? validIndices.length - 1 : currentValidIndex - 1;
+        setCurrentSlide(validIndices[nextValidIndex]);
     };
 
     const goToNext = () => {
-        setCurrentSlide((prev) => (prev + 1) % images.length);
+        const validIndices = images
+            .map((_, index) => index)
+            .filter(index => !imageLoadError[index]);
+        
+        if (validIndices.length === 0) return;
+        
+        const currentValidIndex = validIndices.indexOf(currentSlide);
+        const nextValidIndex = currentValidIndex === validIndices.length - 1 ? 0 : currentValidIndex + 1;
+        setCurrentSlide(validIndices[nextValidIndex]);
     };
 
     const handleImageError = (index) => {
@@ -225,16 +278,19 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
 
     const validImages = images.filter((img, idx) => !imageLoadError[idx]);
     const hasAtLeastOneImage = validImages.length > 0;
-    if (images.length === 0 || !hasAtLeastOneImage) {
+    
+    // Show loading state only if no images have been processed yet
+    if (images.length === 0) {
         return (
             <div className="slideshow-loading">
                 <div className="loading-spinner"></div>
-                <p style={{color:'red'}}>No images available for this monastery.</p>
+                <p>Loading images...</p>
             </div>
         );
     }
 
-    const allImagesFailed = images.every((_, idx) => imageLoadError[idx]);
+    // Show error state only if all images have failed to load
+    const allImagesFailed = images.length > 0 && images.every((_, idx) => imageLoadError[idx]);
     if (allImagesFailed) {
         console.error('All images failed to load for', monasteryName, images.map(img => img.src));
         return (
@@ -275,47 +331,57 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                         </div>
                     )}
                 </div>
-                <div className="slideshow-nav-btns">
-                    <button className="nav-btn prev-btn" onClick={goToPrevious}>
-                        <i className="nav-icon">❮</i>
-                    </button>
-                    <button className="nav-btn next-btn" onClick={goToNext}>
-                        <i className="nav-icon">❯</i>
-                    </button>
-                </div>
-                <div className="slide-indicators">
-                    {images.map((_, index) => (
-                        <button
-                            key={index}
-                            className={`indicator ${index === currentSlide ? 'active' : ''}`}
-                            onClick={() => goToSlide(index)}
-                        />
-                    ))}
-                </div>
-                <div className="thumbnail-navigation">
-                    {images.map((image, index) => (
-                        <div
-                            key={index}
-                            className={`thumbnail${index === currentSlide ? ' active' : ''}`}
-                            style={{ minWidth: '60px', minHeight: '40px' }}
-                            onClick={() => goToSlide(index)}
-                        >
-                            <img
-                                src={imageLoadError[index] ? image.fallback : image.src}
-                                srcSet={!imageLoadError[index] && image.srcset ? image.srcset : undefined}
-                                alt={`Thumbnail ${index + 1}`}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                loading="lazy"
-                                decoding="async"
-                                onError={() => handleImageError(index)}
-                                onLoad={() => handleImageLoad(index)}
-                            />
-                            <div className="thumbnail-overlay">
-                                <span>{index + 1}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                {validImages.length > 1 && (
+                    <div className="slideshow-nav-btns">
+                        <button className="nav-btn prev-btn" onClick={goToPrevious}>
+                            <i className="nav-icon">❮</i>
+                        </button>
+                        <button className="nav-btn next-btn" onClick={goToNext}>
+                            <i className="nav-icon">❯</i>
+                        </button>
+                    </div>
+                )}
+                {validImages.length > 1 && (
+                    <div className="slide-indicators">
+                        {images.map((_, index) => (
+                            !imageLoadError[index] && (
+                                <button
+                                    key={index}
+                                    className={`indicator ${index === currentSlide ? 'active' : ''}`}
+                                    onClick={() => goToSlide(index)}
+                                />
+                            )
+                        ))}
+                    </div>
+                )}
+                {validImages.length > 1 && (
+                    <div className="thumbnail-navigation">
+                        {images.map((image, index) => (
+                            !imageLoadError[index] && (
+                                <div
+                                    key={index}
+                                    className={`thumbnail${index === currentSlide ? ' active' : ''}`}
+                                    style={{ minWidth: '60px', minHeight: '40px' }}
+                                    onClick={() => goToSlide(index)}
+                                >
+                                    <img
+                                        src={imageLoadError[index] ? image.fallback : image.src}
+                                        srcSet={!imageLoadError[index] && image.srcset ? image.srcset : undefined}
+                                        alt={`Thumbnail ${index + 1}`}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                        loading="lazy"
+                                        decoding="async"
+                                        onError={() => handleImageError(index)}
+                                        onLoad={() => handleImageLoad(index)}
+                                    />
+                                    <div className="thumbnail-overlay">
+                                        <span>{index + 1}</span>
+                                    </div>
+                                </div>
+                            )
+                        ))}
+                    </div>
+                )}
             </div>
 
         </div>

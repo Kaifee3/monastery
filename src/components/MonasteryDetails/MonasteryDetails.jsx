@@ -538,7 +538,16 @@ const MonasteryDetails = () => {
                             'Silem Phagyal Tashi Dargyeling Monastery': 'SILEM PHAGYAL TASHI DARGYELING MONASTERY',
                             'Singchit Ngadag Monastery': 'SINGCHIT NGADAG MONASTERY',
                             'Tholung Monastery': 'THOLUNG MONASTERY',
-                            'Tingbung Monastery': 'TINGBUNG MONASTERY'
+                            'Tingbung Monastery': 'TINGBUNG MONASTERY',
+                            'Choten Monastery': 'Choten-Monastery',
+                            'Kagon Tshechhogling Monastery': 'Kagon-Tshechhogling-Monastery',
+                            'Lingdum Zurmang Kharwang Gonpa Monastery': 'Lingdum-Zurmang-Kharwang-Gonpa-Monastery',
+                            'Raloong Monastery': 'Raloong-Monastery',
+                            'Rumtek Dharma Chakra Centre Monastery': 'Rumtek-Dharma-Chakra-Centre-Monastey',
+                            'Sang Ngor Monastery': 'Sang-Ngor-Monastery',
+                            'Sichey Dechen Choling Monastery': 'Sichey-Dechen-Choling-Monastery',
+                            'Tashi Palden Monastery': 'Tashi-Palden-Monastery',
+                            'Tinkye Gonjang Monastery': 'Tinkye-Gonjang-Monastery'
                         };
 
                         const baseName = nameMapping[monastery.name] || monastery.name.replace(/ /g, '-');
@@ -618,8 +627,25 @@ const MonasteryDetails = () => {
                             imagePath = `/images/${baseName} ${imageNum}.jpg`;
                         } else if (monastery.name === 'Tingbung Monastery') {
                             imagePath = `/images/${baseName} ${imageNum}.jpg`;
+                        } else if (['Choten Monastery', 'Kagon Tshechhogling Monastery', 'Lingdum Zurmang Kharwang Gonpa Monastery', 'Rumtek Dharma Chakra Centre Monastery', 'Tashi Palden Monastery', 'Tinkye Gonjang Monastery'].includes(monastery.name)) {
+                            imagePath = `/images/${baseName}${imageNum}.png`;
+                        } else if (monastery.name === 'Sang Ngor Monastery') {
+                            imagePath = imageNum <= 4 ? `/images/${baseName}${imageNum}.png` : `/images/${monastery.imageName}`;
+                        } else if (monastery.name === 'Raloong Monastery') {
+                            const extensions = ['1.png', '2.png', '3.jpg'];
+                            imagePath = `/images/${baseName}${extensions[imageNum - 1]}`;
+                        } else if (monastery.name === 'Sichey Dechen Choling Monastery') {
+                            imagePath = imageNum <= 2 ? `/images/${baseName}${imageNum}.png` : `/images/${monastery.imageName}`;
+                        } else if (monastery.name === 'Sichey Dechen Choling Monastery') {
+                            imagePath = imageNum <= 2 ? `/images/${baseName}${imageNum}.png` : `/images/${monastery.imageName}`;
                         } else {
-                            imagePath = `/images/slide/${baseName}${imageNum}.jpg`;
+                            // Try direct image path first, then slide folder fallback
+                            const mainImageExt = monastery.imageName ? monastery.imageName.split('.').pop().toLowerCase() : 'jpg';
+                            if (['png', 'jpg', 'jfif'].includes(mainImageExt)) {
+                                imagePath = `/images/${baseName}${imageNum}.${mainImageExt}`;
+                            } else {
+                                imagePath = `/images/slide/${baseName}${imageNum}.jpg`;
+                            }
                         }
 
                         return (
@@ -630,6 +656,9 @@ const MonasteryDetails = () => {
                                         alt={`${monastery.name} - View ${imageNum}`}
                                         onError={(e) => {
                                             e.target.src = `/images/${monastery.imageName}`;
+                                            e.target.onerror = () => {
+                                                e.target.src = `/images/Home1.jpg`;
+                                            };
                                         }}
                                     />
                                     <div className="gallery-card-overlay">
