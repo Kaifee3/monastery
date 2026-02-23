@@ -10,67 +10,93 @@ import './additional-review-styles.css';
 const ReviewSection = ({ monasteryId, monasteryName }) => {
     const { isAuthenticated, user } = useAuth();
     const [reviews, setReviews] = useState([]);
-    const [userReviews, setUserReviews] = useState([]);
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [pagination, setPagination] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [editingReview, setEditingReview] = useState(null);
+    const [userReview, setUserReview] = useState(null);
 
     const fetchReviews = async () => {
         try {
             setLoading(true);
+            setError(null);
+            
             const params = {
                 page: currentPage,
                 limit: 10
             };
 
-            const response = await reviewAPI.getAllReviews(params);
-            setReviews(response.reviews);
-            setStats(response.stats);
-            setError(null);
+            let response;
+            
+            if (monasteryName && monasteryName.trim() !== '') {
+                try {
+                    response = await reviewAPI.getMonasteryReviews(monasteryName.trim(), params);
+                } catch (monasteryError) {
+                    response = await reviewAPI.getAllReviews(params);
+                }
+            } else {
+                response = await reviewAPI.getAllReviews(params);
+            }
+            
+            if (response) {
+                setReviews(response.reviews || []);
+                setStats(response.stats || null);
+                setPagination(response.pagination || null);
+            } else {
+                setReviews([]);
+                setStats(null);
+                setPagination(null);
+            }
+            
         } catch (err) {
-            console.error('Error fetching reviews:', err);
-            setError('Failed to load reviews. Please try again later.');
+            const errorMessage = err.response?.data?.message || 
+                               err.response?.data?.error || 
+                               err.message || 
+                               'Failed to load reviews. Please try again later.';
+            
+            setError(errorMessage);
+            setReviews([]);
+            setStats(null);
         } finally {
             setLoading(false);
         }
     };
 
-    const fetchUserReviews = async () => {
-        if (!isAuthenticated) return;
+    const fetchUserReview = async () => {
+        if (!isAuthenticated || !monasteryName) return;
         
         try {
-            const params = monasteryId ? { monasteryId } : {};
-            const response = await reviewAPI.getUserReviews(params);
-            setUserReviews(response.reviews || []);
+            const response = await reviewAPI.getUserReviewsForMonastery(monasteryName.trim());
+            if (response.reviews && response.reviews.length > 0) {
+                setUserReview(response.reviews[0]);
+            } else {
+                setUserReview(null);
+            }
         } catch (err) {
-            console.error('Error fetching user reviews:', err);
-            setUserReviews([]);
+            setUserReview(null);
         }
     };
 
     useEffect(() => {
         fetchReviews();
-    }, [currentPage]);
-
-    useEffect(() => {
-        fetchUserReviews();
-    }, [isAuthenticated, monasteryId]);
+        fetchUserReview();
+    }, [currentPage, monasteryName, isAuthenticated]);
 
     const handleReviewSubmitted = () => {
         setShowForm(false);
         setEditingReview(null);
         fetchReviews();
-        fetchUserReviews();
+        fetchUserReview();
     };
 
     const handleReviewUpdated = () => {
         setShowForm(false);
         setEditingReview(null);
         fetchReviews();
-        fetchUserReviews();
+        fetchUserReview();
     };
 
     const handleEditReview = (review) => {
@@ -78,25 +104,20 @@ const ReviewSection = ({ monasteryId, monasteryName }) => {
         setShowForm(true);
     };
 
-    const handleDeleteReview = async (reviewId) => {
-        if (!window.confirm('Are you sure you want to delete this review?')) {
+    const handleDeleteReview = async () => {
+        if (!window.confirm('Are you sure you want to delete your review?')) {
             return;
         }
         
         try {
-            await reviewAPI.deleteReview(reviewId);
+            await reviewAPI.deleteUserReview();
             fetchReviews();
-            fetchUserReviews();
+            fetchUserReview();
         } catch (err) {
-            console.error('Error deleting review:', err);
             alert('Failed to delete review. Please try again.');
         }
     };
 
-    const handleWriteNewReview = () => {
-        setEditingReview(null);
-        setShowForm(true);
-    };
 
 
 
@@ -108,135 +129,52 @@ const ReviewSection = ({ monasteryId, monasteryName }) => {
                     <p>Share and discover spiritual journeys at {monasteryName}</p>
                 </div>
 
-                <div className="review-grid">
-                    {stats && (
-                        <div className="stats-panel">
-                            <div className="stats-summary">
-                                <div className="rating-summary">
-                                    <div className="rating-score">{stats.averageRating?.toFixed(1) || 'N/A'}</div>
-                                    <div className="rating-stars">
-                                        {[1, 2, 3, 4, 5].map((star) => (
-                                            <span 
-                                                key={star} 
-                                                className={`star ${star <= (stats.averageRating || 0) ? 'filled' : ''}`}
-                                            >
-                                                ★
-                                            </span>
-                                        ))}
-                                    </div>
-                                    <div className="rating-count">{stats.totalReviews || 0} review(s)</div>
-                                </div>
-                            </div>
-                            
-                            {stats.difficultyBreakdown && (
-                                <div className="difficulty-summary">
-                                    <h4>Difficulty</h4>
-                                    <div className="difficulty-compact">
-                                        <div className="diff-item">
-                                            <span className="diff-label">Easy</span>
-                                            <span className="diff-count">{stats.difficultyBreakdown.easy || 0}</span>
-                                        </div>
-                                        <div className="diff-item">
-                                            <span className="diff-label">Moderate</span>
-                                            <span className="diff-count">{stats.difficultyBreakdown.moderate || 0}</span>
-                                        </div>
-                                        <div className="diff-item">
-                                            <span className="diff-label">Hard</span>
-                                            <span className="diff-count">{stats.difficultyBreakdown.hard || 0}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    <div className="action-panel">
-                        {isAuthenticated ? (
-                            <div className="user-section">
-                                <div className="user-reviews-section">
-                                    <div className="user-reviews-header">
-                                        <h4>Your Reviews ({userReviews.length})</h4>
+                <div className="review-actions">
+                    {isAuthenticated ? (
+                        <div className="review-action-buttons">
+                            {userReview ? (
+                                <div className="existing-review-actions">
+                                    <p className="has-review-text">You have already reviewed this monastery</p>
+                                    <div className="review-buttons">
                                         <button 
-                                            className="btn-compact btn-primary"
-                                            onClick={handleWriteNewReview}
-                                            disabled={showForm && !editingReview}
+                                            className="btn btn-outline edit-review-btn"
+                                            onClick={() => handleEditReview(userReview)}
                                         >
-                                            {showForm && !editingReview ? 'Cancel' : 'Write New Review'}
+                                            Edit Review
+                                        </button>
+                                        <button 
+                                            className="btn btn-danger delete-review-btn"
+                                            onClick={handleDeleteReview}
+                                        >
+                                            Delete Review
                                         </button>
                                     </div>
-                                    
-                                    {userReviews.length > 0 ? (
-                                        <div className="user-reviews-list">
-                                            {userReviews.slice(0, 3).map((review) => (
-                                                <div key={review._id} className="user-review-compact">
-                                                    <div className="user-review-preview">
-                                                        <div className="review-rating-small">
-                                                            {[1, 2, 3, 4, 5].map((star) => (
-                                                                <span 
-                                                                    key={star} 
-                                                                    className={`star ${star <= review.rating ? 'filled' : ''}`}
-                                                                >
-                                                                    ★
-                                                                </span>
-                                                            ))}
-                                                        </div>
-                                                        <p className="review-snippet">
-                                                            {review.comment?.substring(0, 50)}
-                                                            {review.comment?.length > 50 ? '...' : ''}
-                                                        </p>
-                                                        <small className="review-date">
-                                                            {new Date(review.createdAt).toLocaleDateString()}
-                                                        </small>
-                                                    </div>
-                                                    <div className="review-actions">
-                                                        <button 
-                                                            className="btn-tiny btn-outline"
-                                                            onClick={() => handleEditReview(review)}
-                                                            disabled={showForm}
-                                                        >
-                                                            Edit
-                                                        </button>
-                                                        <button 
-                                                            className="btn-tiny btn-danger"
-                                                            onClick={() => handleDeleteReview(review._id)}
-                                                            disabled={showForm}
-                                                        >
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                            {userReviews.length > 3 && (
-                                                <p className="more-reviews-text">
-                                                    ...and {userReviews.length - 3} more review{userReviews.length - 3 > 1 ? 's' : ''}
-                                                </p>
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <div className="write-review-prompt">
-                                            <p>Share your experience with others!</p>
-                                        </div>
-                                    )}
                                 </div>
+                            ) : (
+                                <button 
+                                    className="btn btn-primary write-review-btn"
+                                    onClick={() => setShowForm(!showForm)}
+                                >
+                                    {showForm ? 'Cancel' : 'Write a Review'}
+                                </button>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="auth-required">
+                            <p>Please login to write a review</p>
+                            <div className="auth-buttons">
+                                <Link to="/login" className="btn btn-primary">
+                                    Login
+                                </Link>
+                                <Link to="/register" className="btn btn-outline">
+                                    Sign Up
+                                </Link>
                             </div>
-                        ) : (
-                            <div className="auth-required">
-                                <h4>Join the Community</h4>
-                                <p>Login to share your experience</p>
-                                <div className="auth-buttons-compact">
-                                    <Link to="/login" className="btn-compact btn-primary">
-                                        Login
-                                    </Link>
-                                    <Link to="/register" className="btn-compact btn-outline">
-                                        Sign Up
-                                    </Link>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
 
-                {showForm && isAuthenticated && (
+                {showForm && isAuthenticated && !userReview && (
                     <div className="review-form-container">
                         <ReviewForm
                             existingReview={editingReview}
@@ -261,29 +199,108 @@ const ReviewSection = ({ monasteryId, monasteryName }) => {
                         </div>
                     ) : error ? (
                         <div className="error-state">
-                            <p>{error}</p>
-                            <button 
-                                className="btn-compact btn-outline"
-                                onClick={fetchReviews}
-                            >
-                                Retry
-                            </button>
+                            <div className="error-icon">⚠️</div>
+                            <h4>Unable to Load Reviews</h4>
+                            <p className="error-message">{error}</p>
+                            <div className="error-actions">
+                                <button 
+                                    className="btn btn-primary"
+                                    onClick={fetchReviews}
+                                >
+                                    Try Again
+                                </button>
+                                {monasteryId && (
+                                    <button 
+                                        className="btn btn-outline"
+                                        onClick={async () => {
+                                            try {
+                                                setLoading(true);
+                                                const response = await reviewAPI.getAllReviews({ page: 1, limit: 10 });
+                                                setReviews(response.reviews || []);
+                                                setStats(response.stats || null);
+                                                setError(null);
+                                            } catch (err) {
+                                                setError('Unable to load any reviews at this time.');
+                                            } finally {
+                                                setLoading(false);
+                                            }
+                                        }}
+                                    >
+                                        View All Reviews
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     ) : (
                         <div className="reviews-list-compact">
                             <div className="reviews-header">
-                                <h4>Recent Reviews</h4>
+                                <h4>Reviews for {monasteryName}</h4>
+                                {stats && (
+                                    <div className="monastery-stats">
+                                        <span className="average-rating">
+                                            ⭐ {stats.averageRating ? stats.averageRating.toFixed(1) : 'No ratings'}
+                                        </span>
+                                        <span className="total-reviews">
+                                            ({stats.totalReviews} review{stats.totalReviews !== 1 ? 's' : ''})
+                                        </span>
+                                    </div>
+                                )}
                                 {reviews.length > 0 && (
                                     <span className="reviews-showing">
-                                        Showing {reviews.length} of {stats?.totalReviews || 0}
+                                        Showing {reviews.length} review{reviews.length !== 1 ? 's' : ''}
+                                        {pagination && pagination.totalReviews > reviews.length && (
+                                            <span> of {pagination.totalReviews}</span>
+                                        )}
                                     </span>
                                 )}
                             </div>
-                            <ReviewList 
-                                reviews={reviews} 
-                                currentPage={currentPage}
-                                onPageChange={setCurrentPage}
-                            />
+                            {reviews.length === 0 ? (
+                                <div className="no-reviews">
+                                    <p>No reviews yet for this monastery.</p>
+                                    {isAuthenticated && !userReview && (
+                                        <p>Be the first to share your experience!</p>
+                                    )}
+                                </div>
+                            ) : (
+                                <>
+                                    <ReviewList 
+                                        reviews={reviews} 
+                                        currentPage={currentPage}
+                                        onPageChange={setCurrentPage}
+                                        onEditReview={handleEditReview}
+                                        onDeleteReview={handleDeleteReview}
+                                        pagination={pagination}
+                                        currentUser={user}
+                                    />
+                                    {pagination && pagination.totalPages > 1 && (
+                                        <div className="pagination-container">
+                                            <div className="pagination">
+                                                {pagination.hasPrev && (
+                                                    <button 
+                                                        className="btn btn-outline"
+                                                        onClick={() => setCurrentPage(currentPage - 1)}
+                                                        disabled={loading}
+                                                    >
+                                                        Previous
+                                                    </button>
+                                                )}
+                                                <span className="page-info">
+                                                    Page {pagination.currentPage} of {pagination.totalPages}
+                                                </span>
+                                                {pagination.hasNext && (
+                                                    <button 
+                                                        className="btn btn-outline"
+                                                        onClick={() => setCurrentPage(currentPage + 1)}
+                                                        disabled={loading}
+                                                    >
+                                                        Next
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+                                </>
+                            )}
                         </div>
                     )}
                 </div>

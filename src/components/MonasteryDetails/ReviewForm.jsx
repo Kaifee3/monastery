@@ -64,9 +64,9 @@ const ReviewForm = ({ existingReview, monasteryId, monasteryName, onClose, onRev
             return;
         }
 
-        if (!monasteryId) {
-            console.error('Missing monasteryId:', { monasteryId, monasteryName });
-            setError('Monastery ID is missing. Please refresh the page and try again.');
+        if (!monasteryName || monasteryName.trim() === '') {
+            console.error('Missing monasteryName:', { monasteryId, monasteryName });
+            setError('Monastery name is missing. Please refresh the page and try again.');
             return;
         }
 
@@ -76,13 +76,16 @@ const ReviewForm = ({ existingReview, monasteryId, monasteryName, onClose, onRev
         try {
             if (existingReview) {
                 console.log('Updating existing review:', existingReview._id);
-                await reviewAPI.updateReview(existingReview._id, formData);
+                const updateData = {
+                    ...formData,
+                    monastery: monasteryName.trim()
+                };
+                await reviewAPI.updateReview(existingReview._id, updateData);
                 onReviewUpdated();
             } else {
                 const reviewData = {
                     ...formData,
-                    monasteryId: monasteryId,
-                    monasteryName: monasteryName
+                    monastery: monasteryName.trim()
                 };
                 console.log('Submitting new review data:', reviewData);
                 console.log('User info:', user);

@@ -49,9 +49,14 @@ export const reviewAPI = {
     },
 
     // Get reviews for specific monastery
-    getMonasteryReviews: async (monasteryId, params = {}) => {
+    getMonasteryReviews: async (monasteryName, params = {}) => {
         const queryParams = new URLSearchParams(params).toString();
-        return await api.get(`/reviews/monastery/${monasteryId}${queryParams ? `?${queryParams}` : ''}`);
+        return await api.get(`/reviews/monastery/${encodeURIComponent(monasteryName)}${queryParams ? `?${queryParams}` : ''}`);
+    },
+
+    // Get list of monasteries that have reviews
+    getMonasteries: async () => {
+        return await api.get('/reviews/monasteries');
     },
 
     // User APIs (require authentication)
@@ -64,14 +69,19 @@ export const reviewAPI = {
         return await api.get(`/reviews/my-reviews${queryParams ? `?${queryParams}` : ''}`);
     },
 
-    // Update specific review by review ID
-    updateReview: async (reviewId, reviewData) => {
-        return await api.put(`/reviews/${reviewId}`, reviewData);
+    // Get user's reviews for a specific monastery
+    getUserReviewsForMonastery: async (monasteryName) => {
+        return await api.get(`/reviews/my-reviews?monastery=${encodeURIComponent(monasteryName)}`);
     },
 
-    // Delete specific review by review ID
-    deleteReview: async (reviewId) => {
-        return await api.delete(`/reviews/${reviewId}`);
+    // Update specific review by review ID
+    updateReview: async (reviewId, reviewData) => {
+        return await api.put(`/reviews/my-review/${reviewId}`, reviewData);
+    },
+
+    // Delete user's review (latest review for the user)
+    deleteUserReview: async () => {
+        return await api.delete('/reviews/my-review');
     },
 
     // Legacy methods (deprecated but kept for backward compatibility)

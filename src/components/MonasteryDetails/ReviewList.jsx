@@ -1,7 +1,10 @@
 import React from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import './ReviewList.css';
 
-const ReviewList = ({ reviews, currentPage, onPageChange }) => {
+const ReviewList = ({ reviews, currentPage, onPageChange, onEditReview, onDeleteReview, pagination, currentUser }) => {
+    const { user, isAuthenticated } = useAuth();
+    
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
@@ -14,6 +17,13 @@ const ReviewList = ({ reviews, currentPage, onPageChange }) => {
     const truncateText = (text, maxLength = 200) => {
         if (text.length <= maxLength) return text;
         return text.substring(0, maxLength) + '...';
+    };
+
+    const isUserReview = (review) => {
+        return isAuthenticated && user && 
+               (review.user === user.id || 
+                (review.user && review.user._id === user.id) ||
+                (review.user && review.user.toString() === user.id));
     };
 
     if (!reviews || reviews.length === 0) {
@@ -66,32 +76,46 @@ const ReviewList = ({ reviews, currentPage, onPageChange }) => {
 
                         <div className="review-footer">
                             <div className="review-actions">
-                                <button className="helpful-btn">
-                                    👍 Helpful
-                                </button>
-                                <button className="report-btn">
-                                    🚩 Report
-                                </button>
+                                {isUserReview(review) ? (
+                                    <>
+                                        <span className="your-review-label">Your Review</span>
+                                        <button 
+                                            className="edit-btn"
+                                            onClick={() => onEditReview(review)}
+                                        >
+                                            ✏️ Edit
+                                        </button>
+                                        <button 
+                                            className="delete-btn"
+                                            onClick={() => onDeleteReview()}
+                                        >
+                                            🗑️ Delete
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button className="helpful-btn">
+                                            👍 Helpful
+                                        </button>
+                                        <button className="report-btn">
+                                            🚩 Report
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* Pagination would be implemented here if needed */}
-            {/* For now, we'll show a simple load more concept */}
+            {/* Pagination */}
             <div className="reviews-footer">
                 <div className="review-count">
                     Showing {reviews.length} reviews
+                    {pagination && pagination.totalReviews > reviews.length && (
+                        <span> of {pagination.totalReviews} total</span>
+                    )}
                 </div>
-                {reviews.length >= 10 && (
-                    <button 
-                        className="btn btn-outline load-more-btn"
-                        onClick={() => onPageChange(currentPage + 1)}
-                    >
-                        Load More Reviews
-                    </button>
-                )}
             </div>
         </div>
     );
