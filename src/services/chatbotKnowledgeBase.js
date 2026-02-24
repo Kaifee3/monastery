@@ -171,17 +171,46 @@ export class ChatbotKnowledgeBase {
             'who develop this website', 'who created this website', 'who made this website', 'who built this website',
             'who developed this', 'who created this', 'who made this', 'who built this'
         ];
-        const nameKeywords = ['kaifee azam', 'sonal kumar', 'shubham sharma', 'baibhavi pandey', 'abdul yahiya', 'himanshu raj'];
+        
+        // Full names and variations
+        const nameKeywords = [
+            'kaifee azam', 'kaifee', 'azam',
+            'sonal kumar', 'sonal', 
+            'shubham sharma', 'shubham', 'sharma',
+            'baibhavi pandey', 'baibhavi', 'pandey',
+            'abdul yahiya', 'abdul', 'yahiya', 'abdulyahiya', 'yahya',
+            'himanshu raj', 'himanshu', 'raj'
+        ];
+        
+        const initials = ['ka', 'sk', 'ss', 'bp', 'ay', 'hr'];
         
         return teamKeywords.some(keyword => query.includes(keyword)) || 
-               nameKeywords.some(keyword => query.includes(keyword));
+               nameKeywords.some(keyword => query.includes(keyword)) ||
+               initials.some(initial => query.includes(initial));
     }
 
     handleTeamQuery(query) {
-        const member = this.generalInfo.team.members.find(m => 
-            query.includes(m.name.toLowerCase()) ||
-            query.includes(m.initials.toLowerCase())
-        );
+        // Enhanced member matching that handles partial names
+        const member = this.generalInfo.team.members.find(m => {
+            const fullName = m.name.toLowerCase();
+            const firstName = fullName.split(' ')[0];
+            const lastName = fullName.split(' ')[1] || '';
+            const initials = m.initials.toLowerCase();
+            
+            return query.includes(fullName) ||
+                   query.includes(firstName) ||
+                   query.includes(lastName) ||
+                   query.includes(initials) ||
+                   // Special handling for Abdul Yahiya variations
+                   (m.name === 'Abdul Yahiya' && (
+                       query.includes('abdul') || 
+                       query.includes('yahiya') || 
+                       query.includes('yahya') ||
+                       query.includes('abdulyahiya')
+                   )) ||
+                   // Handle concatenated names without spaces
+                   query.includes(fullName.replace(' ', ''));
+        });
         
         if (member) {
             return {
@@ -191,8 +220,13 @@ export class ChatbotKnowledgeBase {
                         `💼 **Role:** ${member.role}\n` +
                         `🎓 **Branch:** ${member.branch}\n` +
                         `🏫 **University:** ${member.university}\n\n` +
-                        `${member.name} is one of our talented developers who contributed to building Monastery360!`,
-                data: member
+                        `${member.name} is one of our talented developers who contributed to building Monastery360! 🌟`,
+                data: member,
+                suggestions: [
+                    'Tell me about the team',
+                    'Who else worked on this project?',
+                    'Show all team members'
+                ]
             };
         }
         
