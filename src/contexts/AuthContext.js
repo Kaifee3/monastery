@@ -15,6 +15,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     // Check if user is already logged in on component mount
     useEffect(() => {
@@ -30,6 +31,7 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             setUser(userData);
         }
+        setIsLoading(false);
     }, []);
 
     const login = (userData) => {
@@ -53,7 +55,8 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated,
         user,
         login,
-        logout
+        logout,
+        isLoading
     };
 
     return (

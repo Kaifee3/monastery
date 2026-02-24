@@ -7,7 +7,7 @@ import "./Admin.css";
 
 export default function Admin() {
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, isLoading } = useContext(AuthContext);
   
   const [users, setUsers] = useState([]);
   const [dashboardStats, setDashboardStats] = useState(null);
@@ -50,13 +50,16 @@ export default function Admin() {
 
   // Check if user is admin
   useEffect(() => {
+    // Don't redirect while still loading authentication state
+    if (isLoading) return;
+    
     if (!user || user.role !== "admin") {
       navigate("/login");
       return;
     }
     fetchDashboardStats();
     fetchUsers();
-  }, [user, navigate, currentPage]);
+  }, [user, navigate, currentPage, isLoading]);
 
   // API calls
   const getAuthHeaders = () => {
@@ -279,6 +282,11 @@ export default function Admin() {
       return () => clearTimeout(timer);
     }
   }, [error, success]);
+
+  // Show loading while checking authentication
+  if (isLoading) {
+    return <div className="admin-loading">Loading admin panel...</div>;
+  }
 
   if (loading && !users.length) {
     return <div className="admin-loading">Loading admin panel...</div>;
