@@ -66,12 +66,17 @@
   .section-card,
   .dot,
   .progress-bar,
-  .slideshow-divider {
+  .slideshow-divider,
+  .monastery-marquee {
     transition: none;
     animation: none;
   }
   
   .slideshow-divider::after {
+    animation: none;
+  }
+  
+  .marquee-content {
     animation: none;
   }
 }
@@ -364,7 +369,7 @@
 .section-wrapper {
   width: 100%;
   max-width: 1200px;
-  margin: clamp(1rem, 3vw, 2rem) auto;
+  margin: 0 auto clamp(1rem, 3vw, 2rem) auto;
   padding: clamp(1rem, 3vw, 2rem);
   display: flex;
   flex-direction: column;
@@ -704,5 +709,162 @@
   
   .slide-cta {
     margin-top: 0.5rem;
+  }
+}
+
+/* ============================
+   Monastery Marquee Styles
+============================ */
+
+.monastery-marquee-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0.2rem auto 0.2rem auto;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8f9fa 0%, #eef1f5 100%);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.monastery-marquee-container::before,
+.monastery-marquee-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.monastery-marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(248, 249, 250, 0.9), transparent);
+}
+
+.monastery-marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(248, 249, 250, 0.9), transparent);
+}
+
+.monastery-marquee {
+  display: flex;
+  white-space: nowrap;
+  animation: scrollLeft 30s linear infinite;
+  will-change: transform;
+  padding: 0.3rem 0;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-content {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.monastery-name {
+  font-weight: bold;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: #2c3e50;
+  margin-right: 3rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.monastery-name:hover {
+  color: #ffd700;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.monastery-name::after {
+  content: '•';
+  position: absolute;
+  right: -1.5rem;
+  color: #ffd700;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.monastery-name:last-child::after {
+  display: none;
+}
+
+/* Responsive Design for Marquee */
+@media (max-width: 1200px) {
+  .monastery-marquee-container {
+    margin: 0.2rem auto 0.2rem auto;
+  }
+  
+  .monastery-name {
+    margin-right: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .monastery-marquee-container {
+    margin: 0.1rem auto 0.1rem auto;
+    border-radius: 8px;
+  }
+  
+  .monastery-marquee {
+    padding: 0.2rem 0;
+  }
+  
+  .monastery-name {
+    margin-right: 2rem;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+  }
+  
+  .monastery-name::after {
+    right: -1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .monastery-marquee-container {
+    border-radius: 6px;
+  }
+  
+  .monastery-marquee {
+    padding: 0.1rem 0;
+  }
+  
+  .monastery-name {
+    margin-right: 1.5rem;
+  }
+  
+  .monastery-name::after {
+    right: -0.8rem;
+  }
+}
+
+/* Enhanced animation for better performance */
+@media (prefers-reduced-motion: no-preference) {
+  .monastery-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .monastery-marquee {
+    animation: none;
+  }
+  
+  .marquee-content {
+    animation: none;
   }
 }
