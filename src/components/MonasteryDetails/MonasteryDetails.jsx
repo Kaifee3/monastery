@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import useMonasteryData from '../../hooks/useMonasteryData';
 import ImageSlideshow from './ImageSlideshow';
 import ReviewSection from './ReviewSection';
@@ -10,6 +10,7 @@ import './MonasteryDetails.css';
 const MonasteryDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const { monasteries, loading, error } = useMonasteryData();
     const { isAuthenticated } = useAuth();
     const [monastery, setMonastery] = useState(null);
@@ -47,6 +48,25 @@ const MonasteryDetails = () => {
             behavior: 'smooth'
         });
     }, [id, monastery]);
+
+    // Check for URL parameters to set initial tab
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const tabParam = urlParams.get('tab');
+        if (tabParam === 'reviews') {
+            setActiveTab('reviews');
+            // Scroll to reviews section after a short delay
+            setTimeout(() => {
+                const tabNavigation = document.querySelector('.tab-navigation');
+                if (tabNavigation) {
+                    tabNavigation.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            }, 500);
+        }
+    }, [location.search]);
 
     if (loading) {
         return (

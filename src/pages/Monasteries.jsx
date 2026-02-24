@@ -87,6 +87,10 @@ const Monasteries = () => {
         navigate(`/virtual/${monastery.id}`);
     };
 
+    const handleReviewClick = (monastery) => {
+        navigate(`/monasteries/${monastery.id}?tab=reviews`);
+    };
+
     const handleToggleWishlist = async (e, monasteryId) => {
         e.preventDefault();
         e.stopPropagation();
@@ -744,21 +748,25 @@ const Monasteries = () => {
 
                                         <div style={{
                                             display: 'flex',
-                                            flexWrap: 'wrap',
+                                            flexWrap: 'nowrap',
                                             gap: '6px',
-                                            marginBottom: '12px'
+                                            marginBottom: '12px',
+                                            overflow: 'hidden'
                                         }}>
                                             <span 
                                                 onClick={() => handleVirtualTour(monastery)}
                                                 style={{
-                                                    padding: '5px 10px',
+                                                    padding: '6px 10px',
                                                     background: 'rgba(46, 125, 50, 0.08)',
                                                     color: '#2e7d32',
                                                     borderRadius: '12px',
-                                                    fontSize: '0.8rem',
-                                                    fontWeight: '500',
+                                                    fontSize: '0.85rem',
+                                                    fontWeight: '600',
                                                     cursor: 'pointer',
-                                                    transition: 'all 0.3s ease'
+                                                    transition: 'all 0.3s ease',
+                                                    flex: '1',
+                                                    textAlign: 'center',
+                                                    whiteSpace: 'nowrap'
                                                 }}
                                                 onMouseEnter={(e) => {
                                                     e.target.style.background = '#4caf50';
@@ -771,27 +779,46 @@ const Monasteries = () => {
                                             >
                                                 🌍 3D Tour
                                             </span>
-                                            <span style={{
-                                                padding: '5px 10px',
-                                                background: 'rgba(46, 125, 50, 0.08)',
-                                                color: '#2e7d32',
-                                                borderRadius: '12px',
-                                                fontSize: '0.8rem',
-                                                fontWeight: '500'
-                                            }}>
-                                                🎧 Audio
+                                            <span 
+                                                onClick={() => handleReviewClick(monastery)}
+                                                style={{
+                                                    padding: '6px 10px',
+                                                    background: 'rgba(46, 125, 50, 0.08)',
+                                                    color: '#2e7d32',
+                                                    borderRadius: '12px',
+                                                    fontSize: '0.85rem',
+                                                    fontWeight: '600',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.3s ease',
+                                                    flex: '1',
+                                                    textAlign: 'center',
+                                                    whiteSpace: 'nowrap'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.background = '#4caf50';
+                                                    e.target.style.color = 'white';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.background = 'rgba(46, 125, 50, 0.08)';
+                                                    e.target.style.color = '#2e7d32';
+                                                }}
+                                            >
+                                                📝 Check Review
                                             </span>
                                             <span 
                                                 onClick={() => handleVirtualTour(monastery)}
                                                 style={{
-                                                    padding: '5px 10px',
+                                                    padding: '6px 10px',
                                                     background: 'rgba(46, 125, 50, 0.08)',
                                                     color: '#2e7d32',
                                                     borderRadius: '12px',
-                                                    fontSize: '0.8rem',
-                                                    fontWeight: '500',
+                                                    fontSize: '0.85rem',
+                                                    fontWeight: '600',
                                                     cursor: 'pointer',
-                                                    transition: 'all 0.3s ease'
+                                                    transition: 'all 0.3s ease',
+                                                    flex: '1',
+                                                    textAlign: 'center',
+                                                    whiteSpace: 'nowrap'
                                                 }}
                                                 onMouseEnter={(e) => {
                                                     e.target.style.background = '#4caf50';
