@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import festivalsData from '../../data/festivals.json';
+import ChatBot from '../ChatBot/ChatBot';
 import './CulturalCalendar.css';
 
 const CulturalCalendar = () => {
@@ -158,7 +159,6 @@ const CulturalCalendar = () => {
         'July', 'August', 'September', 'October', 'November', 'December'
     ];
 
-    // If user is not authenticated, show login prompt
     if (!isAuthenticated) {
         return (
             <div className="cultural-calendar">
@@ -353,8 +353,7 @@ const CulturalCalendar = () => {
                     <span>Monthly Observances</span>
                 </div>
             </div>
-
-
+            <ChatBot />
         </div>
     );
 };

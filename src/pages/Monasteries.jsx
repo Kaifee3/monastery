@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useWishlist } from '../contexts/WishlistContext';
 import '../styles/Monasteries.css';
+import ChatBot from '../components/ChatBot/ChatBot';
 
 const Monasteries = () => {
     const { monasteries, loading, error } = useMonasteryData();
@@ -1244,6 +1245,8 @@ const Monasteries = () => {
                     </div>
                 </div>
             </div>
+            
+            <ChatBot />
         </div>
     );
 };

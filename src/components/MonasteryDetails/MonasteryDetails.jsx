@@ -4,6 +4,7 @@ import useMonasteryData from '../../hooks/useMonasteryData';
 import ImageSlideshow from './ImageSlideshow';
 import ReviewSection from './ReviewSection';
 import { useAuth } from '../../contexts/AuthContext';
+import ChatBot from '../ChatBot/ChatBot';
 import './MonasteryDetails.css';
 
 const MonasteryDetails = () => {
@@ -743,6 +744,8 @@ const MonasteryDetails = () => {
                     </button>
                 </div>
             </div>
+            
+            <ChatBot />
         </div>
     );
 };
