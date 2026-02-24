@@ -508,5 +508,275 @@
     "latitude": 27.2750,
     "longitude": 88.5750,
     "history": "Tinkye Gonjang Monastery, founded around 1850, is a historic monastery located in the scenic Tinkye region of East Sikkim. The monastery follows the Kagyu tradition and is known for its traditional Tibetan architecture and spiritual significance. It serves as a center for Buddhist learning, meditation practices, and religious ceremonies. The monastery is particularly famous for its collection of ancient thangkas and Buddhist artifacts."
+  },
+  {
+    "id": 52,
+    "name": "Ringyim Rigdzin Tharling Monastery",
+    "location": "Ringyim, North Sikkim",
+    "established": "1852",
+    "imageName": "Comman image.jpg",
+    "latitude": 27.6500,
+    "longitude": 88.5200,
+    "history": "Ringyim Rigdzin Tharling Monastery is a sacred Buddhist monastery located in the pristine region of North Sikkim. This traditional monastery serves as an important center for Buddhist learning and meditation practices. The monastery follows ancient Tibetan Buddhist traditions and plays a crucial role in preserving the spiritual heritage of the region. It is known for its peaceful environment and serves as a place of pilgrimage for devotees seeking spiritual guidance and enlightenment."
+  },
+  {
+    "id": 53,
+    "name": "Gor Rinchen Khando Monastery",
+    "location": "Gor, North Sikkim",
+    "established": "2002",
+    "imageName": "Comman image.jpg",
+    "latitude": 27.6800,
+    "longitude": 88.5500,
+    "history": "Gor Rinchen Khando Monastery is a revered Buddhist monastery situated in the remote mountainous region of North Sikkim. The monastery is dedicated to preserving the ancient Buddhist traditions and serves as a center for spiritual learning and meditation. It is known for its tranquil atmosphere and traditional Tibetan architecture. The monastery plays an important role in the local community, providing spiritual guidance and maintaining the cultural heritage of the region."
+  },
+  {
+    "id": 54,
+    "name": "Barphog Chhodub Dargyeling Monastery",
+    "location": "Barphog, North Sikkim",
+    "established": "1957",
+    "imageName": "Comman image.jpg",
+    "latitude": 27.7100,
+    "longitude": 88.5800,
+    "history": "Barphog Chhodub Dargyeling Monastery is an ancient Buddhist monastery nestled in the high-altitude region of North Sikkim. The monastery follows traditional Tibetan Buddhist practices and serves as a center for spiritual enlightenment and learning. It is known for its rich collection of Buddhist scriptures and artifacts. The monastery provides a peaceful retreat for monks and visitors seeking spiritual growth and understanding of Buddhist philosophy."
+  },
+  {
+    "id": 55,
+    "name": "Shagyong Monastery",
+    "location": "Shagyong, North Sikkim",
+    "established": "1940",
+    "imageName": "Comman image.jpg",
+    "latitude": 27.6200,
+    "longitude": 88.4800,
+    "history": "Shagyong Monastery is a traditional Buddhist monastery located in the serene hills of North Sikkim. The monastery is known for its ancient Buddhist practices and serves as an important center for meditation and spiritual learning. It maintains the traditional architectural style of Tibetan monasteries and houses sacred relics and scriptures. The monastery is a place of pilgrimage for Buddhist devotees and continues to play a vital role in preserving the Buddhist heritage of the region."
+  },
+  {
+    "id": 56,
+    "name": "Tsawang Choling Monastery",
+    "location": "Tsawang, North Sikkim",
+    "established": "1936",
+    "imageName": "Comman image.jpg",
+    "latitude": 27.6600,
+    "longitude": 88.5100,
+    "history": "Tsawang Choling Monastery is a sacred Buddhist monastery situated in the pristine valley of North Sikkim. The monastery follows ancient Tibetan Buddhist traditions and serves as a center for spiritual practice and learning. It is renowned for its peaceful environment and traditional monastic life. The monastery provides spiritual guidance to the local community and visitors, maintaining the rich Buddhist cultural heritage of the Himalayan region."
+  },
+  {
+    "id": 57,
+    "name": "Kabi Sanga Dargyeling Monastery",
+    "location": "Kabi Sanga, North Sikkim",
+    "established": "1911",
+    "imageName": "Comman image.jpg",
+    "latitude": 27.6900,
+    "longitude": 88.5600,
+    "history": "Kabi Sanga Dargyeling Monastery is a historic Buddhist monastery located in the culturally significant area of Kabi Sanga in North Sikkim. The monastery is known for its spiritual significance and traditional Buddhist practices. It serves as a center for meditation, learning, and religious ceremonies. The monastery maintains ancient Tibetan architectural features and houses important Buddhist artifacts and scriptures that reflect the rich spiritual heritage of the region."
+  },
+  {
+    "id": 58,
+    "name": "Sontam Tensung Monastery",
+    "location": "Sontam, North Sikkim",
+    "established": "1884",
+    "imageName": "Comman image.jpg",
+    "latitude": 27.7200,
+    "longitude": 88.5900,
+    "history": "Sontam Tensung Monastery is a revered Buddhist monastery nestled in the high mountains of North Sikkim. The monastery follows traditional Tibetan Buddhist practices and serves as an important center for spiritual learning and meditation. It is known for its serene environment and traditional monastic lifestyle. The monastery plays a crucial role in preserving Buddhist teachings and provides spiritual guidance to monks and devotees seeking enlightenment."
+  },
+  {
+    "id": 59,
+    "name": "Tsungthang Monastery",
+    "location": "Tsungthang, North Sikkim",
+    "established": "1788",
+    "imageName": "Comman image.jpg",
+    "latitude": 27.6400,
+    "longitude": 88.4900,
+    "history": "Tsungthang Monastery is a traditional Buddhist monastery located in the remote mountainous region of North Sikkim. The monastery is known for its ancient Buddhist traditions and serves as a center for spiritual practice and learning. It maintains the traditional Tibetan architectural style and houses sacred Buddhist relics and scriptures. The monastery provides a peaceful retreat for meditation and spiritual growth, continuing to preserve the Buddhist heritage of the region."
+  },
+  {
+    "id": 60,
+    "name": "Tareng Gonpa Dargye Choling Monastery",
+    "location": "Tareng, North Sikkim",
+    "established": "1929",
+    "imageName": "Comman image.jpg",
+    "latitude": 27.7000,
+    "longitude": 88.5700,
+    "history": "Tareng Gonpa Dargye Choling Monastery is an ancient Buddhist monastery situated in the pristine wilderness of North Sikkim. The monastery follows traditional Tibetan Buddhist practices and serves as an important center for spiritual enlightenment and learning. It is renowned for its peaceful environment and traditional monastic life. The monastery houses ancient Buddhist scriptures and artifacts, serving as a repository of Buddhist knowledge and cultural heritage in the Himalayan region."
+  },
+  {
+    "id": 61,
+    "name": "Martam Namdzong Monastery",
+    "location": "Martam, East Sikkim",
+    "established": "1917",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2800,
+    "longitude": 88.4200,
+    "history": "Martam Namdzong Monastery, established in 1917, is a significant Buddhist monastery located in the picturesque region of East Sikkim. The monastery follows traditional Tibetan Buddhist practices and serves as a center for spiritual learning and meditation. It is known for its serene environment and traditional architecture, providing a peaceful retreat for monks and devotees. The monastery plays an important role in preserving Buddhist culture and heritage in the region."
+  },
+  {
+    "id": 62,
+    "name": "Amba Mamring Monastery",
+    "location": "Amba Mamring, East Sikkim",
+    "established": "1929",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.3100,
+    "longitude": 88.4500,
+    "history": "Amba Mamring Monastery, founded in 1929, is a revered Buddhist monastery situated in the tranquil hills of East Sikkim. The monastery is dedicated to preserving ancient Buddhist traditions and serves as a center for spiritual practice and learning. It is known for its peaceful atmosphere and traditional monastic life, providing guidance and wisdom to the local community and visitors seeking spiritual enlightenment."
+  },
+  {
+    "id": 63,
+    "name": "Radong Tensung Monastery",
+    "location": "Radong, East Sikkim",
+    "established": "1959",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2900,
+    "longitude": 88.4800,
+    "history": "Radong Tensung Monastery, established in 1959, is a prominent Buddhist monastery located in the scenic region of East Sikkim. The monastery follows traditional Tibetan Buddhist practices and serves as an important center for meditation and spiritual learning. It is renowned for its traditional architecture and houses sacred Buddhist scriptures and artifacts. The monastery continues to play a vital role in maintaining the Buddhist heritage of the region."
+  },
+  {
+    "id": 64,
+    "name": "Bakcham Monastery",
+    "location": "Bakcham, East Sikkim",
+    "established": "1966",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.3200,
+    "longitude": 88.5100,
+    "history": "Bakcham Monastery, founded in 1966, is a sacred Buddhist monastery nestled in the beautiful valleys of East Sikkim. The monastery is dedicated to Buddhist learning and meditation practices, serving as a spiritual refuge for monks and devotees. It is known for its peaceful environment and traditional Tibetan architectural features. The monastery plays a crucial role in preserving Buddhist teachings and cultural traditions in the region."
+  },
+  {
+    "id": 65,
+    "name": "Taktse Ani Gonpa Ugen Chokhorling Monastery",
+    "location": "Taktse, East Sikkim",
+    "established": "1980",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2700,
+    "longitude": 88.4600,
+    "history": "Taktse Ani Gonpa Ugen Chokhorling Monastery, established in 1980, is a distinctive Buddhist nunnery located in the serene hills of East Sikkim. This monastery serves as a center for female Buddhist practitioners and is dedicated to preserving Buddhist teachings and meditation practices. It is known for its tranquil atmosphere and provides spiritual guidance and learning opportunities for nuns and female devotees seeking enlightenment."
+  },
+  {
+    "id": 66,
+    "name": "Khatek Pema Choling Monastery",
+    "location": "Khatek, East Sikkim",
+    "established": "1985",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.3300,
+    "longitude": 88.4900,
+    "history": "Khatek Pema Choling Monastery, founded in 1985, is a modern Buddhist monastery situated in the peaceful region of East Sikkim. The monastery follows traditional Tibetan Buddhist practices and serves as a center for spiritual learning and meditation. It is renowned for its contemporary approach to Buddhist teachings while maintaining traditional values. The monastery provides a spiritual haven for practitioners seeking inner peace and enlightenment."
+  },
+  {
+    "id": 67,
+    "name": "Taglung Domsumling Monastery",
+    "location": "Taglung, East Sikkim",
+    "established": "1987",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2600,
+    "longitude": 88.5200,
+    "history": "Taglung Domsumling Monastery, established in 1987, is a contemporary Buddhist monastery located in the scenic region of East Sikkim. The monastery is dedicated to preserving Buddhist traditions and serves as a center for spiritual practice and learning. It is known for its modern facilities while maintaining traditional Buddhist values and practices. The monastery provides guidance and wisdom to the local community and visiting practitioners."
+  },
+  {
+    "id": 68,
+    "name": "Dolepchen Boudha Sanskrit Monastery",
+    "location": "Dolepchen, East Sikkim",
+    "established": "1991",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.3400,
+    "longitude": 88.4400,
+    "history": "Dolepchen Boudha Sanskrit Monastery, founded in 1991, is a unique Buddhist monastery that emphasizes Sanskrit studies alongside traditional Buddhist practices. Located in East Sikkim, the monastery serves as a center for Buddhist scholarship and learning. It is renowned for its academic approach to Buddhist teachings and houses an extensive collection of Sanskrit texts and manuscripts. The monastery plays an important role in preserving Buddhist literature and knowledge."
+  },
+  {
+    "id": 69,
+    "name": "Singtam Gonpa Karma Thuje Choling Monastery",
+    "location": "Singtam, East Sikkim",
+    "established": "1992",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2500,
+    "longitude": 88.4700,
+    "history": "Singtam Gonpa Karma Thuje Choling Monastery, established in 1992, is a vibrant Buddhist monastery located in the bustling town of Singtam in East Sikkim. The monastery follows the Karma Kagyu tradition and serves as a center for spiritual practice and community gathering. It is known for its active participation in local Buddhist festivals and ceremonies, providing spiritual guidance to the urban Buddhist community."
+  },
+  {
+    "id": 70,
+    "name": "Burtuk Ugen Pema Choling Tamu Monastery",
+    "location": "Burtuk, East Sikkim",
+    "established": "2000",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.3500,
+    "longitude": 88.5000,
+    "history": "Burtuk Ugen Pema Choling Tamu Monastery, founded in 2000, is a modern Buddhist monastery situated in the peaceful region of East Sikkim. The monastery is dedicated to preserving Tamang Buddhist traditions and serves as a center for spiritual learning and meditation. It is known for its inclusive approach to Buddhist teachings and provides spiritual guidance to the Tamang community and other Buddhist practitioners in the region."
+  },
+  {
+    "id": 71,
+    "name": "Duchi Gyalon Monastery",
+    "location": "Duchi, East Sikkim",
+    "established": "2002",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2400,
+    "longitude": 88.4300,
+    "history": "Duchi Gyalon Monastery, established in 2002, is one of the newest Buddhist monasteries in East Sikkim. The monastery follows traditional Tibetan Buddhist practices and serves as a center for modern Buddhist learning and meditation. It is known for its contemporary facilities and approach to Buddhist teachings while maintaining traditional spiritual values. The monastery provides a peaceful retreat for practitioners seeking spiritual growth and enlightenment."
+  },
+  {
+    "id": 72,
+    "name": "Bongyong Ani Gonpa Rinak Monastery",
+    "location": "Bongyong, East Sikkim",
+    "established": "2005",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.3600,
+    "longitude": 88.4800,
+    "history": "Bongyong Ani Gonpa Rinak Monastery, founded in 2005, is a contemporary Buddhist nunnery located in the serene hills of East Sikkim. This monastery serves as a center for female Buddhist practitioners and is dedicated to providing spiritual education and meditation training for nuns. It is known for its modern approach to traditional Buddhist practices and provides a supportive environment for women seeking spiritual enlightenment."
+  },
+  {
+    "id": 73,
+    "name": "Simig Monastery",
+    "location": "Simig, East Sikkim",
+    "established": "1843",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2300,
+    "longitude": 88.5300,
+    "history": "Simig Monastery, established in 1843, is one of the oldest Buddhist monasteries in East Sikkim with a rich historical heritage. The monastery has been a center for Buddhist learning and meditation for over 180 years, playing a crucial role in preserving traditional Tibetan Buddhist practices. It is renowned for its ancient architecture and houses numerous sacred relics and manuscripts. The monastery continues to serve as an important pilgrimage site and spiritual center."
+  },
+  {
+    "id": 74,
+    "name": "Pathing Matsang Monastery",
+    "location": "Pathing, East Sikkim",
+    "established": "1860",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2200,
+    "longitude": 88.4100,
+    "history": "Pathing Matsang Monastery, founded in 1860, is a historic Buddhist monastery located in the traditional region of East Sikkim. The monastery has been a center for Buddhist learning and spiritual practice for over 160 years, maintaining its traditional charm and spiritual significance. It is known for its ancient Buddhist artifacts and traditional Tibetan architecture. The monastery continues to provide spiritual guidance and preserve Buddhist cultural heritage."
+  },
+  {
+    "id": 75,
+    "name": "Tsangek Monastery",
+    "location": "Tsangek, East Sikkim",
+    "established": "1888",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.3700,
+    "longitude": 88.5100,
+    "history": "Tsangek Monastery, established in 1888, is a venerable Buddhist monastery situated in the peaceful valleys of East Sikkim. The monastery has served as a center for Buddhist learning and meditation for over 135 years, maintaining traditional Tibetan Buddhist practices and teachings. It is renowned for its historical significance and houses ancient Buddhist scriptures and artifacts. The monastery continues to be an important spiritual center for the local community."
+  },
+  {
+    "id": 76,
+    "name": "Sang Monastery",
+    "location": "Sang, East Sikkim",
+    "established": "1912",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2100,
+    "longitude": 88.4600,
+    "history": "Sang Monastery, founded in 1912, is a traditional Buddhist monastery located in the serene region of East Sikkim. The monastery has been a center for spiritual learning and meditation for over a century, dedicated to preserving Buddhist traditions and teachings. It is known for its peaceful environment and traditional monastic life, providing spiritual guidance to monks and devotees seeking enlightenment and inner peace."
+  },
+  {
+    "id": 77,
+    "name": "Sumon Thubten Gatsalling Monastery",
+    "location": "Sumon, East Sikkim",
+    "established": "1924",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.3800,
+    "longitude": 88.4500,
+    "history": "Sumon Thubten Gatsalling Monastery, established in 1924, is a significant Buddhist monastery situated in the cultural region of East Sikkim. The monastery follows traditional Tibetan Buddhist practices and serves as a center for spiritual learning and meditation. It is renowned for its commitment to Buddhist education and houses a valuable collection of religious texts and artifacts. The monastery continues to play an important role in preserving Buddhist heritage."
+  },
+  {
+    "id": 78,
+    "name": "Martam Tsangkhar Monastery",
+    "location": "Martam Tsangkhar, East Sikkim",
+    "established": "1951",
+    "imageName": "East Comman image.jpg",
+    "latitude": 27.2800,
+    "longitude": 88.5200,
+    "history": "Martam Tsangkhar Monastery, founded in 1951, is a modern Buddhist monastery located in the historic Martam region of East Sikkim. The monastery is dedicated to preserving traditional Buddhist practices while adapting to contemporary needs. It is known for its active community involvement and serves as a center for Buddhist education and spiritual practice. The monastery provides guidance and wisdom to the local community and visiting practitioners."
   }
 ]

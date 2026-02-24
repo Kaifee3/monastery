@@ -92,6 +92,23 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             'Aden Wolung Monastery', 'Dodak Tamu Monastery', 
             'Lhuntse Monastery', 'Rinchen Choling Monastery', 'Tashi Samboling Monastery'
         ];
+
+        const northSikkimMonasteries = [
+            'Ringyim Rigdzin Tharling Monastery', 'Gor Rinchen Khando Monastery', 
+            'Barphog Chhodub Dargyeling Monastery', 'Shagyong Monastery', 
+            'Tsawang Choling Monastery', 'Kabi Sanga Dargyeling Monastery', 
+            'Sontam Tensung Monastery', 'Tsungthang Monastery', 
+            'Tareng Gonpa Dargye Choling Monastery'
+        ];
+
+        const eastSikkimMonasteries = [
+            'Martam Namdzong Monastery', 'Amba Mamring Monastery', 'Radong Tensung Monastery',
+            'Bakcham Monastery', 'Taktse Ani Gonpa Ugen Chokhorling Monastery', 'Khatek Pema Choling Monastery',
+            'Taglung Domsumling Monastery', 'Dolepchen Boudha Sanskrit Monastery', 'Singtam Gonpa Karma Thuje Choling Monastery',
+            'Burtuk Ugen Pema Choling Tamu Monastery', 'Duchi Gyalon Monastery', 'Bongyong Ani Gonpa Rinak Monastery',
+            'Simig Monastery', 'Pathing Matsang Monastery', 'Tsangek Monastery', 'Sang Monastery',
+            'Sumon Thubten Gatsalling Monastery', 'Martam Tsangkhar Monastery'
+        ];
         
         const mixedExtensionMonasteries = [
             'Hungri Monastery', 'Khachoedpalri Monastery', 'Nubling Monastery',
@@ -127,6 +144,52 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                     srcset: `/images/${baseName}2.jfif 1x, /images/${baseName}2.jfif 2x`,
                     alt: `${monasteryName} - Image 3`,
                     fallback: `/images/${imageName}`
+                }
+            ];
+        }
+
+        if (northSikkimMonasteries.includes(monasteryName)) {
+            return [
+                {
+                    src: `/images/slide/Comman image.jpg`,
+                    srcset: `/images/slide/Comman image.jpg 1x, /images/slide/Comman image.jpg 2x`,
+                    alt: `${monasteryName} - Image 1`,
+                    fallback: `/images/Comman image.jpg`
+                },
+                {
+                    src: `/images/slide/Comman image.jpg`,
+                    srcset: `/images/slide/Comman image.jpg 1x, /images/slide/Comman image.jpg 2x`,
+                    alt: `${monasteryName} - Image 2`,
+                    fallback: `/images/Comman image.jpg`
+                },
+                {
+                    src: `/images/slide/Comman image.jpg`,
+                    srcset: `/images/slide/Comman image.jpg 1x, /images/slide/Comman image.jpg 2x`,
+                    alt: `${monasteryName} - Image 3`,
+                    fallback: `/images/Comman image.jpg`
+                }
+            ];
+        }
+
+        if (eastSikkimMonasteries.includes(monasteryName)) {
+            return [
+                {
+                    src: `/images/slide/East Comman image.jpg`,
+                    srcset: `/images/slide/East Comman image.jpg 1x, /images/slide/East Comman image.jpg 2x`,
+                    alt: `${monasteryName} - Image 1`,
+                    fallback: `/images/East Comman image.jpg`
+                },
+                {
+                    src: `/images/slide/East Comman image.jpg`,
+                    srcset: `/images/slide/East Comman image.jpg 1x, /images/slide/East Comman image.jpg 2x`,
+                    alt: `${monasteryName} - Image 2`,
+                    fallback: `/images/East Comman image.jpg`
+                },
+                {
+                    src: `/images/slide/East Comman image.jpg`,
+                    srcset: `/images/slide/East Comman image.jpg 1x, /images/slide/East Comman image.jpg 2x`,
+                    alt: `${monasteryName} - Image 3`,
+                    fallback: `/images/East Comman image.jpg`
                 }
             ];
         }
@@ -221,10 +284,9 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
 
     useEffect(() => {
         setCurrentSlide(0);
-        setImageLoadError({}); // Reset image errors when monastery changes
+        setImageLoadError({});
     }, [monasteryName]);
 
-    // Reset current slide if it becomes invalid due to failed images
     useEffect(() => {
         if (images.length > 0) {
             const validImageIndices = images
@@ -238,7 +300,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
     }, [imageLoadError, currentSlide, images.length]);
 
     const goToSlide = (index) => {
-        // Only allow navigation to slides that haven't failed to load
         if (!imageLoadError[index] && index >= 0 && index < images.length) {
             setCurrentSlide(index);
         }
@@ -279,7 +340,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
     const validImages = images.filter((img, idx) => !imageLoadError[idx]);
     const hasAtLeastOneImage = validImages.length > 0;
     
-    // Show loading state only if no images have been processed yet
     if (images.length === 0) {
         return (
             <div className="slideshow-loading">
@@ -289,7 +349,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
         );
     }
 
-    // Show error state only if all images have failed to load
     const allImagesFailed = images.length > 0 && images.every((_, idx) => imageLoadError[idx]);
     if (allImagesFailed) {
         console.error('All images failed to load for', monasteryName, images.map(img => img.src));

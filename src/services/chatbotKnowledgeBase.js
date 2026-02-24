@@ -34,12 +34,72 @@ export class ChatbotKnowledgeBase {
                 permits: "Inner Line Permit required for certain areas, especially North Sikkim",
                 currency: "Indian Rupee (INR)",
                 timeZone: "IST (UTC+5:30)"
+            },
+            team: {
+                members: [
+                    {
+                        name: "Kaifee Azam",
+                        designation: "Web Developer",
+                        role: "Web Developer",
+                        branch: "B.Tech CSE",
+                        university: "Lovely Professional University",
+                        initials: "KA"
+                    },
+                    {
+                        name: "Sonal Kumar",
+                        designation: "Web Developer",
+                        role: "Web Developer",
+                        branch: "B.Tech CSE",
+                        university: "Lovely Professional University",
+                        initials: "SK"
+                    },
+                    {
+                        name: "Shubham Sharma",
+                        designation: "Cyber Security",
+                        role: "Cyber Security",
+                        branch: "B.Tech CSE",
+                        university: "Lovely Professional University",
+                        initials: "SS"
+                    },
+                    {
+                        name: "Baibhavi Pandey",
+                        designation: "Web Developer",
+                        role: "Web Developer",
+                        branch: "B.Tech CSE",
+                        university: "Lovely Professional University",
+                        initials: "BP"
+                    },
+                    {
+                        name: "Abdul Yahiya",
+                        designation: "Web Developer",
+                        role: "Web Developer",
+                        branch: "B.Tech CSE",
+                        university: "Lovely Professional University",
+                        initials: "AY"
+                    },
+                    {
+                        name: "Himanshu Raj",
+                        designation: "Data Science",
+                        role: "Data Science",
+                        branch: "B.Tech CSE",
+                        university: "Lovely Professional University",
+                        initials: "HR"
+                    }
+                ]
             }
         };
     }
 
     async processQuery(query) {
         const normalizedQuery = query.toLowerCase().trim();
+        
+        if (this.isGreetingQuery(normalizedQuery)) {
+            return this.handleGreetingQuery(normalizedQuery);
+        }
+        
+        if (this.isTeamQuery(normalizedQuery)) {
+            return this.handleTeamQuery(normalizedQuery);
+        }
         
         if (this.isWeatherQuery(normalizedQuery)) {
             return await this.handleWeatherQuery(normalizedQuery);
@@ -62,6 +122,97 @@ export class ChatbotKnowledgeBase {
         }
         
         return this.getDefaultResponse();
+    }
+
+    isGreetingQuery(query) {
+        const greetingKeywords = ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'good night', 'greetings', 'namaste'];
+        return greetingKeywords.some(keyword => query.includes(keyword));
+    }
+
+    handleGreetingQuery(query) {
+        const currentHour = new Date().getHours();
+        let greeting = "Hello! 🙏";
+        
+        if (query.includes('good morning') || (currentHour >= 5 && currentHour < 12)) {
+            greeting = "Good Morning! 🌅";
+        } else if (query.includes('good afternoon') || (currentHour >= 12 && currentHour < 17)) {
+            greeting = "Good Afternoon! ☀️";
+        } else if (query.includes('good evening') || (currentHour >= 17 && currentHour < 21)) {
+            greeting = "Good Evening! 🌇";
+        } else if (query.includes('good night') || (currentHour >= 21 || currentHour < 5)) {
+            greeting = "Good Night! 🌙";
+        }
+        
+        return {
+            type: 'greeting',
+            message: `${greeting}\n\n` +
+                    `Welcome to **Monastery360**! I'm your friendly AI assistant here to help you explore the beautiful monasteries of Sikkim. 🏛️\n\n` +
+                    `I can assist you with:\n` +
+                    `• Information about monasteries and their history\n` +
+                    `• Weather updates for your visits\n` +
+                    `• Festival dates and celebrations\n` +
+                    `• Directions and travel tips\n` +
+                    `• Details about our development team\n\n` +
+                    `How can I help you today? 😊`,
+            suggestions: [
+                "Show all monasteries",
+                "Weather information",
+                "Upcoming festivals",
+                "About the team",
+                "Travel guidance"
+            ]
+        };
+    }
+
+    isTeamQuery(query) {
+        const teamKeywords = [
+            'team', 'developer', 'creators', 'who made', 'who developed', 'about team', 'team members',
+            'who develop', 'who created', 'who built', 'who designed', 'developers', 'development team',
+            'who develop this website', 'who created this website', 'who made this website', 'who built this website',
+            'who developed this', 'who created this', 'who made this', 'who built this'
+        ];
+        const nameKeywords = ['kaifee azam', 'sonal kumar', 'shubham sharma', 'baibhavi pandey', 'abdul yahiya', 'himanshu raj'];
+        
+        return teamKeywords.some(keyword => query.includes(keyword)) || 
+               nameKeywords.some(keyword => query.includes(keyword));
+    }
+
+    handleTeamQuery(query) {
+        const member = this.generalInfo.team.members.find(m => 
+            query.includes(m.name.toLowerCase()) ||
+            query.includes(m.initials.toLowerCase())
+        );
+        
+        if (member) {
+            return {
+                type: 'team_member',
+                message: `👨‍💻 **${member.name}** (${member.initials})\n\n` +
+                        `🎯 **Designation:** ${member.designation}\n` +
+                        `💼 **Role:** ${member.role}\n` +
+                        `🎓 **Branch:** ${member.branch}\n` +
+                        `🏫 **University:** ${member.university}\n\n` +
+                        `${member.name} is one of our talented developers who contributed to building Monastery360!`,
+                data: member
+            };
+        }
+        
+        const teamList = this.generalInfo.team.members.map((member, index) => 
+            `**${member.initials}**\n${member.name}\n${member.designation}`
+        ).join('\n\n');
+        
+        return {
+            type: 'team_info',
+            message: `👥 **Development Team - Monastery360 Website**\n\n` +
+                    `Our talented team from **Lovely Professional University** who developed this website:\n\n` +
+                    `${teamList}\n\n` +
+                    `**Team Details:**\n` +
+                    `🎓 **Branch:** B.Tech Computer Science Engineering\n` +
+                    `🏫 **University:** Lovely Professional University\n\n` +
+                    `This dedicated team worked together to bring you the best monastery exploration experience in Sikkim! 🏛️✨\n\n` +
+                    `Would you like to know more about any specific team member?`,
+            data: this.generalInfo.team.members,
+            suggestions: this.generalInfo.team.members.map(m => `About ${m.name}`)
+        };
     }
 
     isWeatherQuery(query) {
@@ -118,9 +269,6 @@ export class ChatbotKnowledgeBase {
         return hasMonasteryKeyword || hasMonasteryName;
     }
 
-    /**
-     * Handle monastery-related queries
-     */
     handleMonasteryQuery(query) {
         
         const specificMonastery = this.monasteries.find(monastery =>
@@ -196,17 +344,11 @@ export class ChatbotKnowledgeBase {
         };
     }
 
-    /**
-     * Check if query is about festivals
-     */
     isFestivalQuery(query) {
         const festivalKeywords = ['festival', 'celebration', 'event', 'losar', 'saga dawa', 'pang lhabsol', 'bhumchu', 'chaam'];
         return festivalKeywords.some(keyword => query.includes(keyword));
     }
 
-    /**
-     * Handle festival-related queries
-     */
     handleFestivalQuery(query) {
         
         const specificFestival = this.festivals.find(festival =>
@@ -286,17 +428,11 @@ export class ChatbotKnowledgeBase {
         };
     }
 
-    /**
-     * Check if query is about travel/directions
-     */
     isTravelQuery(query) {
         const travelKeywords = ['direction', 'how to reach', 'distance', 'travel', 'route', 'transport', 'bus', 'taxi', 'permit'];
         return travelKeywords.some(keyword => query.includes(keyword));
     }
 
-    /**
-     * Handle travel-related queries
-     */
     handleTravelQuery(query) {
         
         const specificMonastery = this.monasteries.find(monastery =>
@@ -344,17 +480,11 @@ export class ChatbotKnowledgeBase {
         };
     }
 
-    /**
-     * Check if query is general information
-     */
     isGeneralInfoQuery(query) {
         const generalKeywords = ['about', 'sikkim', 'website', 'monastery360', 'features', 'help', 'information'];
         return generalKeywords.some(keyword => query.includes(keyword));
     }
 
-    /**
-     * Handle general information queries
-     */
     handleGeneralInfoQuery(query) {
         if (query.includes('website') || query.includes('monastery360') || query.includes('features')) {
             const featureList = this.generalInfo.website.features.map(f => `• ${f}`).join('\n');
@@ -390,9 +520,6 @@ export class ChatbotKnowledgeBase {
         return this.getDefaultResponse();
     }
 
-    /**
-     * Get default response with suggestions
-     */
     getDefaultResponse() {
         return {
             type: 'default',
