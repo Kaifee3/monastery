@@ -1,24 +1,16 @@
-.video-tags {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
-    overflow-x: auto;
-}
-.video-tag {
-    white-space: nowrap;
-}
 .virtual-tour {
-    padding: 2rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    margin: 0;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 10px;
+    box-shadow: none;
+    margin: 1rem 0;
     color: black;
     overflow: hidden;
     position: relative;
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     box-sizing: border-box;
-    z-index: 1; /* Keep below sticky header (header has z-index: 2000) */
+    z-index: 1;
 }
 
 .virtual-tour::before {
@@ -34,7 +26,7 @@
 
 .tour-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     position: relative;
     z-index: 2;
     border-radius: 15px;
@@ -42,7 +34,7 @@
 }
 
 .tour-title {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
     background: linear-gradient(45deg, #ffffff, #f0f8ff, #ffffff);
@@ -91,9 +83,13 @@
 
 .video-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
+    padding: 0 2rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
     position: relative;
     z-index: 2;
 }
@@ -135,12 +131,11 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    margin-bottom: 1rem;
 }
 
 .tour-video {
     width: 100%;
-    height: 250px;
+    height: 300px;
     object-fit: cover;
     border-radius: 12px;
     transition: transform 0.3s ease;
@@ -194,68 +189,6 @@
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     margin-left: 5px;
-}
-
-.video-info {
-    text-align: center;
-    color: black;
-    padding: 1.5rem 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 0 0 15px 15px;
-    margin-top: 1rem;
-    border-top: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.video-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: black;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.video-description {
-    font-size: 1rem;
-    opacity: 1;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    color: black !important;
-    padding: 0 0.5rem;
-    font-weight: 500;
-    text-shadow: none;
-}
-
-.video-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    margin-top: 0.5rem;
-    width: 100%;
-}
-
-.video-tag {
-    background: rgba(255, 255, 255, 0.9);
-    color: black;
-    padding: 0.4rem 1rem;
-    border-radius: 25px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border: 2px solid rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.video-tag:hover {
-    background: rgba(255, 255, 255, 1);
-    border-color: rgba(0, 0, 0, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .loading-container {
@@ -343,15 +276,32 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .virtual-tour {
         padding: 1rem;
-        margin: 0.5rem;
-        border-radius: 15px;
+        margin: 0.5rem 0;
+    }
+    
+    .video-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
     }
     
     .tour-title {
         font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .virtual-tour {
+        padding: 0.5rem;
+        margin: 0.25rem 0;
+        border-radius: 10px;
+    }
+    
+    .tour-title {
+        font-size: 1.5rem;
     }
     
     .tour-subtitle {
@@ -360,6 +310,7 @@
     
     .video-container {
         gap: 1rem;
+        padding: 0 0.5rem;
     }
     
     .tour-video {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import VirtualTour from '../components/VirtualTour/VirtualTour';
 import InteractiveMap from '../components/InteractiveMap/InteractiveMap';
@@ -6,6 +7,7 @@ import CulturalCalendar from '../components/CulturalCalendar/CulturalCalendar';
 import ChatBot from '../components/ChatBot/ChatBot';
 
 const Home = () => {
+    const navigate = useNavigate();
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
         '/images/Home1.jpg',
@@ -44,6 +46,10 @@ const Home = () => {
 
     const goToSlide = (index) => {
         setCurrentSlide(index);
+    };
+
+    const handleRegionClick = (region) => {
+        navigate(`/monasteries?region=${region}`);
     };
 
     return (
@@ -253,11 +259,36 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className="section-wrapper">
-                <div className="section-card">
-                    <VirtualTour />
+            <VirtualTour />
+
+            <div className="regions-section">
+                <h2 className="regions-title">Explore Sikkim by Regions</h2>
+                <div className="regions-container">
+                    <div className="region-oval" onClick={() => handleRegionClick('East Sikkim')}>
+                        <img src="/images/Ovel/East.jpg" alt="East Sikkim" className="region-image" />
+                        <div className="region-overlay">
+                            <h3 className="region-name">East</h3>
+                        </div>
+                    </div>
+                    <div className="region-oval" onClick={() => handleRegionClick('West Sikkim')}>
+                        <img src="/images/Ovel/West.jpg" alt="West Sikkim" className="region-image" />
+                        <div className="region-overlay">
+                            <h3 className="region-name">West</h3>
+                        </div>
+                    </div>
+                    <div className="region-oval" onClick={() => handleRegionClick('North Sikkim')}>
+                        <img src="/images/Ovel/North.jpg" alt="North Sikkim" className="region-image" />
+                        <div className="region-overlay">
+                            <h3 className="region-name">North</h3>
+                        </div>
+                    </div>
+                    <div className="region-oval" onClick={() => handleRegionClick('South Sikkim')}>
+                        <img src="/images/Ovel/South.jpg" alt="South Sikkim" className="region-image" />
+                        <div className="region-overlay">
+                            <h3 className="region-name">South</h3>
+                        </div>
+                    </div>
                 </div>
-                
             </div>
                 <ChatBot />
         </div>

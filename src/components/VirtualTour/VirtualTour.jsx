@@ -11,16 +11,12 @@ const VirtualTour = () => {
         {
             id: 1,
             title: "Sikkim Monasteries - Journey Through Time",
-            description: "Explore the ancient monasteries of Sikkim, their rich history, and spiritual significance. Discover the architectural marvels and cultural heritage preserved through centuries.",
-            src: "/videos/sikkimVideo1.mp4",
-            tags: ["Heritage", "Culture", "Spirituality", "Architecture"]
+            src: "/videos/sikkimVideo1.mp4"
         },
         {
             id: 2,
             title: "Sacred Landscapes of Sikkim",
-            description: "Immerse yourself in the breathtaking landscapes surrounding Sikkim's monasteries. Experience the serene beauty and peaceful atmosphere of these sacred places.",
-            src: "/videos/sikkimVideo2.mp4",
-            tags: ["Nature", "Landscape", "Peace", "Sacred Sites"]
+            src: "/videos/sikkimVideo2.mp4"
         }
     ];
 
@@ -99,18 +95,6 @@ const VirtualTour = () => {
                                     </div>
                                 </div>
                             )}
-                        </div>
-                        
-                        <div className="video-info">
-                            <h3 className="video-title">{video.title}</h3>
-                            <p className="video-description">{video.description}</p>
-                            <div className="video-tags">
-                                {video.tags.map((tag, tagIndex) => (
-                                    <span key={tagIndex} className="video-tag">
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
                         </div>
                     </div>
                 ))}

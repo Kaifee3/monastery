@@ -18,6 +18,7 @@ const Monasteries = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const initialPage = parseInt(queryParams.get('page')) || 1;
+    const initialRegion = queryParams.get('region') || 'All';
     const [currentPage, setCurrentPage] = useState(initialPage);
     const monasteriesPerPage = 9;
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -32,7 +33,11 @@ const Monasteries = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        // Set initial region from URL parameter
+        if (initialRegion !== 'All' && initialRegion !== selectedRegion) {
+            setSelectedRegion(initialRegion);
+        }
+    }, [initialRegion, selectedRegion]);
 
     const prevFilterRef = useRef({ searchTerm, selectedRegion });
     useEffect(() => {
