@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useWishlist } from '../../contexts/WishlistContext';
@@ -6,8 +6,10 @@ import './Header.css';
 import CulturalCalendar from '../CulturalCalendar/CulturalCalendar';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
     const { isAuthenticated, logout, user } = useAuth();
     const { getWishlistCount } = useWishlist();
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
         console.log("Header - isAuthenticated:", isAuthenticated);
@@ -29,6 +31,20 @@ const Header = () => {
         };
     }, [isMenuOpen]);
 
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsUserDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
@@ -40,6 +56,24 @@ const Header = () => {
     const handleLogout = () => {
         logout();
         closeMenu();
+        setIsUserDropdownOpen(false);
+    };
+
+    const toggleUserDropdown = () => {
+        setIsUserDropdownOpen(!isUserDropdownOpen);
+    };
+
+    const closeUserDropdown = () => {
+        setIsUserDropdownOpen(false);
+    };
+
+    const getUserInitial = () => {
+        if (user?.name) {
+            return user.name.charAt(0).toUpperCase();
+        } else if (user?.email) {
+            return user.email.charAt(0).toUpperCase();
+        }
+        return 'U';
     };
 
     return (
@@ -65,23 +99,31 @@ const Header = () => {
                         <li><Link to="/monasteries" onClick={closeMenu}>Historic Places</Link></li>
                         <li><Link to="/cultural-calendar" onClick={closeMenu}>Cultural Calendar</Link></li>
                         <li><Link to="/about" onClick={closeMenu}>About Us</Link></li>
-                        <li><Link to="/contact" onClick={closeMenu}>Contact Us</Link></li>
                         {!isAuthenticated ? (
                             <li><Link to="/login" onClick={closeMenu}>Login/Signup</Link></li>
                         ) : (
                             <>
-                                <li>
-                                    <Link to="/wishlist" onClick={closeMenu} className="wishlist-link">
-                                        Wishlist
-                                        {getWishlistCount() > 0 && (
-                                            <span className="wishlist-badge">{getWishlistCount()}</span>
-                                        )}
-                                    </Link>
+                                <li className="user-avatar-container" ref={dropdownRef}>
+                                    <div className="user-avatar" onClick={toggleUserDropdown}>
+                                        {getUserInitial()}
+                                    </div>
+                                    {isUserDropdownOpen && (
+                                        <div className="user-dropdown">
+                                            <Link to="/profile" onClick={() => { closeMenu(); closeUserDropdown(); }}>Profile</Link>
+                                            <Link to="/wishlist" onClick={() => { closeMenu(); closeUserDropdown(); }} className="dropdown-wishlist-link">
+                                                Wishlist
+                                                {getWishlistCount() > 0 && (
+                                                    <span className="dropdown-wishlist-badge">{getWishlistCount()}</span>
+                                                )}
+                                            </Link>
+                                            <Link to="/contact" onClick={() => { closeMenu(); closeUserDropdown(); }}>Contact us</Link>
+                                            {user?.role === 'admin' && (
+                                                <Link to="/admin" onClick={() => { closeMenu(); closeUserDropdown(); }} className="dropdown-admin-link">Admin Panel</Link>
+                                            )}
+                                            <button onClick={handleLogout} className="dropdown-logout-btn">Logout</button>
+                                        </div>
+                                    )}
                                 </li>
-                                <li><Link to="/profile" onClick={closeMenu}>Profile</Link></li>
-                                {user?.role === 'admin' && (
-                                    <li><Link to="/admin" onClick={closeMenu} className="admin-link">Admin Panel</Link></li>
-                                )}
                             </>
                         )}
                     </ul>
