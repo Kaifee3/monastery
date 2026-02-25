@@ -54,6 +54,11 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             'Singchit Ngadag Monastery': 'SINGCHIT NGADAG MONASTERY',
             'Tholung Monastery': 'THOLUNG MONASTERY',
             'Tingbung Monastery': 'TINGBUNG MONASTERY',
+            'Lachung Samten Choling Monastery': 'LACHUNG SAMTEN CHOLING MONASTERY',
+            'Ship Kunzang Choling Monastery': 'SHIP KUNZANG CHOLING MONASTERY',
+            'Hee Gyathang Monastery': 'HEE GYATHANG MONASTERY',
+            'Malam Monastery': 'MALAM MONASTERY',
+            'Nage Ugen Sandolingling Monastery': 'NAGE UGEN SANDOLINGLING MONASTERY',
             'Choten Monastery': 'Choten-Monastery',
             'Kagon Tshechhogling Monastery': 'Kagon-Tshechhogling-Monastery',
             'Lingdum Zurmang Kharwang Gonpa Monastery': 'Lingdum-Zurmang-Kharwang-Gonpa-Monastery',
@@ -98,7 +103,8 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             'Barphog Chhodub Dargyeling Monastery', 'Shagyong Monastery', 
             'Tsawang Choling Monastery', 'Kabi Sanga Dargyeling Monastery', 
             'Sontam Tensung Monastery', 'Tsungthang Monastery', 
-            'Tareng Gonpa Dargye Choling Monastery'
+            'Tareng Gonpa Dargye Choling Monastery', 'Ship Kunzang Choling Monastery', 
+            'Hee Gyathang Monastery', 'Malam Monastery', 'Nage Ugen Sandolingling Monastery'
         ];
 
         const eastSikkimMonasteries = [
@@ -120,7 +126,8 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             'Labrang Monastery', 'Lachen Ngodub Choling Monastery', 'Lachen Thangu Monastery',
             'Lingthem Gonpa Chophel Dargyeling', 'Phensang Monastery', 'Phodong Karma Tashi Chokhorling Monastery',
             'Silem Phagyal Tashi Dargyeling Monastery', 'Singchit Ngadag Monastery',
-            'Tholung Monastery', 'Tingbung Monastery', 'Choten Monastery', 'Kagon Tshechhogling Monastery',
+            'Tholung Monastery', 'Tingbung Monastery', 'Lachung Samten Choling Monastery', 
+            'Choten Monastery', 'Kagon Tshechhogling Monastery',
             'Lingdum Zurmang Kharwang Gonpa Monastery', 'Raloong Monastery', 'Rumtek Dharma Chakra Centre Monastery',
             'Sang Ngor Monastery', 'Sichey Dechen Choling Monastery', 'Tashi Palden Monastery', 'Tinkye Gonjang Monastery'
         ];
@@ -224,6 +231,7 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                 'Singchit Ngadag Monastery': [' 1.jpg', ' 2.jpg', ' 3.jpg'],
                 'Tholung Monastery': [' 1.jpg', ' 2.jpg', ' 3.jpg'],
                 'Tingbung Monastery': [' 1.jpg', ' 2.jpg', ' 3.jpg'],
+                'Lachung Samten Choling Monastery': [' 1.jpg', ' 2.jpg', ' 3.jpg'],
                 'Choten Monastery': ['1.png', '2.png', '3.png'],
                 'Kagon Tshechhogling Monastery': ['1.png', '2.png', '3.png'],
                 'Lingdum Zurmang Kharwang Gonpa Monastery': ['1.png', '2.png', '3.png'],
