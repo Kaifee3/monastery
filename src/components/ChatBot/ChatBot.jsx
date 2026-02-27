@@ -177,12 +177,10 @@ const ChatBot = () => {
                     <div className="chatbot-header">
                         <div className="chatbot-title">
                             <span className="chatbot-avatar">🏛️</span>
-                            <div>
-                                <h4>Monastery360 AI</h4>
-                                <span className="chatbot-status">
-                                    {isTyping ? 'Typing...' : 'Online'}
-                                </span>
-                            </div>
+                            <h4>Monastery360 AI</h4>
+                            <span className="chatbot-status">
+                                {isTyping ? 'Typing...' : 'Online'}
+                            </span>
                         </div>
                         <div className="chatbot-controls">
                             <button className="chatbot-clear" onClick={clearChat} title="Clear conversation">

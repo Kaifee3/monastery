@@ -172,7 +172,6 @@ export class ChatbotKnowledgeBase {
             'who developed this', 'who created this', 'who made this', 'who built this'
         ];
         
-        // Full names and variations
         const nameKeywords = [
             'kaifee azam', 'kaifee', 'azam',
             'sonal kumar', 'sonal', 
@@ -184,13 +183,28 @@ export class ChatbotKnowledgeBase {
         
         const initials = ['ka', 'sk', 'ss', 'bp', 'ay', 'hr'];
         
+        if (query.includes('how is') || query.includes('who is')) {
+            const queryPattern = /(?:how|who)\s+is\s+(.+)/i;
+            const queryMatch = query.match(queryPattern);
+            if (queryMatch) {
+                const namePartInQuery = queryMatch[1].toLowerCase().trim();
+                if (nameKeywords.some(keyword => namePartInQuery.includes(keyword) || keyword.includes(namePartInQuery)) || 
+                    initials.some(initial => namePartInQuery.includes(initial))) {
+                    return true;
+                }
+            }
+            return nameKeywords.some(keyword => query.includes(keyword));
+        }
+        
         return teamKeywords.some(keyword => query.includes(keyword)) || 
                nameKeywords.some(keyword => query.includes(keyword)) ||
                initials.some(initial => query.includes(initial));
     }
 
     handleTeamQuery(query) {
-        // Enhanced member matching that handles partial names
+        const isHowIsQuery = query.includes('how is');
+        const isWhoIsQuery = query.includes('who is');
+        
         const member = this.generalInfo.team.members.find(m => {
             const fullName = m.name.toLowerCase();
             const firstName = fullName.split(' ')[0];
@@ -201,31 +215,56 @@ export class ChatbotKnowledgeBase {
                    query.includes(firstName) ||
                    query.includes(lastName) ||
                    query.includes(initials) ||
-                   // Special handling for Abdul Yahiya variations
                    (m.name === 'Abdul Yahiya' && (
                        query.includes('abdul') || 
                        query.includes('yahiya') || 
                        query.includes('yahya') ||
                        query.includes('abdulyahiya')
                    )) ||
-                   // Handle concatenated names without spaces
                    query.includes(fullName.replace(' ', ''));
         });
         
         if (member) {
+            let response = '';
+            
+            if (isHowIsQuery) {
+                response = `😊 **${member.name}** is doing great! 🌟\n\n` +
+                          `Here's what you should know about ${member.name.split(' ')[0]}:\n\n` +
+                          `🎯 **Designation:** ${member.designation}\n` +
+                          `💼 **Role:** ${member.role}\n` +
+                          `🎓 **Branch:** ${member.branch}\n` +
+                          `🏫 **University:** ${member.university}\n` +
+                          `📝 **Initials:** ${member.initials}\n\n` +
+                          `${member.name.split(' ')[0]} has been working hard as a ${member.designation} and has made significant contributions to our Monastery360 website! 💪✨\n\n` +
+                          `Thanks for asking about our team member! 😊`;
+            } else if (isWhoIsQuery) {
+                response = `🙋‍♂️ **${member.name}** is one of our talented team members! 👨‍💻\n\n` +
+                          `Let me introduce ${member.name.split(' ')[0]} to you:\n\n` +
+                          `🎯 **Designation:** ${member.designation}\n` +
+                          `💼 **Role:** ${member.role}\n` +
+                          `🎓 **Branch:** ${member.branch}\n` +
+                          `🏫 **University:** ${member.university}\n` +
+                          `📝 **Initials:** ${member.initials}\n\n` +
+                          `${member.name} is a skilled ${member.designation} who has played a key role in developing our Monastery360 website! 🚀\n\n` +
+                          `Great question about our team! 😊`;
+            } else {
+                response = `👨‍💻 **${member.name}** (${member.initials})\n\n` +
+                          `🎯 **Designation:** ${member.designation}\n` +
+                          `💼 **Role:** ${member.role}\n` +
+                          `🎓 **Branch:** ${member.branch}\n` +
+                          `🏫 **University:** ${member.university}\n\n` +
+                          `${member.name} is one of our talented developers who contributed to building Monastery360! 🌟`;
+            }
+            
             return {
                 type: 'team_member',
-                message: `👨‍💻 **${member.name}** (${member.initials})\n\n` +
-                        `🎯 **Designation:** ${member.designation}\n` +
-                        `💼 **Role:** ${member.role}\n` +
-                        `🎓 **Branch:** ${member.branch}\n` +
-                        `🏫 **University:** ${member.university}\n\n` +
-                        `${member.name} is one of our talented developers who contributed to building Monastery360! 🌟`,
+                message: response,
                 data: member,
                 suggestions: [
                     'Tell me about the team',
                     'Who else worked on this project?',
-                    'Show all team members'
+                    'Show all team members',
+                    `How is ${this.generalInfo.team.members.find(m => m !== member)?.name || 'the team'}?`
                 ]
             };
         }
@@ -294,7 +333,6 @@ export class ChatbotKnowledgeBase {
         const monasteryKeywords = ['monastery', 'temple', 'gompa', 'buddha', 'monk', 'prayer', 'meditation'];
         const hasMonasteryKeyword = monasteryKeywords.some(keyword => query.includes(keyword));
         
-        
         const hasMonasteryName = this.monasteries.some(monastery => 
             query.includes(monastery.name.toLowerCase()) || 
             query.includes(monastery.location.toLowerCase().split(',')[0])
@@ -304,7 +342,6 @@ export class ChatbotKnowledgeBase {
     }
 
     handleMonasteryQuery(query) {
-        
         const specificMonastery = this.monasteries.find(monastery =>
             query.includes(monastery.name.toLowerCase()) ||
             query.includes(monastery.location.toLowerCase().split(',')[0])
@@ -323,7 +360,6 @@ export class ChatbotKnowledgeBase {
             };
         }
 
-        
         if (query.includes('all') || query.includes('list') || query.includes('how many')) {
             const monasteryList = this.monasteries.map((m, index) => 
                 `${index + 1}. **${m.name}** - ${m.location} (${m.established})`
@@ -337,7 +373,6 @@ export class ChatbotKnowledgeBase {
             };
         }
 
-        
         if (query.includes('oldest')) {
             const oldest = this.monasteries.reduce((prev, current) => 
                 (parseInt(prev.established) < parseInt(current.established)) ? prev : current
@@ -384,7 +419,6 @@ export class ChatbotKnowledgeBase {
     }
 
     handleFestivalQuery(query) {
-        
         const specificFestival = this.festivals.find(festival =>
             query.includes(festival.name.toLowerCase())
         );
@@ -411,7 +445,6 @@ export class ChatbotKnowledgeBase {
             };
         }
 
-        
         if (query.includes('upcoming') || query.includes('next') || query.includes('when')) {
             const upcomingFestivals = this.festivals
                 .filter(f => new Date(f.date) > new Date())
@@ -432,7 +465,6 @@ export class ChatbotKnowledgeBase {
             }
         }
 
-        
         if (query.includes('all') || query.includes('list')) {
             const festivalList = this.festivals.map((f, index) => 
                 `${index + 1}. **${f.name}** - ${f.type}`
@@ -468,7 +500,6 @@ export class ChatbotKnowledgeBase {
     }
 
     handleTravelQuery(query) {
-        
         const specificMonastery = this.monasteries.find(monastery =>
             query.includes(monastery.name.toLowerCase()) ||
             query.includes(monastery.location.toLowerCase().split(',')[0])
@@ -493,7 +524,6 @@ export class ChatbotKnowledgeBase {
             };
         }
 
-        
         return {
             type: 'travel_general',
             message: `🚗 **Travel Information for Sikkim:**\n\n` +
