@@ -159,14 +159,14 @@ const ChatBot = () => {
         <div className={`chatbot-wrapper ${isOpen ? 'active' : ''}`}>
             <div className={`chat-toggle ${isOpen ? 'open' : ''}`} onClick={toggleChat}>
                 <div className="chat-toggle-icon">
-                    <span className="emoji-icon large">💬</span>
+                    <span>💬</span>
                     {!isOpen && unreadCount > 0 && (
                         <div className="unread-badge">{unreadCount}</div>
                     )}
                 </div>
                 {!isOpen && (
                     <div className="chat-toggle-tooltip">
-                        <div className="tooltip-title"><span className="emoji-icon medium">🏛️</span> Monastery Guide</div>
+                        <div className="tooltip-title"><span>🏛️</span> Monastery Guide</div>
                         <div className="tooltip-subtitle">Ask me about monasteries, weather & festivals!</div>
                     </div>
                 )}
@@ -176,7 +176,7 @@ const ChatBot = () => {
                 <div className="chatbot-container">
                     <div className="chatbot-header">
                         <div className="chatbot-title">
-                            <span className="emoji-icon xl">🏛️</span>
+                            <span>🏛️</span>
                             <h4>Monastery360 AI</h4>
                             <span className="chatbot-status">
                                 {isTyping ? 'Typing...' : 'Online'}
