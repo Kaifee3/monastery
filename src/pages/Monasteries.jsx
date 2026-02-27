@@ -33,7 +33,6 @@ const Monasteries = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        // Set initial region from URL parameter
         if (initialRegion !== 'All' && initialRegion !== selectedRegion) {
             setSelectedRegion(initialRegion);
         }
@@ -223,7 +222,6 @@ const Monasteries = () => {
         );
     }
 
-    // Pagination calculations
     const totalPages = Math.ceil(filteredMonasteries.length / monasteriesPerPage);
     const startIdx = (currentPage - 1) * monasteriesPerPage;
     const endIdx = startIdx + monasteriesPerPage;
@@ -596,7 +594,10 @@ const Monasteries = () => {
                         flexDirection: viewMode === 'list' ? 'column' : 'row',
                         gap: '25px',
                         marginBottom: '40px',
-                        width: '100%'
+                        width: '100%',
+                        maxWidth: '1200px',
+                        margin: '0 auto',
+                        justifyItems: 'center'
                     }}>
                         {pagedMonasteries.map((monastery, index) => (
                             <div 
