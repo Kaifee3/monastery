@@ -39,6 +39,128 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ============================
+   🎯 Icon Styles
+============================ */
+
+/* Round Icon Classes */
+.icon-round {
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.icon-small {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-medium {
+  width: 32px;
+  height: 32px;
+}
+
+.icon-large {
+  width: 48px;
+  height: 48px;
+}
+
+.icon-xl {
+  width: 64px;
+  height: 64px;
+}
+
+.icon-xxl {
+  width: 96px;
+  height: 96px;
+}
+
+/* Favicon and App Icon Styling */
+link[rel="icon"] {
+  border-radius: 50%;
+}
+
+/* Round emoji icons */
+.emoji-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  transition: all var(--transition-speed) ease;
+}
+
+.emoji-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.emoji-icon.small {
+  width: 28px;
+  height: 28px;
+  font-size: 0.9rem;
+}
+
+.emoji-icon.medium {
+  width: 36px;
+  height: 36px;
+  font-size: 1.1rem;
+}
+
+.emoji-icon.large {
+  width: 48px;
+  height: 48px;
+  font-size: 1.4rem;
+}
+
+.emoji-icon.xl {
+  width: 64px;
+  height: 64px;
+  font-size: 1.8rem;
+}
+
+/* Category icons in monasteries page */
+.filter-button .emoji-icon {
+  margin-right: 8px;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+}
+
+/* Monastery card icons */
+.monastery-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.25);
+}
+
+/* Navigation icons */
+.nav-icon {
+  border-radius: 50%;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-speed) ease;
+}
+
+.nav-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
 /* Add padding for fixed header on mobile */
 @media (max-width: 768px) {
   body {

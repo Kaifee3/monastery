@@ -169,17 +169,19 @@ const Monasteries = () => {
         return (
             <div className="auth-required-container">
                 <div className="auth-prompt">
-                    <div className="auth-icon">🏛️</div>
+                    <div className="auth-icon">
+                        <span className="emoji-icon xxl">🏛️</span>
+                    </div>
                     <h2>Authentication Required</h2>
                     <p>Please log in to explore the sacred monasteries of Sikkim</p>
                     <div className="auth-benefits">
                         <h3>What you'll get access to:</h3>
                         <ul>
-                            <li>🌍 Interactive 3D virtual tours</li>
-                            <li>📍 Detailed directions to monasteries</li>
-                            <li>🌤️ Real-time weather updates</li>
-                            <li>🎧 Audio guides and historical insights</li>
-                            <li>📱 Personalized monastery recommendations</li>
+                            <li><span className="emoji-icon small">🌍</span> Interactive 3D virtual tours</li>
+                            <li><span className="emoji-icon small">📍</span> Detailed directions to monasteries</li>
+                            <li><span className="emoji-icon small">🌤️</span> Real-time weather updates</li>
+                            <li><span className="emoji-icon small">🎧</span> Audio guides and historical insights</li>
+                            <li><span className="emoji-icon small">📱</span> Personalized monastery recommendations</li>
                         </ul>
                     </div>
                     <div className="auth-actions">
