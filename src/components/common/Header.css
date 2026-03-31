@@ -51,11 +51,30 @@
     font-size: 1.15rem;
   }
   
+
+  /* Wishlist badge for main navbar */
+  .wishlist-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
   .wishlist-badge {
+    background: #ff4081;
+    color: #fff;
+    border-radius: 50%;
     font-size: 0.8rem;
     padding: 0.18rem 0.55rem;
     min-width: 22px;
     height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -10px;
+    right: -18px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(255,64,129,0.15);
+    z-index: 1;
   }
 }
 

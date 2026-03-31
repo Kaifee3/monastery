@@ -99,6 +99,14 @@ const Header = () => {
                         <li><Link to="/monasteries" onClick={closeMenu}>Historic Places</Link></li>
                         <li><Link to="/cultural-calendar" onClick={closeMenu}>Cultural Calendar</Link></li>
                         <li><Link to="/about" onClick={closeMenu}>About Us</Link></li>
+                        <li>
+                            <Link to="/wishlist" onClick={closeMenu} className="wishlist-link">
+                                Wishlist
+                                {getWishlistCount() > 0 && (
+                                    <span className="wishlist-badge">{getWishlistCount()}</span>
+                                )}
+                            </Link>
+                        </li>
                         {!isAuthenticated ? (
                             <li><Link to="/login" onClick={closeMenu}>Login/Signup</Link></li>
                         ) : (
@@ -110,12 +118,7 @@ const Header = () => {
                                     {isUserDropdownOpen && (
                                         <div className="user-dropdown">
                                             <Link to="/profile" onClick={() => { closeMenu(); closeUserDropdown(); }}>Profile</Link>
-                                            <Link to="/wishlist" onClick={() => { closeMenu(); closeUserDropdown(); }} className="dropdown-wishlist-link">
-                                                Wishlist
-                                                {getWishlistCount() > 0 && (
-                                                    <span className="dropdown-wishlist-badge">{getWishlistCount()}</span>
-                                                )}
-                                            </Link>
+                                            {/* Wishlist link moved to main navbar */}
                                             <Link to="/contact" onClick={() => { closeMenu(); closeUserDropdown(); }}>Contact us</Link>
                                             {user?.role === 'admin' && (
                                                 <Link to="/admin" onClick={() => { closeMenu(); closeUserDropdown(); }} className="dropdown-admin-link">Admin Panel</Link>
