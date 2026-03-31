@@ -98,7 +98,6 @@ const Header = () => {
                         <li><Link to="/" onClick={closeMenu}>Home</Link></li>
                         <li><Link to="/monasteries" onClick={closeMenu}>Historic Places</Link></li>
                         <li><Link to="/cultural-calendar" onClick={closeMenu}>Cultural Calendar</Link></li>
-                        <li><Link to="/about" onClick={closeMenu}>About Us</Link></li>
                         <li>
                             <Link to="/wishlist" onClick={closeMenu} className="wishlist-link">
                                 Wishlist
@@ -107,6 +106,8 @@ const Header = () => {
                                 )}
                             </Link>
                         </li>
+                        <li><Link to="/about" onClick={closeMenu}>About Us</Link></li>
+                       
                         {!isAuthenticated ? (
                             <li><Link to="/login" onClick={closeMenu}>Login/Signup</Link></li>
                         ) : (
