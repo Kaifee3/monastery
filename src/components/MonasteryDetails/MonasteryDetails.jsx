@@ -49,13 +49,11 @@ const MonasteryDetails = () => {
         });
     }, [id, monastery]);
 
-    // Check for URL parameters to set initial tab
     useEffect(() => {
         const urlParams = new URLSearchParams(location.search);
         const tabParam = urlParams.get('tab');
         if (tabParam === 'reviews') {
             setActiveTab('reviews');
-            // Scroll to reviews section after a short delay
             setTimeout(() => {
                 const tabNavigation = document.querySelector('.tab-navigation');
                 if (tabNavigation) {
@@ -190,6 +188,8 @@ const MonasteryDetails = () => {
                 <ImageSlideshow 
                     monasteryName={monastery.name} 
                     imageName={monastery.imageName} 
+                    imageName2={monastery.imageName2} 
+                    imageName3={monastery.imageName3} 
                 />
             </div>
 
@@ -232,7 +232,10 @@ const MonasteryDetails = () => {
                     >
                         <i>🌤️</i> Weather update
                     </button>
-                    <button className="btn btn-outline action-btn">
+                    <button 
+                        className="btn btn-outline action-btn"
+                        onClick={() => navigate(`/virtual/${monastery.id}`)}
+                    >
                         <i>📸</i> Virtual Tour
                     </button>
                 </div>
@@ -660,7 +663,7 @@ const MonasteryDetails = () => {
                         } else if (monastery.name === 'Sichey Dechen Choling Monastery') {
                             imagePath = imageNum <= 2 ? `/images/${baseName}${imageNum}.png` : `/images/${monastery.imageName}`;
                         } else {
-                            // Try direct image path first, then slide folder fallback
+                            
                             const mainImageExt = monastery.imageName ? monastery.imageName.split('.').pop().toLowerCase() : 'jpg';
                             if (['png', 'jpg', 'jfif'].includes(mainImageExt)) {
                                 imagePath = `/images/${baseName}${imageNum}.${mainImageExt}`;

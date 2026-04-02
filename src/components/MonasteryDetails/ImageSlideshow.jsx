@@ -1,11 +1,57 @@
+
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import './ImageSlideshow.css';
 
-const ImageSlideshow = ({ monasteryName, imageName }) => {
+const ImageSlideshow = ({ monasteryName, imageName, imageName2, imageName3 }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    
+
     const generateSlideImages = useCallback(() => {
         let baseName = '';
+        
+        const southSikkimNewMonasteries = [
+            'Namtse Nga-dag Monastery',
+            'Yangang Gonpa Tashi Palding Gon',
+            'Mangbro Monastery',
+            'Linge Phagyal Monastery',
+            'Burmiok Wosel Choling Monastery',
+            'Ben Karma Choling Monastery',
+            'Namthang Norbu Tsho-ling Monastery',
+            'Malli Tashi Chodarling Monastery',
+            'Wok Pabong Monastery',
+            'Sangmo Sharchog Bephug Monastery',
+            'Parbing Samten Choling Monastery',
+            'Tekling Dzokchen Monastery',
+            'Namtse Ahaley Dechen Choling Monastery',
+            'Sorok Tamang Monastery',
+            'Suiram Risung Monastery',
+            'Namthang Nyima Choling Monastery',
+            'Gagyong Monastery',
+            'Rabong Monastery',
+            'Rabong Kunphenling Tsechu Monastery',
+            'Yangang Changchub Tamu Monastery'
+        ];
+        if (southSikkimNewMonasteries.includes(monasteryName)) {
+            return [
+                {
+                    src: '/images/slide/South Comman image.jpg',
+                    srcset: '/images/slide/South Comman image.jpg 1x, /images/slide/South Comman image.jpg 2x',
+                    alt: `${monasteryName} - Slide Image`,
+                    fallback: '/images/slide/South Comman image.jpg'
+                },
+                {
+                    src: '/images/slide/South Comman image.jpg',
+                    srcset: '/images/slide/South Comman image.jpg 1x, /images/slide/South Comman image.jpg 2x',
+                    alt: `${monasteryName} - Slide Image`,
+                    fallback: '/images/slide/South Comman image.jpg'
+                },
+                {
+                    src: '/images/slide/South Comman image.jpg',
+                    srcset: '/images/slide/South Comman image.jpg 1x, /images/slide/South Comman image.jpg 2x',
+                    alt: `${monasteryName} - Slide Image`,
+                    fallback: '/images/slide/South Comman image.jpg'
+                }
+            ];
+        }
         const nameMapping = {
             'Rumtek Monastery': 'Rumtek-Monastery-',
             'Pemayangtse Monastery': 'Pemangytse',
@@ -69,8 +115,55 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
             'Tashi Palden Monastery': 'Tashi-Palden-Monastery',
             'Tinkye Gonjang Monastery': 'Tinkye-Gonjang-Monastery'
         };
-        baseName = nameMapping[monasteryName] || monasteryName;
 
+        const southSikkimNew = [
+            'Serdup Choling Monastery',
+            'Kewzing Tashi Gyephelling Monastery',
+            'Bon Monastery',
+            'Burmiok Norbugang Monastery',
+            'Ralong Palchen Choling Monastery'
+        ];
+        if (southSikkimNew.includes(monasteryName) || monasteryName === 'Linge Phagyal Monastery') {
+            if (monasteryName === 'Linge Phagyal Monastery') {
+                return [1,2,3].map(i => ({
+                    src: `/images/slide/South Comman image.jpg`,
+                    srcset: `/images/slide/South Comman image.jpg 1x, /images/slide/South Comman image.jpg 2x`,
+                    alt: `${monasteryName} - Image ${i}`,
+                    fallback: `/images/slide/South Comman image.jpg`
+                }));
+            }
+            const images = [];
+            if (imageName) images.push({
+                src: `/images/${imageName}`,
+                srcset: `/images/${imageName} 1x, /images/${imageName} 2x`,
+                alt: `${monasteryName} - Image 1`,
+                fallback: `/images/${imageName}`
+            });
+            if (imageName2) images.push({
+                src: `/images/${imageName2}`,
+                srcset: `/images/${imageName2} 1x, /images/${imageName2} 2x`,
+                alt: `${monasteryName} - Image 2`,
+                fallback: `/images/${imageName2}`
+            });
+            if (imageName3) images.push({
+                src: `/images/${imageName3}`,
+                srcset: `/images/${imageName3} 1x, /images/${imageName3} 2x`,
+                alt: `${monasteryName} - Image 3`,
+                fallback: `/images/${imageName3}`
+            });
+            if (images.length < 3) {
+                for (let i = images.length + 1; i <= 3; i++) {
+                    images.push({
+                        src: `/images/${monasteryName.replace(/ /g, '-')}${i}.png`,
+                        srcset: `/images/${monasteryName.replace(/ /g, '-')}${i}.png 1x, /images/${monasteryName.replace(/ /g, '-')}${i}.png 2x`,
+                        alt: `${monasteryName} - Image ${i}`,
+                        fallback: `/images/${imageName}`
+                    });
+                }
+            }
+            return images;
+        }
+        baseName = nameMapping[monasteryName] || monasteryName;
         if (monasteryName === 'Bumtar Namdroling Monastery') {
             return [1,2,3].map(i => ({
                 src: `/images/Bumtar Namdroling Monastery${i}.jpg`,
@@ -79,7 +172,6 @@ const ImageSlideshow = ({ monasteryName, imageName }) => {
                 fallback: `/images/${imageName}`
             }));
         }
-
         if (["Doling Monastery", "Karma Raptenling Monastery", "Ngadag Monastery"].includes(monasteryName)) {
             const availableImages = [];
             for (let i = 1; i <= 3; i++) {
