@@ -390,6 +390,7 @@
     background: #fff;
     min-height: 40px; /* Ensure minimum touch target */
     /* Prevent zoom on iOS */
+    appearance: none;
     -webkit-appearance: none;
     -webkit-border-radius: 25px;
 }
