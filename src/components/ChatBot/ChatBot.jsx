@@ -1,31 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ChatBot.css';
-
-
-const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
-
-async function fetchGeminiResponse(prompt) {
-    if (!GEMINI_API_KEY) {
-        return { message: 'Gemini API key not found.' };
-    }
-    try {
-        const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }],
-            }),
-        });
-        const data = await response.json();
-        const geminiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response from Gemini.';
-        return { message: geminiText };
-    } catch (error) {
-        return { message: 'Error contacting Gemini AI.' };
-    }
-}
+import knowledgeBase from '../../services/chatbotKnowledgeBase';
 
 const ChatBot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -39,13 +14,14 @@ const ChatBot = () => {
 
     useEffect(() => {
         if (isOpen && messages.length === 0) {
+            const welcomeResponse = knowledgeBase.getDefaultResponse();
             setMessages([{
                 id: 1,
-                text: "Hello! I'm your Monastery360 AI assistant. How can I help you today?",
+                text: welcomeResponse.message,
                 type: 'bot',
                 timestamp: new Date()
             }]);
-            setSuggestions([]);
+            setSuggestions(welcomeResponse.suggestions || []);
         }
     }, [isOpen, messages.length]);
 
@@ -91,16 +67,18 @@ const ChatBot = () => {
         if (inputRef.current) inputRef.current.style.height = 'auto';
 
         try {
-            const geminiResponse = await fetchGeminiResponse(message);
+            const response = await knowledgeBase.processQuery(message);
             setTimeout(() => {
                 const botMessage = {
                     id: Date.now() + 1,
-                    text: geminiResponse.message,
+                    text: response.message,
                     type: 'bot',
                     timestamp: new Date(),
+                    data: response.data
                 };
                 setMessages(prev => [...prev, botMessage]);
                 setIsTyping(false);
+                if (response.suggestions) setSuggestions(response.suggestions);
                 if (!isOpen) setUnreadCount(prev => prev + 1);
             }, 800 + Math.random() * 800);
         } catch (error) {
@@ -131,13 +109,14 @@ const ChatBot = () => {
     const clearChat = () => {
         setMessages([]);
         setSuggestions([]);
+        const welcomeResponse = knowledgeBase.getDefaultResponse();
         setMessages([{
             id: Date.now(),
-            text: "Hello! I'm your Monastery360 AI assistant. How can I help you today?",
+            text: welcomeResponse.message,
             type: 'bot',
             timestamp: new Date()
         }]);
-        setSuggestions([]);
+        setSuggestions(welcomeResponse.suggestions || []);
     };
 
     const renderMessage = (message) => {

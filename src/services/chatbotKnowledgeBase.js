@@ -171,34 +171,50 @@ export class ChatbotKnowledgeBase {
             'who develop this website', 'who created this website', 'who made this website', 'who built this website',
             'who developed this', 'who created this', 'who made this', 'who built this'
         ];
-        
+
+        // Only match full names for team members, not partials
         const nameKeywords = [
-            'kaifee azam', 'kaifee', 'azam',
-            'sonal kumar', 'sonal', 
-            'shubham sharma', 'shubham', 'sharma',
-            'baibhavi pandey', 'baibhavi', 'pandey',
-            'abdul yahiya', 'abdul', 'yahiya', 'abdulyahiya', 'yahya',
-            'himanshu raj', 'himanshu', 'raj'
+            'kaifee azam',
+            'sonal kumar',
+            'shubham sharma',
+            'baibhavi pandey',
+            'abdul yahiya',
+            'himanshu raj'
         ];
-        
+
+        // Only match initials as whole words
         const initials = ['ka', 'sk', 'ss', 'bp', 'ay', 'hr'];
-        
-        if (query.includes('how is') || query.includes('who is')) {
+
+        // Lowercase and pad with spaces for word boundary matching
+        const paddedQuery = ` ${query.toLowerCase()} `;
+
+        if (paddedQuery.includes('how is') || paddedQuery.includes('who is')) {
             const queryPattern = /(?:how|who)\s+is\s+(.+)/i;
-            const queryMatch = query.match(queryPattern);
+            const queryMatch = paddedQuery.match(queryPattern);
             if (queryMatch) {
                 const namePartInQuery = queryMatch[1].toLowerCase().trim();
-                if (nameKeywords.some(keyword => namePartInQuery.includes(keyword) || keyword.includes(namePartInQuery)) || 
-                    initials.some(initial => namePartInQuery.includes(initial))) {
+                // Match full name or initials as whole words
+                if (nameKeywords.some(keyword => namePartInQuery === keyword) ||
+                    initials.some(initial => namePartInQuery === initial)) {
                     return true;
                 }
             }
-            return nameKeywords.some(keyword => query.includes(keyword));
+            return nameKeywords.some(keyword => paddedQuery.includes(` ${keyword} `));
         }
-        
-        return teamKeywords.some(keyword => query.includes(keyword)) || 
-               nameKeywords.some(keyword => query.includes(keyword)) ||
-               initials.some(initial => query.includes(initial));
+
+        // Team keywords: substring match
+        if (teamKeywords.some(keyword => paddedQuery.includes(keyword))) {
+            return true;
+        }
+        // Name keywords: match as whole words only
+        if (nameKeywords.some(keyword => paddedQuery.includes(` ${keyword} `))) {
+            return true;
+        }
+        // Initials: match as whole words only
+        if (initials.some(initial => paddedQuery.includes(` ${initial} `))) {
+            return true;
+        }
+        return false;
     }
 
     handleTeamQuery(query) {
@@ -494,10 +510,15 @@ export class ChatbotKnowledgeBase {
         };
     }
 
+
     isTravelQuery(query) {
-        const travelKeywords = ['direction', 'how to reach', 'distance', 'travel', 'route', 'transport', 'bus', 'taxi', 'permit'];
+        const travelKeywords = [
+            'direction', 'how to reach', 'distance', 'travel', 'route', 'transport', 'bus', 'taxi', 'permit',
+            'station', 'airport', 'flight', 'train', 'nearest station', 'nearest airport', 'nearest railway'
+        ];
         return travelKeywords.some(keyword => query.includes(keyword));
     }
+
 
     handleTravelQuery(query) {
         const specificMonastery = this.monasteries.find(monastery =>
@@ -505,41 +526,101 @@ export class ChatbotKnowledgeBase {
             query.includes(monastery.location.toLowerCase().split(',')[0])
         );
 
+        // Helper: Calculate distance between two lat/lng points (Haversine formula)
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        // Default reference: Gangtok (capital)
+        const gangtokCoords = { lat: 27.3389, lng: 88.6065 };
+
         if (specificMonastery) {
+            // Calculate distance from Gangtok to monastery
+            const dist = calculateDistance(
+                gangtokCoords.lat, gangtokCoords.lng,
+                specificMonastery.latitude, specificMonastery.longitude
+            ).toFixed(1);
+
+            // Nearest airport/railway (from generalInfo)
+            const airport = this.generalInfo.travel.nearestAirport;
+            const railway = this.generalInfo.travel.nearestRailway;
+
+            // If user asks about distance
+            if (query.includes('distance')) {
+                return {
+                    type: 'distance_info',
+                    message: `📏 **Distance to ${specificMonastery.name}:**\n\n` +
+                        `From Gangtok: ~${dist} km (straight line, actual road distance may vary)\n\n` +
+                        `Would you like directions or travel options?`,
+                    data: { distance: dist, monastery: specificMonastery }
+                };
+            }
+
+            // If user asks about nearest station/airport/flight/bus/train
+            if (
+                query.includes('station') || query.includes('railway') ||
+                query.includes('airport') || query.includes('flight') ||
+                query.includes('bus')
+            ) {
+                return {
+                    type: 'nearest_transport',
+                    message: `🚉 **Nearest Transport to ${specificMonastery.name}:**\n\n` +
+                        `• **Nearest Airport:** ${airport}\n` +
+                        `• **Nearest Railway Station:** ${railway}\n` +
+                        `• **By Bus/Taxi:** Local taxis and shared jeeps are available from Gangtok and major towns.\n\n` +
+                        `Would you like to see route options or directions on map?`,
+                    data: {
+                        airport,
+                        railway,
+                        monastery: specificMonastery
+                    }
+                };
+            }
+
+            // Default: show directions
             return {
                 type: 'directions_specific',
                 message: `🗺️ **Directions to ${specificMonastery.name}:**\n\n` +
-                        `📍 **Location:** ${specificMonastery.location}\n` +
-                        `🗺️ **Coordinates:** ${specificMonastery.latitude}, ${specificMonastery.longitude}\n\n` +
-                        `**General Travel Information:**\n` +
-                        `• Use our Interactive Map feature for detailed directions\n` +
-                        `• Local taxis and shared jeeps are available\n` +
-                        `• Roads may be narrow and winding in hill areas\n` +
-                        `• Check weather conditions before traveling\n\n` +
-                        `**Tips:**\n` +
-                        `• Start early to avoid afternoon clouds\n` +
-                        `• Carry warm clothes for higher altitudes\n` +
-                        `• Respect monastery timings and dress codes`,
+                    `📍 **Location:** ${specificMonastery.location}\n` +
+                    `🗺️ **Coordinates:** ${specificMonastery.latitude}, ${specificMonastery.longitude}\n` +
+                    `📏 **Distance from Gangtok:** ~${dist} km\n\n` +
+                    `**General Travel Information:**\n` +
+                    `• Use our Interactive Map feature for detailed directions\n` +
+                    `• Local taxis and shared jeeps are available\n` +
+                    `• Roads may be narrow and winding in hill areas\n` +
+                    `• Check weather conditions before traveling\n\n` +
+                    `**Tips:**\n` +
+                    `• Start early to avoid afternoon clouds\n` +
+                    `• Carry warm clothes for higher altitudes\n` +
+                    `• Respect monastery timings and dress codes`,
                 data: specificMonastery
             };
         }
 
+        // General travel info fallback
         return {
             type: 'travel_general',
             message: `🚗 **Travel Information for Sikkim:**\n\n` +
-                    `**Getting to Sikkim:**\n` +
-                    `✈️ **Nearest Airport:** Bagdogra (124 km from Gangtok)\n` +
-                    `🚂 **Nearest Railway:** New Jalpaiguri (148 km from Gangtok)\n` +
-                    `🛣️ **By Road:** Well connected via NH10\n\n` +
-                    `**Important Requirements:**\n` +
-                    `📋 **Permits:** Inner Line Permit required for North Sikkim\n` +
-                    `🆔 **ID Required:** Valid photo ID for Indian citizens\n` +
-                    `🌐 **Foreigners:** Protected Area Permit required\n\n` +
-                    `**Local Transport:**\n` +
-                    `• Shared taxis and jeeps\n` +
-                    `• Private car rentals available\n` +
-                    `• Local buses for main routes\n\n` +
-                    `Use our Interactive Map for specific monastery directions!`,
+                `**Getting to Sikkim:**\n` +
+                `✈️ **Nearest Airport:** ${this.generalInfo.travel.nearestAirport}\n` +
+                `🚂 **Nearest Railway:** ${this.generalInfo.travel.nearestRailway}\n` +
+                `🛣️ **By Road:** Well connected via NH10\n\n` +
+                `**Important Requirements:**\n` +
+                `📋 **Permits:** Inner Line Permit required for North Sikkim\n` +
+                `🆔 **ID Required:** Valid photo ID for Indian citizens\n` +
+                `🌐 **Foreigners:** Protected Area Permit required\n\n` +
+                `**Local Transport:**\n` +
+                `• Shared taxis and jeeps\n` +
+                `• Private car rentals available\n` +
+                `• Local buses for main routes\n\n` +
+                `Use our Interactive Map for specific monastery directions!`,
             data: this.generalInfo.travel
         };
     }

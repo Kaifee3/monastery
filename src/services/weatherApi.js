@@ -1,4 +1,4 @@
-const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY';
+const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY'; // <-- Replace this with your real API key
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 const MOCK_WEATHER_DATA = {
