@@ -114,7 +114,7 @@ const Virtual = () => {
                     <div className="content-grid">
                         {/* Left Column - Information */}
                         <div className="info-section">
-                            <div className="info-card">
+                            <div className="info-card clickable" onClick={launchVirtualTour} title="Click to view this monastery in Google Earth">
                                 <h2>🌍 Virtual Earth Experience</h2>
                                 <p>Embark on an extraordinary journey through Google Earth's immersive 3D environment and explore {monastery.name} from breathtaking aerial perspectives.</p>
                                 
@@ -167,6 +167,16 @@ const Virtual = () => {
                                     <div className="image-overlay">
                                         <div className="coordinates">
                                             <span>📍 {monastery.latitude}°, {monastery.longitude}°</span>
+                                        </div>
+                                        <div className="coordinates-message" style={{marginTop: '10px', color: '#2d6a4f', fontWeight: 'bold'}}>
+                                            <span>
+                                                Google Earth will center on: <br />
+                                                Latitude: {monastery.latitude}°, Longitude: {monastery.longitude}°
+                                            </span>
+                                            <br />
+                                            <span style={{fontWeight: 'normal', fontSize: '0.95em'}}>
+                                                (A visible marker is not possible via URL, but the view will focus on this point.)
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
