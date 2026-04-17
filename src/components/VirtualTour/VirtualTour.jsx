@@ -30,12 +30,7 @@ const VirtualTour = () => {
     }, []);
 
     const handleVideoPlay = (videoId) => {
-        // Pause other videos when one starts playing
-        videoRefs.current.forEach((ref, index) => {
-            if (ref && videoData[index].id !== videoId) {
-                ref.pause();
-            }
-        });
+        // Allow multiple videos to play simultaneously
         setPlayingVideo(videoId);
     };
 
@@ -84,6 +79,8 @@ const VirtualTour = () => {
                                 controls
                                 preload="metadata"
                                 poster={`/images/Home${index + 1}.jpg`}
+                                autoPlay
+                                muted
                             >
                                 Your browser does not support the video tag.
                             </video>
