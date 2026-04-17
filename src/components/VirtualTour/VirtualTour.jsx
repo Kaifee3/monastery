@@ -34,20 +34,8 @@ const VirtualTour = () => {
         setPlayingVideo(videoId);
     };
 
-    const handleVideoClick = (videoId) => {
-        const videoIndex = videoData.findIndex(video => video.id === videoId);
-        const videoElement = videoRefs.current[videoIndex];
-        
-        if (videoElement) {
-            if (videoElement.paused) {
-                videoElement.play();
-                setPlayingVideo(videoId);
-            } else {
-                videoElement.pause();
-                setPlayingVideo(null);
-            }
-        }
-    };
+    // Remove click-to-play/pause logic; videos will always play and loop
+    const handleVideoClick = () => {};
 
     if (loading) {
         return (
@@ -75,23 +63,15 @@ const VirtualTour = () => {
                                 className="tour-video"
                                 src={video.src}
                                 onPlay={() => handleVideoPlay(video.id)}
-                                onPause={() => setPlayingVideo(null)}
                                 controls
                                 preload="metadata"
                                 poster={`/images/Home${index + 1}.jpg`}
                                 autoPlay
                                 muted
+                                loop
                             >
                                 Your browser does not support the video tag.
                             </video>
-                            
-                            {playingVideo !== video.id && (
-                                <div className="video-overlay" onClick={() => handleVideoClick(video.id)}>
-                                    <div className="play-button">
-                                        <div className="play-icon"></div>
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     </div>
                 ))}
