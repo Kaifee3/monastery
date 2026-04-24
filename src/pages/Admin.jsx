@@ -48,9 +48,7 @@ export default function Admin() {
 
   const baseURL = "https://form-backend-gold.vercel.app/api";
 
-  // Check if user is admin
   useEffect(() => {
-    // Don't redirect while still loading authentication state
     if (isLoading) return;
     
     if (!user || user.role !== "admin") {
@@ -61,7 +59,6 @@ export default function Admin() {
     fetchUsers();
   }, [user, navigate, currentPage, isLoading]);
 
-  // API calls
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
     console.log("Getting auth headers, token:", token);
@@ -119,10 +116,9 @@ export default function Admin() {
   const handleUpdateUser = async (e) => {
     e.preventDefault();
     try {
-      // Create a copy of formData and remove password if it's empty
       const updateData = { ...formData };
       if (!updateData.password || updateData.password.trim() === "") {
-        delete updateData.password; // Don't send password if it's empty
+        delete updateData.password; 
       }
       
       console.log("Updating user with data:", updateData);
@@ -163,7 +159,7 @@ export default function Admin() {
       email: user.email || "",
       role: user.role || "user",
       status: user.status || "active",
-      password: "" // Don't prefill password
+      password: "" 
     };
     console.log("Setting form data:", editData);
     setFormData(editData);
@@ -196,7 +192,6 @@ export default function Admin() {
     resetForm();
   };
 
-  // Review Management Functions
   const fetchReviews = async () => {
     try {
       setLoading(true);
@@ -206,7 +201,6 @@ export default function Admin() {
         limit: reviewFilters.limit
       };
       
-      // Remove empty filters
       Object.keys(params).forEach(key => {
         if (params[key] === '') delete params[key];
       });
@@ -249,11 +243,10 @@ export default function Admin() {
     setReviewFilters(prev => ({
       ...prev,
       [key]: value,
-      page: 1 // Reset to first page when filter changes
+      page: 1
     }));
   };
 
-  // Fetch reviews when tab changes or filters change
   useEffect(() => {
     if (activeTab === 'reviews') {
       fetchReviews();
@@ -272,7 +265,6 @@ export default function Admin() {
     });
   };
 
-  // Clear messages after 3 seconds
   useEffect(() => {
     if (error || success) {
       const timer = setTimeout(() => {
@@ -283,7 +275,6 @@ export default function Admin() {
     }
   }, [error, success]);
 
-  // Show loading while checking authentication
   if (isLoading) {
     return <div className="admin-loading">Loading admin panel...</div>;
   }
@@ -317,7 +308,7 @@ export default function Admin() {
         </div>
       </div>
 
-      {/* Tab Navigation */}
+      
       <div className="admin-tabs">
         <button 
           className={`tab-btn ${activeTab === 'users' ? 'active' : ''}`}
@@ -333,11 +324,10 @@ export default function Admin() {
         </button>
       </div>
 
-      {/* Messages */}
       {error && <div className="message error-message">{error}</div>}
       {success && <div className="message success-message">{success}</div>}
 
-      {/* Dashboard Stats */}
+      
       {activeTab === 'users' && dashboardStats && (
         <div className="dashboard-stats">
           <div className="stat-card">
@@ -363,14 +353,7 @@ export default function Admin() {
                 <h3>{reviewStats.overallStats[0].totalReviews || 0}</h3>
                 <p>Total Reviews</p>
               </div>
-              <div className="stat-card">
-                <h3>{reviewStats.overallStats[0].pendingReviews || 0}</h3>
-                <p>Pending Reviews</p>
-              </div>
-              <div className="stat-card">
-                <h3>{reviewStats.overallStats[0].approvedReviews || 0}</h3>
-                <p>Approved Reviews</p>
-              </div>
+            
               <div className="stat-card">
                 <h3>{reviewStats.overallStats[0].averageRating?.toFixed(1) || 'N/A'}</h3>
                 <p>Average Rating</p>
@@ -380,7 +363,6 @@ export default function Admin() {
         </div>
       )}
 
-      {/* Tab Content */}
       {activeTab === 'users' ? (
         <div className="admin-content user-management">
           <h2>User Management</h2>
@@ -413,7 +395,7 @@ export default function Admin() {
                     </td>
                     <td>{new Date(tableUser.createdAt).toLocaleDateString()}</td>
                     <td className="actions">
-                      {/* Don't allow admin to edit/delete themselves */}
+                      
                       {tableUser._id !== user?._id && tableUser.email !== user?.email && (
                         <>
                           <button 
@@ -430,7 +412,7 @@ export default function Admin() {
                         </button>
                       </>
                     )}
-                    {/* Show message if it's the current user */}
+                    
                     {(tableUser._id === user?._id || tableUser.email === user?.email) && (
                       <span className="current-user-label">Current User</span>
                     )}
@@ -441,7 +423,7 @@ export default function Admin() {
           </table>
         </div>
 
-        {/* Pagination */}
+        
         {totalPages > 1 && (
           <div className="pagination">
             <button 
@@ -461,21 +443,13 @@ export default function Admin() {
         )}
         </div>
       ) : (
-        /* Review Management Content */
+        
         <div className="admin-content review-management">
           <h2>Review Management</h2>
           
-          {/* Review Filters */}
+          
           <div className="review-filters">
-            <select 
-              value={reviewFilters.status}
-              onChange={(e) => handleReviewFilterChange('status', e.target.value)}
-            >
-              <option value="">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="approved">Approved</option>
-              <option value="rejected">Rejected</option>
-            </select>
+          
             
             <select 
               value={reviewFilters.difficulty}
@@ -488,7 +462,7 @@ export default function Admin() {
             </select>
           </div>
 
-          {/* Reviews Table */}
+          
           <div className="table-container">
             <table className="reviews-table">
               <thead>
@@ -566,7 +540,7 @@ export default function Admin() {
         </div>
       )}
 
-      {/* Add User Modal */}
+      
       {showAddModal && (
         <div className="modal-overlay" onClick={closeModals}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -623,7 +597,7 @@ export default function Admin() {
         </div>
       )}
 
-      {/* Edit User Modal */}
+      
       {showEditModal && (
         <div className="modal-overlay" onClick={closeModals}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -679,7 +653,7 @@ export default function Admin() {
         </div>
       )}
 
-      {/* Delete Confirmation Modal */}
+      
       {showDeleteModal && selectedUser && (
         <div className="modal-overlay" onClick={closeModals}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -695,7 +669,7 @@ export default function Admin() {
         </div>
       )}
 
-      {/* Review Detail Modal */}
+      
       {showReviewModal && selectedReview && (
         <div className="modal-overlay" onClick={closeModals}>
           <div className="modal-content review-modal" onClick={(e) => e.stopPropagation()}>
