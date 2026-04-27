@@ -36,6 +36,7 @@ export default function Admin() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [usersPerPage] = useState(10);
+  const [isServerPaginated, setIsServerPaginated] = useState(false);
   
   const [formData, setFormData] = useState({
     firstName: "",
@@ -85,8 +86,45 @@ export default function Admin() {
         getAuthHeaders()
       );
       console.log("Fetched users response:", response.data);
-      setUsers(response.data.users || response.data);
-      setTotalPages(response.data.totalPages || 1);
+      const data = response.data;
+
+      if (data && Array.isArray(data.users)) {
+        const serverTotalPages = Number(data.totalPages);
+        const serverTotalUsers = Number(data.totalUsers || data.total || data.count);
+
+        setIsServerPaginated(true);
+        setUsers(data.users);
+
+        if (Number.isFinite(serverTotalPages) && serverTotalPages > 0) {
+          setTotalPages(serverTotalPages);
+        } else if (Number.isFinite(serverTotalUsers) && serverTotalUsers > 0) {
+          setTotalPages(Math.max(1, Math.ceil(serverTotalUsers / usersPerPage)));
+        } else if (dashboardStats?.totalUsers) {
+          setTotalPages(Math.max(1, Math.ceil(dashboardStats.totalUsers / usersPerPage)));
+        } else {
+          setTotalPages(1);
+        }
+
+        return;
+      }
+
+      if (Array.isArray(data)) {
+        setIsServerPaginated(false);
+        setUsers(data);
+        setTotalPages(Math.max(1, Math.ceil(data.length / usersPerPage)));
+        return;
+      }
+
+      const allUsersResponse = await axios.get(`${baseURL}/admin/users`, getAuthHeaders());
+      const allUsers = Array.isArray(allUsersResponse.data)
+        ? allUsersResponse.data
+        : Array.isArray(allUsersResponse.data?.users)
+          ? allUsersResponse.data.users
+          : [];
+
+      setIsServerPaginated(false);
+      setUsers(allUsers);
+      setTotalPages(Math.max(1, Math.ceil(allUsers.length / usersPerPage)));
     } catch (err) {
       console.error("Error fetching users:", err);
       console.error("Fetch users error response:", err.response?.data);
@@ -275,6 +313,23 @@ export default function Admin() {
     }
   }, [error, success]);
 
+  const visibleUsers = isServerPaginated
+    ? users
+    : users.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage);
+
+  const showPagination = (() => {
+    if (totalPages > 1) return true;
+    if (isServerPaginated) return users.length === usersPerPage || currentPage > 1;
+    return users.length > usersPerPage;
+  })();
+
+  const prevDisabled = currentPage === 1;
+  const nextDisabled = (() => {
+    if (totalPages > 1) return currentPage === totalPages;
+    if (isServerPaginated) return users.length < usersPerPage;
+    return currentPage === totalPages;
+  })();
+
   if (isLoading) {
     return <div className="admin-loading">Loading admin panel...</div>;
   }
@@ -379,7 +434,7 @@ export default function Admin() {
                 </tr>
               </thead>
               <tbody>
-                {users.map((tableUser) => (
+                {visibleUsers.map((tableUser) => (
                   <tr key={tableUser._id}>
                     <td>{`${tableUser.firstName} ${tableUser.lastName}`}</td>
                     <td>{tableUser.email}</td>
@@ -424,18 +479,18 @@ export default function Admin() {
         </div>
 
         
-        {totalPages > 1 && (
+        {showPagination && (
           <div className="pagination">
             <button 
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
+              disabled={prevDisabled}
             >
               Previous
             </button>
-            <span>Page {currentPage} of {totalPages}</span>
+            <span>{totalPages > 1 ? `Page ${currentPage} of ${totalPages}` : `Page ${currentPage}`}</span>
             <button 
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(prev => prev + 1)}
+              disabled={nextDisabled}
             >
               Next
             </button>
