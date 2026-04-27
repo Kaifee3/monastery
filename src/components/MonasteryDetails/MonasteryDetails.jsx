@@ -238,6 +238,12 @@ const MonasteryDetails = () => {
                     >
                         <i>📸</i> Virtual Tour
                     </button>
+                    <button
+                        className="btn btn-outline action-btn"
+                        onClick={() => navigate('/hotels')}
+                    >
+                        <i>🏨</i> Hotels
+                    </button>
                 </div>
             </div>
 

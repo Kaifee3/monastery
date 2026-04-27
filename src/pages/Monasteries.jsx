@@ -906,6 +906,38 @@ const Monasteries = () => {
                                         >
                                             <i>🗺️</i> <span>Directions</span>
                                         </button>
+                                        <Link
+                                            to="/hotels"
+                                            style={{
+                                                flex: '1 1 calc(50% - 4px)',
+                                                minWidth: '110px',
+                                                padding: '10px 12px',
+                                                background: 'linear-gradient(135deg, #f59e42, #fbbf24)',
+                                                color: '#fff',
+                                                borderRadius: '8px',
+                                                fontSize: '0.82rem',
+                                                fontWeight: '600',
+                                                textDecoration: 'none',
+                                                transition: 'all 0.3s ease',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                gap: '5px',
+                                                marginTop: '6px'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.target.style.background = '#f59e42';
+                                                e.target.style.color = '#fff';
+                                                e.target.style.transform = 'translateY(-2px)';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.target.style.background = 'linear-gradient(135deg, #f59e42, #fbbf24)';
+                                                e.target.style.color = '#fff';
+                                                e.target.style.transform = 'translateY(0)';
+                                            }}
+                                        >
+                                            <i>🏨</i> <span>Nearby Hotels</span>
+                                        </Link>
                                     </div>
 
                                     <button 

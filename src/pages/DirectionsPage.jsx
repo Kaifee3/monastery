@@ -139,13 +139,17 @@ const DirectionsPage = () => {
         return R * c;
     };
 
-    const openInGoogleMaps = (routeType = 'driving') => {
+    const openInGoogleMaps = (routeType = 'car') => {
         if (!userLocation || !monastery) return;
-        const origin = `${userLocation.lat},${userLocation.lng}`;
-        const destination = encodeURIComponent(`${monastery.name}, ${monastery.location}`);
-        const mode = routeType === 'car' ? 'driving' : routeType === 'bike' ? 'driving' : 'transit';
-        const directionsUrl = `https://www.google.com/maps/dir/${origin}/${destination}/@${userLocation.lat},${userLocation.lng},12z/data=!3m1!4b1!4m2!4m1!3e${mode === 'driving' ? '0' : '3'}`;
-        window.open(directionsUrl, '_blank');
+
+        const mode = routeType === 'car' || routeType === 'bike' ? 'driving' : 'transit';
+        const directionsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat},${userLocation.lng}&destination=${monastery.latitude},${monastery.longitude}&travelmode=${mode}`;
+
+        // Open full Google Maps in a new tab. If blocked, navigate current tab.
+        const newWindow = window.open(directionsUrl, '_blank', 'noopener,noreferrer');
+        if (!newWindow) {
+            window.location.assign(directionsUrl);
+        }
     };
 
     if (loading) {

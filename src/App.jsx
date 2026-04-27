@@ -23,6 +23,9 @@ import Profile from './pages/Profile';
 import Admin from './pages/Admin';
 import Wishlist from './pages/Wishlist';
 
+import HotelPage from './pages/HotelPage';
+import HotelMap from './pages/HotelMap';
+
 const App = () => {
   return (
     <AuthProvider>
@@ -48,6 +51,8 @@ const App = () => {
             <Route path="/interactive-map" element={<InteractiveMap />} />
             <Route path="/cultural-calendar" element={<CulturalCalendar />} />
             <Route path="/event/:eventId" element={<EventDetails />} />
+            <Route path="/hotels" element={<HotelPage />} />
+            <Route path="/hotel-map/:hotelId" element={<HotelMap />} />
           </Routes>
           <Footer />
         </Router>
