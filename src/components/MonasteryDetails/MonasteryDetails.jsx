@@ -94,7 +94,7 @@ const MonasteryDetails = () => {
         };
 
     const handleBookTour = () => {
-        alert('Booking feature coming soon! Please contact us at +91-9876543210');
+        window.open('https://www.tripoto.com/sikkim?params=%7B%22destination%22%3A%20%22sikkim%22%7D', '_blank', 'noopener,noreferrer');
     };
 
     const handleWeatherUpdate = (monastery) => {
