@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useWishlist } from '../../contexts/WishlistContext';
 import './Header.css';
-import CulturalCalendar from '../CulturalCalendar/CulturalCalendar';
+
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+    const location = useLocation();
     const { isAuthenticated, logout, user } = useAuth();
     const { getWishlistCount } = useWishlist();
     const dropdownRef = useRef(null);
@@ -75,6 +76,11 @@ const Header = () => {
         }
         return 'U';
     };
+
+    useEffect(() => {
+        setIsMenuOpen(false);
+        setIsUserDropdownOpen(false);
+    }, [location.pathname]);
 
     return (
         <header className="header">

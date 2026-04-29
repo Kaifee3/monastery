@@ -161,7 +161,7 @@ const Profile = () => {
     return (
       <div className="profile-wrapper">
         <div className="profile-container">
-          <div style={{ textAlign: 'center', padding: '50px' }}>
+          <div className="profile-loading">
             <p>Loading profile...</p>
           </div>
         </div>
@@ -177,29 +177,29 @@ const Profile = () => {
     <div className="profile-wrapper">
       <div className="profile-container">
         <h2>Profile</h2>
-        <form onSubmit={handleUpdate}>
-          <div>
+        <form onSubmit={handleUpdate} className="profile-form">
+          <div className="profile-field">
             <label>First Name:</label>
             <input type="text" name="firstName" value={form.firstName} onChange={handleChange} required />
           </div>
-          <div>
+          <div className="profile-field">
             <label>Last Name:</label>
             <input type="text" name="lastName" value={form.lastName} onChange={handleChange} required />
           </div>
-          <div>
+          <div className="profile-field">
             <label>Email:</label>
             <input type="email" name="email" value={form.email} onChange={handleChange} required />
           </div>
-          <div>
+          <div className="profile-field">
             <label>Password:</label>
             <input type="password" name="password" value={form.password} onChange={handleChange} />
           </div>
-          <div>
+          <div className="profile-field">
             <label>Confirm Password:</label>
             <input type="password" name="confirmPassword" value={form.confirmPassword} onChange={handleChange} />
           </div>
-          {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
-          {success && <div style={{ color: 'green', marginBottom: '10px' }}>{success}</div>}
+          {error && <div className="profile-message error">{error}</div>}
+          {success && <div className="profile-message success">{success}</div>}
           <button type="submit" disabled={isLoading}>
             {isLoading ? 'Updating...' : 'Update'}
           </button>
@@ -210,7 +210,6 @@ const Profile = () => {
             navigate('/login');
           }}
           className="logout-btn"
-          style={{ marginTop: '1rem' }}
         >
           Logout
         </button>

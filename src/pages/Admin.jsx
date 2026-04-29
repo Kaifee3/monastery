@@ -436,20 +436,20 @@ export default function Admin() {
               <tbody>
                 {visibleUsers.map((tableUser) => (
                   <tr key={tableUser._id}>
-                    <td>{`${tableUser.firstName} ${tableUser.lastName}`}</td>
-                    <td>{tableUser.email}</td>
-                    <td>
+                    <td data-label="Name">{`${tableUser.firstName} ${tableUser.lastName}`}</td>
+                    <td data-label="Email">{tableUser.email}</td>
+                    <td data-label="Role">
                       <span className={`role-badge ${tableUser.role}`}>
                         {tableUser.role}
                       </span>
                     </td>
-                    <td>
+                    <td data-label="Status">
                       <span className={`status-badge ${tableUser.status || 'active'}`}>
                         {tableUser.status || 'active'}
                       </span>
                     </td>
-                    <td>{new Date(tableUser.createdAt).toLocaleDateString()}</td>
-                    <td className="actions">
+                    <td data-label="Created Date">{new Date(tableUser.createdAt).toLocaleDateString()}</td>
+                    <td data-label="Actions" className="actions actions-cell">
                       
                       {tableUser._id !== user?._id && tableUser.email !== user?.email && (
                         <>
@@ -534,8 +534,8 @@ export default function Admin() {
               <tbody>
                 {reviews.map((review) => (
                   <tr key={review._id}>
-                    <td>{review.userName}</td>
-                    <td>
+                    <td data-label="User">{review.userName}</td>
+                    <td data-label="Rating">
                       <div className="rating-stars">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <span 
@@ -548,23 +548,23 @@ export default function Admin() {
                         ({review.rating})
                       </div>
                     </td>
-                    <td>
+                    <td data-label="Difficulty">
                       <span className={`difficulty-badge ${review.difficulty}`}>
                         {review.difficulty}
                       </span>
                     </td>
-                    <td className="review-comment">
+                    <td data-label="Comment" className="review-comment">
                       {review.comment.length > 50 
                         ? `${review.comment.substring(0, 50)}...` 
                         : review.comment}
                     </td>
-                    <td>
+                    <td data-label="Status">
                       <span className={`status-badge ${review.status}`}>
                         {review.status}
                       </span>
                     </td>
-                    <td>{formatDate(review.createdAt)}</td>
-                    <td className="actions">
+                    <td data-label="Date">{formatDate(review.createdAt)}</td>
+                    <td data-label="Actions" className="actions actions-cell">
                       <button 
                         className="btn-view" 
                         onClick={() => {

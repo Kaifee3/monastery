@@ -178,6 +178,19 @@
   font-size: 1.5rem;
 }
 
+.admin-content {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.admin-content h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
 .table-container {
   overflow-x: auto;
   margin-bottom: 20px;
@@ -267,6 +280,11 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.actions-cell {
+  justify-content: flex-start;
 }
 
 .current-user-label {
@@ -592,11 +610,13 @@
   }
   
   .users-section,
+  .admin-content,
   .review-management {
     padding: 15px;
   }
   
   .users-section h2,
+  .admin-content h2,
   .review-management h2 {
     font-size: 1.2rem;
   }
@@ -1219,5 +1239,124 @@
   .admin-container {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@media (max-width: 640px) {
+  .table-container {
+    overflow-x: visible;
+  }
+
+  .table-container::after {
+    display: none;
+  }
+
+  .users-table,
+  .reviews-table {
+    min-width: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: transparent;
+  }
+
+  .users-table thead,
+  .reviews-table thead {
+    display: none;
+  }
+
+  .users-table tbody,
+  .reviews-table tbody {
+    display: block;
+  }
+
+  .users-table tr,
+  .reviews-table tr {
+    display: block;
+    background: #fff;
+    border: 1px solid #e8edf3;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+
+  .users-table td,
+  .reviews-table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    border: 0;
+    border-bottom: 1px dashed #e9eef4;
+    padding: 8px 0;
+    white-space: normal;
+    word-break: break-word;
+    width: 100%;
+    text-align: right;
+  }
+
+  .users-table td:last-child,
+  .reviews-table td:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .users-table td::before,
+  .reviews-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    text-align: left;
+    flex: 0 0 42%;
+  }
+
+  .users-table .actions-cell,
+  .reviews-table .actions-cell {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .users-table .actions-cell::before,
+  .reviews-table .actions-cell::before {
+    margin-bottom: 6px;
+  }
+
+  .users-table .actions-cell button,
+  .reviews-table .actions-cell button,
+  .users-table .actions-cell .current-user-label,
+  .reviews-table .actions-cell .current-user-label {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .review-comment {
+    max-width: none;
+  }
+
+  .rating-stars {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 420px) {
+  .admin-content,
+  .review-management {
+    padding: 12px;
+  }
+
+  .users-table td,
+  .reviews-table td {
+    font-size: 0.86rem;
+  }
+
+  .users-table td::before,
+  .reviews-table td::before {
+    flex-basis: 46%;
+    font-size: 0.75rem;
   }
 }

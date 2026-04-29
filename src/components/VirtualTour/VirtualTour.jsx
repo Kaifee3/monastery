@@ -68,6 +68,7 @@ const VirtualTour = () => {
                                 poster={`/images/Home${index + 1}.jpg`}
                                 autoPlay
                                 muted
+                                playsInline
                                 loop
                             >
                                 Your browser does not support the video tag.

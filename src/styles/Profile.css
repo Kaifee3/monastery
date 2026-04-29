@@ -1,106 +1,192 @@
-/* Profile page wrapper for background effect */
 .profile-wrapper {
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, #66a0dd 0%, #fc9981 100%);
-  padding: 20px;
-  padding-top: 24px;
+  padding: clamp(0.75rem, 2.5vw, 2rem);
   box-sizing: border-box;
 }
 
 .profile-wrapper::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-image:
-    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.26) 2px, transparent 2px),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.26) 2px, transparent 2px),
     radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
   background-size: 50px 50px, 30px 30px, 20px 20px;
-  animation: floatParticles 3s linear infinite;
+  animation: floatParticles 12s linear infinite;
   pointer-events: none;
-  z-index: 1;
 }
-body {
-  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
-  background-image:
-    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
-    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
-  background-size: 50px 50px, 30px 30px, 20px 20px;
-  animation: floatParticles 3s linear infinite;
-}
+
 .profile-container {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #e3f2fd;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  width: min(100%, 520px);
+  margin: clamp(0.5rem, 3vw, 2rem) auto;
+  padding: clamp(1rem, 2vw, 2rem);
+  background: rgba(227, 242, 253, 0.94);
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 2;
 }
-.profile-container {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #e3f2fd;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  position: static;
+
+.profile-container h2 {
+  margin: 0 0 1rem;
+  text-align: center;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  color: #0f3554;
 }
-.profile-container label {
-  font-weight: 500;
-  margin-bottom: 0.3rem;
-  color: #34495e;
+
+.profile-loading {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: #0f3554;
 }
-.profile-container input {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+
+.profile-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.profile-field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.profile-field label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #274860;
+}
+
+.profile-field input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #c7d4df;
+  border-radius: 8px;
   font-size: 1rem;
-  background: #f9f9f9;
+  background: #f9fcff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.profile-container button[type="submit"] {
+
+.profile-field input:focus {
+  outline: none;
+  border-color: #2a7db7;
+  box-shadow: 0 0 0 3px rgba(42, 125, 183, 0.18);
+}
+
+.profile-message {
+  padding: 0.65rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-top: 0.2rem;
+}
+
+.profile-message.error {
+  color: #9c1c1c;
+  background: #ffe5e5;
+  border: 1px solid #f8b9b9;
+}
+
+.profile-message.success {
+  color: #156341;
+  background: #e4f8ee;
+  border: 1px solid #b6ebd2;
+}
+
+.profile-container button[type='submit'],
+.profile-container .logout-btn {
+  width: 100%;
+  min-height: 46px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.profile-container button[type='submit'] {
   background: #2980b9;
   color: #fff;
-  border: none;
-  padding: 0.7rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background 0.2s;
+  margin-top: 0.4rem;
 }
-.profile-container button[type="submit"]:hover {
-  background: #3498db;
-  transform: none;
-  box-shadow: none;
+
+.profile-container button[type='submit']:hover:not(:disabled) {
+  filter: brightness(1.06);
 }
+
+.profile-container button[type='submit']:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .profile-container .logout-btn {
+  margin-top: 0.9rem;
   background: #fc9981;
   color: #fff;
-  border: none;
-  padding: 0.7rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background 0.2s;
-  text-align: center;
-  display: block;
-  width: 100%;
 }
+
 .profile-container .logout-btn:hover {
-  background: #c0392b;
-  transform: none;
-  box-shadow: none;
+  filter: brightness(0.95);
 }
-.profile-container div[style] {
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
+
+@media (max-width: 768px) {
+  .profile-wrapper {
+    padding: 0.75rem;
+  }
+
+  .profile-container {
+    margin: 0.4rem auto;
+    border-radius: 12px;
+  }
+
+  .profile-field input {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-wrapper {
+    padding: 0.5rem;
+  }
+
+  .profile-container {
+    padding: 0.95rem;
+  }
+
+  .profile-form {
+    gap: 0.8rem;
+  }
+
+  .profile-container button[type='submit'],
+  .profile-container .logout-btn {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-wrapper::before {
+    animation: none;
+  }
+
+  .profile-container button[type='submit'],
+  .profile-container .logout-btn,
+  .profile-field input {
+    transition: none;
+  }
+}
+
+@keyframes floatParticles {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-40px);
+  }
 }
