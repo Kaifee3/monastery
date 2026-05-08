@@ -31,10 +31,15 @@ const MOCK_WEATHER_DATA = {
     rain: null
 };
 
-export const getWeatherData = async (location) => {
+export const getWeatherData = async (locationOrCoords) => {
     try {
         await new Promise(resolve => setTimeout(resolve, 800));
-        
+
+        let locationString = typeof locationOrCoords === 'string' ? locationOrCoords : 'Custom Location';
+        let coords = typeof locationOrCoords === 'object' && locationOrCoords.lat && locationOrCoords.lon
+            ? locationOrCoords
+            : undefined;
+
         const mockData = {
             ...MOCK_WEATHER_DATA,
             main: {
@@ -49,11 +54,13 @@ export const getWeatherData = async (location) => {
             },
             wind: {
                 speed: Math.random() * 5 + 1
-            }
+            },
+            location: locationString,
+            coords: coords
         };
-        
+
         return mockData;
-        
+
     } catch (error) {
         console.error('Error fetching weather data:', error);
         throw new Error('Failed to fetch weather data. Please try again later.');

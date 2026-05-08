@@ -1,6 +1,40 @@
+// Helper: Calculate distance between two lat/lng points (Haversine formula)
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+
+// Geolocation helper for chatbot UI integration
+export function getUserLocation() {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            reject('Geolocation not supported');
+        } else {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    resolve({
+                        lat: position.coords.latitude,
+                        lon: position.coords.longitude
+                    });
+                },
+                (error) => {
+                    reject('Location access denied or unavailable');
+                }
+            );
+        }
+    });
+}
+
 import monasteriesData from '../data/monasteries.json';
 import festivalsData from '../data/festivals.json';
 import { getWeatherData } from './weatherApi';
+import { findMonasteryCoordinates } from '../data/monasteryCoordinates';
 
 export class ChatbotKnowledgeBase {
     constructor() {
@@ -312,19 +346,34 @@ export class ChatbotKnowledgeBase {
     async handleWeatherQuery(query) {
         try {
             let location = 'Gangtok, Sikkim';
-            
+            let monasteryMatch = null;
             for (const monastery of this.monasteries) {
                 const monasteryName = monastery.name.toLowerCase();
                 const monasteryLocation = monastery.location.toLowerCase();
-                
                 if (query.includes(monasteryName) || query.includes(monasteryLocation)) {
-                    location = monastery.location;
+                    location = monastery.name;
+                    monasteryMatch = monastery.name;
                     break;
                 }
             }
 
-            const weatherData = await getWeatherData(location);
-            
+            let weatherData;
+            if (monasteryMatch) {
+                // Try to get coordinates for the monastery
+                const coords = findMonasteryCoordinates(monasteryMatch);
+                if (coords) {
+                    weatherData = await getWeatherData(coords);
+                } else {
+                    weatherData = await getWeatherData(location);
+                }
+            } else {
+                // Fallback to Gangtok or location in query
+                if (query.includes('gangtok')) {
+                    location = 'Gangtok';
+                }
+                weatherData = await getWeatherData(location);
+            }
+
             return {
                 type: 'weather',
                 message: `🌤️ **Weather in ${location}:**\n\n` +
@@ -357,20 +406,46 @@ export class ChatbotKnowledgeBase {
         return hasMonasteryKeyword || hasMonasteryName;
     }
 
-    handleMonasteryQuery(query) {
+
+    handleMonasteryQuery(query, userCoords = null) {
         const specificMonastery = this.monasteries.find(monastery =>
             query.includes(monastery.name.toLowerCase()) ||
             query.includes(monastery.location.toLowerCase().split(',')[0])
         );
 
+        // If user asks for distance/location
+        const askDistance = query.includes('distance') || query.includes('how far') || query.includes('how long') || query.includes('how many km') || query.includes('kilometer') || query.includes('kilometre');
+        const askLocation = query.includes('location') || query.includes('where is') || query.includes('coordinates') || query.includes('map');
+
         if (specificMonastery) {
+            let distanceMsg = '';
+            let userLocationMsg = '';
+            let dist = null;
+            let userLat = null;
+            let userLon = null;
+            if (askDistance && userCoords && userCoords.lat && userCoords.lon) {
+                userLat = userCoords.lat;
+                userLon = userCoords.lon;
+                dist = calculateDistance(userLat, userLon, specificMonastery.latitude, specificMonastery.longitude).toFixed(1);
+                distanceMsg = `\n\n📏 **Distance from your location:** ~${dist} km (straight line)`;
+                userLocationMsg = `\n**Your location:** ${userLat}, ${userLon}`;
+            } else if (askDistance) {
+                distanceMsg = `\n\nℹ️ Please share your current location (latitude, longitude) to calculate the distance.`;
+            }
+
+            if (askLocation) {
+                distanceMsg += `\n\n🗺️ **Coordinates:** ${specificMonastery.latitude}, ${specificMonastery.longitude}`;
+            }
+
             return {
                 type: 'monastery_specific',
                 message: `🏛️ **${specificMonastery.name}**\n\n` +
                         `📍 **Location:** ${specificMonastery.location}\n` +
                         `📅 **Established:** ${specificMonastery.established}\n` +
-                        `🗺️ **Coordinates:** ${specificMonastery.latitude}, ${specificMonastery.longitude}\n\n` +
-                        `**History:**\n${specificMonastery.history}\n\n` +
+                        `🗺️ **Coordinates:** ${specificMonastery.latitude}, ${specificMonastery.longitude}\n` +
+                        (distanceMsg ? distanceMsg : '') +
+                        (userLocationMsg ? userLocationMsg : '') +
+                        `\n\n**History:**\n${specificMonastery.history}\n\n` +
                         `Would you like to know about directions to reach here or the weather conditions?`,
                 data: specificMonastery
             };
