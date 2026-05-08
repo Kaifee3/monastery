@@ -22,19 +22,16 @@ const Footer = () => {
         
         <div className="footer-section">
           <h3>Contact</h3>
-          <p>Email: info@example.com</p>
+          <p>Email: kaifiazam16@gmail.com</p>
           <div className="footer-social">
-            <a href="#" aria-label="Facebook">
-              <img src="/socialMediaIcon/facebook.png" alt="Facebook" style={{ width: 24, height: 24 }} />
-            </a>
-            <a href="#" aria-label="Twitter">
-              <img src="/socialMediaIcon/twitter.png" alt="Twitter" style={{ width: 24, height: 24 }} />
-            </a>
-            <a href="#" aria-label="Instagram">
-              <img src="/socialMediaIcon/instagram.png" alt="Instagram" style={{ width: 24, height: 24 }} />
-            </a>
-            <a href="#" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/kaifee-azam/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
               <img src="/socialMediaIcon/linkedin.png" alt="LinkedIn" style={{ width: 24, height: 24 }} />
+            </a>
+            <a href="https://x.com/kaifiaz25589622" aria-label="X" target="_blank" rel="noopener noreferrer">
+              <img src="/socialMediaIcon/twitter.png" alt="X" style={{ width: 24, height: 24 }} />
+            </a>
+            <a href="https://www.instagram.com/raj_.one8?igsh=YnQyYmd0ZjU2N3E2" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <img src="/socialMediaIcon/instagram.png" alt="Instagram" style={{ width: 24, height: 24 }} />
             </a>
           </div>
         </div>
